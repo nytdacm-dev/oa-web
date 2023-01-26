@@ -1,0 +1,10 @@
+export namespace Models {
+  export type User = {
+    /** 用户 ID */
+    userId: number;
+    /** 用户名 */
+    username: string;
+    /** 姓名 */
+    name: string;
+  }
+}
