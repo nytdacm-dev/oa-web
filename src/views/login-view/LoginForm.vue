@@ -38,6 +38,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           router.push('/')
           ElNotification({
             title: '登录成功',
+            type: 'success',
           })
         })
         .catch((e: AxiosError<HttpResponse>) => {
