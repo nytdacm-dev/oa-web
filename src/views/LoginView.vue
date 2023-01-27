@@ -9,19 +9,15 @@ const type = ref<'登录' | '注册'>('登录')
 <template>
   <div class="main">
     <el-card class="box-card">
-      <div>
-        <el-radio-group v-model="type">
-          <el-radio-button label="登录" />
-          <el-radio-button label="注册" />
-        </el-radio-group>
-      </div>
-      <p style="text-align: center;">
-        <del>确实有点丑，但又不是不能用</del>
-      </p>
-      <div>
-        <LoginForm v-if="type === '登录'" />
-        <SignupForm v-if="type === '注册'" />
-      </div>
+      <el-tabs v-model="type" class="demo-tabs">
+        <p style="text-align: center;"><del>确实有点丑，但又不是不能用</del></p>
+        <el-tab-pane label="登录" name="登录">
+          <LoginForm v-if="type === '登录'" />
+        </el-tab-pane>
+        <el-tab-pane label="注册" name="注册">
+          <SignupForm v-if="type === '注册'" />
+        </el-tab-pane>
+      </el-tabs>
     </el-card>
   </div>
 </template>
