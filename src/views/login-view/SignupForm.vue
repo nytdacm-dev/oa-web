@@ -83,7 +83,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <template>
   <div class="wrapper">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
+    <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="form.username" />
       </el-form-item>
