@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { AuthService } from '@/services/AuthService';
 import type { HttpResponse } from '@/shared/Http';
-import { setToken } from '@/shared/token';
 import { useUserStore } from '@/stores/userStore';
 import type { AxiosError } from 'axios';
 import { type FormInstance, ElForm, ElFormItem, ElInput, ElButton, type FormRules, ElNotification } from 'element-plus';
