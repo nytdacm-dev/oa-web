@@ -30,18 +30,25 @@ const rules = reactive<FormRules>({
     { min: 6, message: '密码长度至少为 6 位', trigger: 'blur' },
     { validator: validatePasswordSame, message: '密码不一致', trigger: 'blur' },
   ],
-})
+  name: [
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { max: 6, message: '姓名长度最多 6 位', trigger: 'blur' },
+  ],
+} as { [k in keyof UserSignupProps]: FormRules[k] }
+)
 
 type UserSignupProps = {
   username: string
   password: string
   password2: string
+  name: string
 }
 
 const form = reactive<UserSignupProps>({
   username: '',
   password: '',
   password2: '',
+  name: '',
 })
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) { return }
@@ -50,7 +57,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       await http
         .post<Models.User>("/auth/signup", {
           username: form.username,
-          password: form.password
+          password: form.password,
+          name: form.name,
         })
         .then(async () => {
           await userStore.login(form.username, form.password)
@@ -84,6 +92,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       </el-form-item>
       <el-form-item label="确认密码" prop="password2">
         <el-input v-model="form.password2" type="password" />
+      </el-form-item>
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="form.name" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(formRef)">注册</el-button>
