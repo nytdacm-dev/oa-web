@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+
 </script>
 
 <template>
-  <RouterView />
+  <div>
+    Signup Form
+  </div>
 </template>
 
 <style lang="scss" scoped>
