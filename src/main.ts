@@ -7,8 +7,11 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
+import { setupUserInfoGuard } from './router/guard/userLoginInfo'
 
 const app = createApp(App)
+
+setupUserInfoGuard(router);
 
 app.use(ElementPlus)
 app.use(createPinia())

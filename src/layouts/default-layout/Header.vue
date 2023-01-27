@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 
+const userStore = useUserStore()
 const router = useRouter()
 const pushToLoginPage = () => {
   router.push('/login')
@@ -19,7 +21,7 @@ const pushToLoginPage = () => {
       <router-link to="/about">About</router-link>
     </div>
     <div class="auth">
-      <el-link :underline="false" @click="pushToLoginPage">登录 | 注册</el-link>
+      <el-link :underline="false" @click="pushToLoginPage" v-if="!userStore.userId">登录 | 注册</el-link>
     </div>
   </div>
 </template>
