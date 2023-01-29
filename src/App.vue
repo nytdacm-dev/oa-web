@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <RouterView />
+  <RouterView :key="$route.path + Math.random()" />
 </template>
 
 <style lang="scss" scoped>
