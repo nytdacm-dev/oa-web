@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DefaultAvatar from '@/assets/user-default-avatar.png'
+import UserProfileUpdateForm from './UserProfileUpdateForm.vue';
 import type { Models } from '@/models/models';
 import { http } from '@/shared/Http';
 import { useUserStore } from '@/stores/userStore';
@@ -10,6 +11,7 @@ const userStore = useUserStore()
 const route = useRoute()
 const username = route.params['username']
 const user = ref<Models.User>()
+const dialogVisible = ref(false)
 http.get<Models.User>(`/user/${username}`)
   .then(res => user.value = res.data.data)
   .catch(err => {
@@ -57,7 +59,10 @@ http.get<Models.User>(`/user/${username}`)
           </p>
         </div>
         <div class="right">
-          <el-button plain v-if="userStore.username === username">修改个人信息</el-button>
+          <el-button plain v-if="userStore.username === username" @click="dialogVisible = true">修改个人信息</el-button>
+          <el-dialog v-model="dialogVisible" title="修改个人信息" width="80%">
+            <user-profile-update-form :user="user" v-if="dialogVisible" />
+          </el-dialog>
         </div>
       </div>
     </div>
