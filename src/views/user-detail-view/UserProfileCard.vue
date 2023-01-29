@@ -53,7 +53,7 @@ http.get<Models.User>(`/user/${username}`)
             <span v-if="user.socialAccount?.codeforcesMaxRating != user.socialAccount?.codeforcesRating">
               (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
             </span>
-            <span class="cf-rank">{{ user.socialAccount?.codeforcesRank }}</span>
+            Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
           </p>
         </div>
         <div class="right">
@@ -102,7 +102,8 @@ http.get<Models.User>(`/user/${username}`)
         >.cf {
           font-size: 16px;
 
-          .cf-rating {
+          .cf-rating,
+          .cf-rank {
             color: #f50;
           }
 
