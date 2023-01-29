@@ -6,10 +6,6 @@ export namespace Models {
     username: string;
     /** 姓名 */
     name: string;
-    /** 超级管理员 */
-    superAdmin: boolean;
-    /** 管理员 */
-    admin: boolean;
     /** 社交账号 */
     socialAccount: {
       codeforces?: string;
