@@ -10,5 +10,12 @@ export namespace Models {
     superAdmin: boolean;
     /** 管理员 */
     admin: boolean;
+    /** 社交账号 */
+    socialAccount: {
+      codeforces?: string;
+      codeforcesRating?: number;
+      codeforcesMaxRating?: number;
+      codeforcesRank?: string;
+    }
   }
 }

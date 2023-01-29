@@ -46,7 +46,16 @@ http.get<Models.User>(`/user/${username}`)
         </div>
       </div>
       <div class="bottom">
-        <div class="left"></div>
+        <div class="left">
+          <p class="cf">
+            Codeforces:
+            <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
+            <span v-if="user.socialAccount?.codeforcesMaxRating != user.socialAccount?.codeforcesRating">
+              (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
+            </span>
+            <span class="cf-rank">{{ user.socialAccount?.codeforcesRank }}</span>
+          </p>
+        </div>
         <div class="right">
           <el-button plain v-if="userStore.username === username">修改个人信息</el-button>
         </div>
@@ -88,6 +97,20 @@ http.get<Models.User>(`/user/${username}`)
     >.bottom {
       display: flex;
       justify-content: space-between;
+
+      .left {
+        >.cf {
+          font-size: 16px;
+
+          .cf-rating {
+            color: #f50;
+          }
+
+          .cf-max-rating {
+            color: #2db7f5;
+          }
+        }
+      }
 
       >.right {
         display: flex;
