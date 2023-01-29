@@ -15,7 +15,7 @@ export const routes: RouteRecordRaw[] = [
         name: 'user',
         children: [
           {
-            path: ':id',
+            path: ':username',
             name: 'user-detail',
             component: () => import('../views/UserDetailView.vue'),
           }

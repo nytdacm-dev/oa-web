@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
+import UserProfileCard from './user-detail-view/UserProfileCard.vue';
 </script>
 
 <template>
   <div>
-    <h1>User Detail View</h1>
+    <UserProfileCard />
   </div>
 </template>
 
