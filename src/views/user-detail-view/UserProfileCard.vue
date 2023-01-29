@@ -32,9 +32,12 @@ http.get<Models.User>(`/user/${username}`)
     <div class="profile" v-else>
       <div class="top">
         <div class="left">
-          <h1 class="username">
+          <span class="name">
             {{ user?.name }}
-          </h1>
+          </span>
+          <span class="username">
+            @{{ user?.username }}
+          </span>
         </div>
         <div class="right">
           <div class="social">
@@ -72,8 +75,12 @@ http.get<Models.User>(`/user/${username}`)
       margin-bottom: 8px;
 
       >.left {
-        >.username {
+        >.name {
           font-size: 20px;
+        }
+
+        >.username {
+          font-size: 14px;
         }
       }
     }
