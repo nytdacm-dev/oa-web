@@ -9,6 +9,9 @@ const router = useRouter()
 const pushToLoginPage = () => {
   router.push('/login')
 }
+const pushToUserDetailPage = () => {
+  router.push(`/user/${userStore.username}`)
+}
 const underConstruction = (message: string) => {
   ElNotification({
     title: message,
@@ -30,7 +33,7 @@ const logout = () => {
     <el-avatar :src="DefaultAvatar" />
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="() => underConstruction('个人中心')">个人中心</el-dropdown-item>
+        <el-dropdown-item @click="pushToUserDetailPage">个人中心</el-dropdown-item>
         <el-dropdown-item divided v-if="userStore.superAdmin || userStore.admin"
           @click="() => underConstruction('管理后台')">管理后台</el-dropdown-item>
         <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
