@@ -32,8 +32,6 @@ const type = ref<'登录' | '注册'>('登录')
   >.box-card {
     width: 100%;
     max-width: 800px;
-    height: 100%;
-    max-height: 400px;
   }
 }
 </style>
