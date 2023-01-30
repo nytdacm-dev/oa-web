@@ -25,6 +25,7 @@ const logout = () => {
     type: 'success',
   })
   userStore.logout()
+  router.push({ name: 'login' })
 }
 </script>
 <template>
