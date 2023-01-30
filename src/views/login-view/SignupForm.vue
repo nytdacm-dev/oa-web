@@ -96,6 +96,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       <el-form-item label="姓名" prop="name">
         <el-input v-model="form.name" />
       </el-form-item>
+      <p style="color: red">注意：用户名请使用自己的学号，否则不予通过</p>
       <el-form-item>
         <el-button type="primary" @click="submitForm(formRef)">注册</el-button>
       </el-form-item>
