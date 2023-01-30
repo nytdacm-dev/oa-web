@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
+import { useUserStore } from "@/stores/userStore";
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -19,6 +20,27 @@ export const routes: RouteRecordRaw[] = [
             name: 'user-detail',
             component: () => import('../views/UserDetailView.vue'),
           }
+        ],
+      },
+      {
+        path: '/admin',
+        name: 'admin',
+        component: () => import('../layouts/AdminLayout.vue'),
+        beforeEnter: () => {
+          const userStore = useUserStore()
+          return userStore.admin || userStore.superAdmin
+        },
+        children: [
+          {
+            path: '',
+            name: 'admin-home',
+            redirect: '/admin/user'
+          },
+          {
+            path: 'user',
+            name: 'admin-user',
+            component: () => import('../views/admin/AdminUserView.vue')
+          },
         ],
       },
       {

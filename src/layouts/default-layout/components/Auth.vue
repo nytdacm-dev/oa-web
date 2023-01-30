@@ -36,7 +36,7 @@ const logout = () => {
       <el-dropdown-menu>
         <el-dropdown-item @click="pushToUserDetailPage">个人中心</el-dropdown-item>
         <el-dropdown-item divided v-if="userStore.superAdmin || userStore.admin"
-          @click="() => underConstruction('管理后台')">管理后台</el-dropdown-item>
+          @click="() => router.push({ name: 'admin-user' })">管理后台</el-dropdown-item>
         <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
