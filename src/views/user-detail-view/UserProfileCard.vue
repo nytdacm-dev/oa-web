@@ -6,14 +6,19 @@ import { http } from '@/shared/Http';
 import { useUserStore } from '@/stores/userStore';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import Codeforces from "@/components/icons/Codeforces.vue";
 
 const userStore = useUserStore()
 const route = useRoute()
 const username = route.params['username']
 const user = ref<Models.User>()
 const dialogVisible = ref(false)
-http.get<Models.User>(`/user/${username}`)
-  .then(res => user.value = res.data.data)
+const cfLink = ref('https://codeforces.com/profile/')
+http.get<Models.User>(`/user/${ username }`)
+  .then(res => {
+    user.value = res.data.data
+    cfLink.value = `https://codeforces.com/profile/${ user.value?.socialAccount.codeforces }`
+  })
   .catch(err => {
     // TODO: Go to 404 page
     console.log(err)
@@ -43,7 +48,11 @@ http.get<Models.User>(`/user/${username}`)
         </div>
         <div class="right">
           <div class="social">
-            <!-- 社交平台 -->
+            <el-link :underline="false" :href="cfLink" v-if="user.socialAccount.codeforces">
+              <el-icon :size="20">
+                <Codeforces />
+              </el-icon>
+            </el-link>
           </div>
         </div>
       </div>
@@ -52,7 +61,7 @@ http.get<Models.User>(`/user/${username}`)
           <p class="cf">
             Codeforces:
             <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
-            <span v-if="user.socialAccount?.codeforcesMaxRating != user.socialAccount?.codeforcesRating">
+            <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
               (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
             </span>
             Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
