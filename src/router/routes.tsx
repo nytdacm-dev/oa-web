@@ -10,6 +10,9 @@ export const routes: RouteRecordRaw[] = [
         path: '/',
         name: 'home',
         component: () => import('../views/HomeView.vue'),
+        meta: {
+          title: '首页',
+        },
       },
       {
         path: '/user',
@@ -19,6 +22,9 @@ export const routes: RouteRecordRaw[] = [
             path: ':username',
             name: 'user-detail',
             component: () => import('../views/UserDetailView.vue'),
+            meta: {
+              title: '个人中心',
+            },
           }
         ],
       },
@@ -39,7 +45,10 @@ export const routes: RouteRecordRaw[] = [
           {
             path: 'user',
             name: 'admin-user',
-            component: () => import('../views/admin/AdminUserView.vue')
+            component: () => import('../views/admin/AdminUserView.vue'),
+            meta: {
+              title: '用户管理',
+            },
           },
         ],
       },
@@ -47,11 +56,17 @@ export const routes: RouteRecordRaw[] = [
         path: '/login',
         name: 'login',
         component: () => import('../views/LoginView.vue'),
+        meta: {
+          title: '用户登录',
+        },
       },
       {
         path: '/about',
         name: 'about',
         component: () => import('../views/AboutView.vue'),
+        meta: {
+          title: '关于',
+        },
       },
     ],
   },
