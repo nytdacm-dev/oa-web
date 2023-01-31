@@ -11,7 +11,9 @@ const props = defineProps<{
 
 const formRef = ref<FormInstance>()
 const validateWebsite = (rule: any, value: string, callback: any) => {
-  if (value.startsWith('http://') || value.startsWith('https://')) {
+  if (!value) {
+    callback()
+  } else if (value.startsWith('http://') || value.startsWith('https://')) {
     callback()
   } else {
     callback(new Error('你输入的不是网址'))
@@ -42,14 +44,24 @@ const form = reactive<UserUpdateProps>({
   website: props.user.socialAccount.website,
 })
 const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) { return }
+  if (!formEl) {
+    return
+  }
   await formEl.validate(async (valid) => {
     if (valid) {
       const params: UserUpdateProps = {}
-      if (form.name !== props.user.name) { params.name = form.name }
-      if (form.codeforces !== props.user.socialAccount.codeforces) { params.codeforces = form.codeforces }
-      if (form.github !== props.user.socialAccount.github) { params.github = form.github }
-      if (form.website !== props.user.socialAccount.website) { params.website = form.website }
+      if (form.name !== props.user.name) {
+        params.name = form.name
+      }
+      if (form.codeforces !== props.user.socialAccount.codeforces) {
+        params.codeforces = form.codeforces
+      }
+      if (form.github !== props.user.socialAccount.github) {
+        params.github = form.github
+      }
+      if (form.website !== props.user.socialAccount.website) {
+        params.website = form.website
+      }
       await http
         .patch('/user', params)
         .then(() => {
@@ -73,16 +85,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 <template>
   <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
     <el-form-item label="姓名" prop="name">
-      <el-input v-model="form.name" />
+      <el-input v-model="form.name"/>
     </el-form-item>
     <el-form-item label="Codeforces" prop="codeforces">
-      <el-input v-model="form.codeforces" />
+      <el-input v-model="form.codeforces"/>
     </el-form-item>
     <el-form-item label="GitHub" prop="github">
-      <el-input v-model="form.github" />
+      <el-input v-model="form.github"/>
     </el-form-item>
     <el-form-item label="个人网站" prop="website">
-      <el-input v-model="form.website" />
+      <el-input v-model="form.website"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm(formRef)">修改</el-button>
