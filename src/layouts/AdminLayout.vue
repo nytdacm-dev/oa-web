@@ -27,5 +27,9 @@
     width: 200px;
     margin-right: 10px;
   }
+
+  > .main {
+    flex-grow: 1;
+  }
 }
 </style>
