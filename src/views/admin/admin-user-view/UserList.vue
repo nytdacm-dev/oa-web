@@ -3,7 +3,6 @@ import { reactive, ref } from 'vue'
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import { http } from "@/shared/Http";
 import { type Column, ElForm, ElFormItem, ElInput, ElButton, ElNotification } from "element-plus";
-import { AxiosError } from "axios";
 
 const form = reactive<AdminUser>({
   username: undefined,
@@ -17,13 +16,6 @@ const activeUser = (userId: number) => {
     .then(res => {
       ElNotification({
         title: res.data.message,
-        position: 'top-right',
-      })
-    })
-    .then((e: AxiosError) => {
-      ElNotification({
-        title: "修改失败",
-        message: e.message,
         position: 'top-right',
       })
     })
