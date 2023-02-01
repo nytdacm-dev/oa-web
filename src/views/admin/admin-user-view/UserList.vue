@@ -11,6 +11,16 @@ const form = reactive<AdminUser>({
   admin: undefined,
   superAdmin: undefined,
 })
+const deleteUser = (userId: number) => {
+  http.delete<void>(`/admin/user/${ userId }`)
+    .then(res => {
+      ElNotification({
+        title: res.data.message,
+        position: 'top-right',
+      })
+    })
+  onFormSubmit()
+}
 const activeUser = (userId: number) => {
   http.patch<AdminUser>(`/admin/user/${ userId }`, { active: true })
     .then(res => {
@@ -72,9 +82,15 @@ const tableColumns: Column[] = [
         { !tableData.value.filter(user => user.userId === userId)[0].active ?
           <ElButton size="small" type="primary" onClick={ () => activeUser(userId) }>激活</ElButton> : null }
         <ElButton size="small">Edit</ElButton>
-        <ElButton size="small" type="danger">
-          Delete
-        </ElButton>
+        <ElPopconfirm title="确定删除吗？" onConfirm={ () => deleteUser(userId) }>
+          { {
+            reference: () => (
+              <ElButton size="small" type="danger">
+                Delete
+              </ElButton>
+            )
+          } }
+        </ElPopconfirm>
       </>
     ),
   },
