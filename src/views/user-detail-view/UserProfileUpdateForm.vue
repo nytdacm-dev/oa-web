@@ -35,6 +35,7 @@ type UserUpdateProps = {
   codeforces?: string,
   github?: string,
   website?: string,
+  atCoder?: string,
 }
 
 const form = reactive<UserUpdateProps>({
@@ -55,6 +56,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       }
       if (form.codeforces !== props.user.socialAccount.codeforces) {
         params.codeforces = form.codeforces
+      }
+      if (form.atCoder !== props.user.socialAccount.atCoder) {
+        params.atCoder = form.atCoder
       }
       if (form.github !== props.user.socialAccount.github) {
         params.github = form.github
@@ -85,16 +89,19 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 <template>
   <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
     <el-form-item label="姓名" prop="name">
-      <el-input v-model="form.name"/>
+      <el-input v-model="form.name" />
     </el-form-item>
     <el-form-item label="Codeforces" prop="codeforces">
-      <el-input v-model="form.codeforces"/>
+      <el-input v-model="form.codeforces" />
+    </el-form-item>
+    <el-form-item label="AtCoder" prop="atCoder">
+      <el-input v-model="form.atCoder" />
     </el-form-item>
     <el-form-item label="GitHub" prop="github">
-      <el-input v-model="form.github"/>
+      <el-input v-model="form.github" />
     </el-form-item>
     <el-form-item label="个人网站" prop="website">
-      <el-input v-model="form.website"/>
+      <el-input v-model="form.website" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm(formRef)">修改</el-button>

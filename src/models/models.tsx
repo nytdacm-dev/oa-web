@@ -14,6 +14,7 @@ export namespace Models {
       codeforcesRank?: string;
       github?: string;
       website?: string;
+      atCoder?: string;
     }
   }
 }

@@ -9,6 +9,7 @@ import { useRoute } from 'vue-router';
 import Codeforces from "@/components/icons/Codeforces.vue";
 import GitHub from "@/components/icons/GitHub.vue";
 import Website from "@/components/icons/Website.vue";
+import AtCoder from "@/components/icons/AtCoder.vue";
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -16,12 +17,14 @@ const username = route.params['username']
 const user = ref<Models.User>()
 const dialogVisible = ref(false)
 const cfLink = ref('https://codeforces.com/profile/')
+const atCoderLink = ref('https://atcoder.jp/users/')
 const githubLink = ref('https://github.com/')
 const websiteLink = ref()
 http.get<Models.User>(`/user/${ username }`)
   .then(res => {
     user.value = res.data.data
     cfLink.value = `https://codeforces.com/profile/${ user.value?.socialAccount.codeforces }`
+    atCoderLink.value = `https://atcoder.jp/users/${ user.value?.socialAccount.atCoder }`
     githubLink.value = `https://github.com/${ user.value?.socialAccount.github }`
     websiteLink.value = user.value?.socialAccount.website
   })
@@ -58,6 +61,13 @@ http.get<Models.User>(`/user/${ username }`)
               <el-link :underline="false" :href="cfLink" v-if="user.socialAccount.codeforces">
                 <el-icon :size="20">
                   <Codeforces />
+                </el-icon>
+              </el-link>
+            </div>
+            <div class="icon">
+              <el-link :underline="false" :href="atCoderLink" v-if="user.socialAccount.atCoder">
+                <el-icon :size="20">
+                  <AtCoder />
                 </el-icon>
               </el-link>
             </div>

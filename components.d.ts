@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AtCoder: typeof import('./src/components/icons/AtCoder.vue')['default']
     Codeforces: typeof import('./src/components/icons/Codeforces.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
