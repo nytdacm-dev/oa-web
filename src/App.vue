@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { NNotificationProvider } from 'naive-ui'
 </script>
 
 <template>
-  <RouterView :key="$route.path + Math.random()" />
+  <NNotificationProvider>
+    <RouterView :key="$route.path + Math.random()" />
+  </NNotificationProvider>
 </template>
 
 <style lang="scss" scoped>

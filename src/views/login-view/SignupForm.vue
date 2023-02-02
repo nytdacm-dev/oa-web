@@ -3,21 +3,27 @@ import type { Models } from '@/models/models';
 import { http, type HttpResponse } from '@/shared/Http';
 import { useUserStore } from '@/stores/userStore';
 import type { AxiosError } from 'axios';
-import { type FormInstance, ElForm, ElFormItem, ElInput, ElButton, type FormRules, ElNotification } from 'element-plus';
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router';
+import {
+  NForm,
+  NFormItem,
+  NInput,
+  NButton,
+  type FormRules,
+  type FormInst,
+  type FormItemRule,
+  useNotification,
+} from "naive-ui";
 
+const notification = useNotification()
 const router = useRouter()
 const userStore = useUserStore();
-const formRef = ref<FormInstance>()
-const validatePasswordSame = (rule: any, value: string, callback: (error?: string | Error) => void) => {
-  if (value !== form.password) {
-    callback(new Error("Two inputs don't match!"))
-  } else {
-    callback()
-  }
+const formRef = ref<FormInst | null>(null)
+const validatePasswordSame = (rule: FormItemRule, value: string) => {
+  return value === formValue.value.password
 }
-const rules = reactive<FormRules>({
+const rules = ref<FormRules>({
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
   ],
@@ -34,8 +40,7 @@ const rules = reactive<FormRules>({
     { required: true, message: '请输入姓名', trigger: 'blur' },
     { max: 6, message: '姓名长度最多 6 位', trigger: 'blur' },
   ],
-} as { [k in keyof UserSignupProps]: FormRules[k] }
-)
+} as { [k in keyof UserSignupProps]: FormRules[k] })
 
 type UserSignupProps = {
   username: string
@@ -44,36 +49,36 @@ type UserSignupProps = {
   name: string
 }
 
-const form = reactive<UserSignupProps>({
+const formValue = ref<UserSignupProps>({
   username: '',
   password: '',
   password2: '',
   name: '',
 })
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) { return }
-  await formEl.validate(async (valid) => {
-    if (valid) {
-      await http
+const handleFormSubmit = (e: MouseEvent) => {
+  e.preventDefault()
+  formRef.value?.validate((errors) => {
+    if (!errors) {
+      http
         .post<Models.User>("/auth/signup", {
-          username: form.username,
-          password: form.password,
-          name: form.name,
+          username: formValue.value.username,
+          password: formValue.value.password,
+          name: formValue.value.name,
         })
         .then(async () => {
-          await userStore.login(form.username, form.password)
+          await userStore.login(formValue.value.username, formValue.value.password)
           await userStore.current()
-          router.push('/')
-          ElNotification({
+          await router.push('/')
+          notification.success({
             title: '注册成功',
-            type: 'success',
+            duration: 2000,
           })
         })
         .catch((e: AxiosError<HttpResponse>) => {
-          ElNotification({
+          notification.success({
             title: '注册失败',
-            message: e.response?.data.message,
-            type: 'error'
+            content: e.response?.data.message,
+            duration: 2000,
           })
         })
     }
@@ -83,24 +88,34 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <template>
   <div class="wrapper">
-    <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="form.username" />
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" type="password" />
-      </el-form-item>
-      <el-form-item label="确认密码" prop="password2">
-        <el-input v-model="form.password2" type="password" />
-      </el-form-item>
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name" />
-      </el-form-item>
+    <NForm
+      ref="formRef"
+      :model="formValue"
+      :rules="rules"
+      label-placement="left"
+      label-width="auto"
+      require-mark-placement="right-hanging"
+      size="medium"
+    >
+      <NFormItem label="用户名" path="username">
+        <NInput v-model:value="formValue.username" placeholder="用户名" />
+      </NFormItem>
+      <NFormItem label="密码" path="password">
+        <NInput v-model:value="formValue.password" placeholder="密码" type="password" />
+      </NFormItem>
+      <NFormItem label="确认密码" path="password2">
+        <NInput v-model:value="formValue.password2" placeholder="确认密码" type="password" />
+      </NFormItem>
+      <NFormItem label="姓名" path="name">
+        <NInput v-model:value="formValue.name" placeholder="姓名" />
+      </NFormItem>
       <p style="color: red">注意：用户名请使用自己的学号，否则不予通过</p>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm(formRef)">注册</el-button>
-      </el-form-item>
-    </el-form>
+      <div style="display: flex; justify-content: center">
+        <NButton round type="primary" @click="handleFormSubmit">
+          注册
+        </NButton>
+      </div>
+    </NForm>
   </div>
 </template>
 

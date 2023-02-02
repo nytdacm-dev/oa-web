@@ -20,7 +20,7 @@ export class Http {
 
   get<R = unknown>(
     url: string,
-    query?: Record<string, string>,
+    query?: Record<string, string | boolean | number | undefined>,
     config?: Omit<AxiosRequestConfig, "url" | "params" | "method">
   ) {
     return this.instance.request<HttpResponse<R>>({ url, params: query, method: "GET", ...config });

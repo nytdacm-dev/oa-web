@@ -1,25 +1,21 @@
 <script setup lang="ts">
+import { NLayoutSider, NLayoutContent, NLayout } from 'naive-ui'
+import AdminMenu from "@/layouts/admin-layout/AdminMenu.vue";
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="menu">
-      <el-menu default-active="2" class="el-menu-vertical-demo">
-        <el-sub-menu index="1">
-          <template #title>
-            <span>用户</span>
-          </template>
-          <el-menu-item index="1-1">用户管理</el-menu-item>
-        </el-sub-menu>
-      </el-menu>
-    </div>
-    <div class="main">
+  <NLayout has-sider>
+    <NLayoutSider content-style="padding: 12px;">
+      <AdminMenu />
+    </NLayoutSider>
+    <NLayoutContent content-style="padding: 12px;">
       <RouterView />
-    </div>
-  </div>
+    </NLayoutContent>
+  </NLayout>
 </template>
 
 <style lang="scss" scoped>
+
 .wrapper {
   display: flex;
 

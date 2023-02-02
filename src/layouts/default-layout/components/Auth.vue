@@ -2,43 +2,52 @@
 import { useUserStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router';
 import DefaultAvatar from '@/assets/user-default-avatar.png'
-import { ElNotification } from 'element-plus';
+import { NDropdown, NAvatar, useNotification } from "naive-ui"
 
 const userStore = useUserStore()
 const router = useRouter()
-const pushToLoginPage = () => {
-  router.push('/login')
-}
-const pushToUserDetailPage = () => {
-  router.push(`/user/${userStore.username}`)
-}
-const underConstruction = (message: string) => {
-  ElNotification({
-    title: message,
-    message: '施工中 :)',
-    position: 'bottom-right',
-  })
-}
+const notification = useNotification()
 const logout = () => {
-  ElNotification({
+  notification.success({
     title: '退出登录成功',
-    type: 'success',
+    duration: 2000,
   })
   userStore.logout()
   router.push({ name: 'login' })
 }
+const options = [
+  {
+    label: '个人中心',
+    key: 'user-detail-page',
+  },
+  {
+    type: 'divider',
+  },
+  {
+    label: '管理后台',
+    key: 'admin',
+  },
+  {
+    type: 'divider',
+  },
+  {
+    label: '退出登录',
+    key: 'logout',
+  },
+]
+const handleSelect = (key: string | number) => {
+  if (key === 'user-detail-page') {
+    router.push(`/user/${ userStore.username }`)
+  } else if (key === 'admin') {
+    router.push({ name: 'admin-user' })
+  } else if (key === 'logout') {
+    logout()
+  }
+}
 </script>
 <template>
-  <el-link :underline="false" @click="pushToLoginPage" v-if="!userStore.userId">登录 | 注册</el-link>
-  <el-dropdown v-else>
-    <el-avatar :src="DefaultAvatar" />
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item @click="pushToUserDetailPage">个人中心</el-dropdown-item>
-        <el-dropdown-item divided v-if="userStore.superAdmin || userStore.admin"
-          @click="() => router.push({ name: 'admin-user' })">管理后台</el-dropdown-item>
-        <el-dropdown-item divided @click="logout">退出登录</el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+  <RouterLink to="/login" underline="false" v-if="!userStore.userId">登录 | 注册</RouterLink>
+  <NDropdown trigger="hover" :options="options" @select="handleSelect" v-else>
+    <NAvatar round :size="40" :src="DefaultAvatar" />
+  </NDropdown>
 </template>

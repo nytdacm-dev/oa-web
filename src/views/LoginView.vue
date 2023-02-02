@@ -1,24 +1,21 @@
 <script setup lang="ts">
 import LoginForm from './login-view/LoginForm.vue';
 import SignupForm from './login-view/SignupForm.vue';
-import { ref } from 'vue'
-
-const type = ref<'登录' | '注册'>('登录')
+import { NCard, NTabs, NTabPane } from "naive-ui";
 </script>
 
 <template>
   <div class="main">
-    <el-card class="box-card">
-      <el-tabs v-model="type" class="demo-tabs">
-        <p style="text-align: center;"><del>确实有点丑，但又不是不能用</del></p>
-        <el-tab-pane label="登录" name="登录">
-          <LoginForm v-if="type === '登录'" />
-        </el-tab-pane>
-        <el-tab-pane label="注册" name="注册">
-          <SignupForm v-if="type === '注册'" />
-        </el-tab-pane>
-      </el-tabs>
-    </el-card>
+    <NCard class="box-card">
+      <NTabs type="line" animated>
+        <NTabPane name="登录" tab="登录">
+          <LoginForm />
+        </NTabPane>
+        <NTabPane name="注册" tab="注册">
+          <SignupForm />
+        </NTabPane>
+      </NTabs>
+    </NCard>
   </div>
 </template>
 
