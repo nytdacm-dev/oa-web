@@ -41,6 +41,7 @@ type UserUpdateProps = {
 const form = reactive<UserUpdateProps>({
   name: props.user.name,
   codeforces: props.user.socialAccount.codeforces,
+  atCoder: props.user.socialAccount.atCoder,
   github: props.user.socialAccount.github,
   website: props.user.socialAccount.website,
 })

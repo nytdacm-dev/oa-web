@@ -10,12 +10,14 @@ import Codeforces from "@/components/icons/Codeforces.vue";
 import GitHub from "@/components/icons/GitHub.vue";
 import Website from "@/components/icons/Website.vue";
 import AtCoder from "@/components/icons/AtCoder.vue";
+import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui"
+
 
 const userStore = useUserStore()
 const route = useRoute()
 const username = route.params['username']
 const user = ref<Models.User>()
-const dialogVisible = ref(false)
+const modalVisible = ref(false)
 const cfLink = ref('https://codeforces.com/profile/')
 const atCoderLink = ref('https://atcoder.jp/users/')
 const githubLink = ref('https://github.com/')
@@ -37,14 +39,12 @@ http.get<Models.User>(`/user/${ username }`)
 <template>
   <div class="main">
     <div class="avatar">
-      <el-skeleton style="--el-skeleton-circle-size: 100px" v-if="!user">
-        <template #template>
-          <el-skeleton-item variant="circle" />
-        </template>
-      </el-skeleton>
-      <el-avatar :size="90" :src="DefaultAvatar" v-else />
+      <NSkeleton circle size="medium" :height="90" :width="90" v-if="!user" />
+      <NAvatar round :size="90" :src="DefaultAvatar" v-else />
     </div>
-    <el-skeleton v-if="!user" />
+    <div class="profile-skeleton" v-if="!user">
+      <NSkeleton text :repeat="4" />
+    </div>
     <div class="profile" v-else>
       <div class="top">
         <div class="left">
@@ -58,32 +58,32 @@ http.get<Models.User>(`/user/${ username }`)
         <div class="right">
           <div class="social">
             <div class="icon">
-              <el-link :underline="false" :href="cfLink" v-if="user.socialAccount.codeforces">
-                <el-icon :size="20">
+              <a :href="cfLink" v-if="user.socialAccount.codeforces">
+                <NIcon :size="20">
                   <Codeforces />
-                </el-icon>
-              </el-link>
+                </NIcon>
+              </a>
             </div>
             <div class="icon">
-              <el-link :underline="false" :href="atCoderLink" v-if="user.socialAccount.atCoder">
-                <el-icon :size="20">
+              <a :href="atCoderLink" v-if="user.socialAccount.atCoder">
+                <NIcon :size="20">
                   <AtCoder />
-                </el-icon>
-              </el-link>
+                </NIcon>
+              </a>
             </div>
             <div class="icon">
-              <el-link :underline="false" :href="githubLink" v-if="user.socialAccount.github">
-                <el-icon :size="20">
+              <a :href="githubLink" v-if="user.socialAccount.github">
+                <NIcon :size="20">
                   <GitHub />
-                </el-icon>
-              </el-link>
+                </NIcon>
+              </a>
             </div>
             <div class="icon">
-              <el-link :underline="false" :href="websiteLink" v-if="user.socialAccount.website">
-                <el-icon :size="20">
+              <a :href="websiteLink" v-if="user.socialAccount.website">
+                <NIcon :size="20">
                   <Website />
-                </el-icon>
-              </el-link>
+                </NIcon>
+              </a>
             </div>
           </div>
         </div>
@@ -102,10 +102,10 @@ http.get<Models.User>(`/user/${ username }`)
           </p>
         </div>
         <div class="right">
-          <el-button plain v-if="userStore.username === username" @click="dialogVisible = true">修改个人信息</el-button>
-          <el-dialog v-model="dialogVisible" title="修改个人信息" width="80%">
-            <user-profile-update-form :user="user" v-if="dialogVisible" />
-          </el-dialog>
+          <NButton @click="modalVisible = true" v-if="userStore.username === username">修改个人信息</NButton>
+          <NModal v-model:show="modalVisible" title="修改个人信息" class="custom-card" preset="card" style="width: 80%">
+            <UserProfileUpdateForm :user="user" v-if="modalVisible" />
+          </NModal>
         </div>
       </div>
     </div>
@@ -122,10 +122,10 @@ http.get<Models.User>(`/user/${ username }`)
     margin-right: 2rem;
   }
 
-  >.profile {
+  > .profile, .profile-skeleton {
     flex: 1 1 auto;
 
-    >.top {
+    > .top {
       display: flex;
       align-items: center;
       justify-content: space-between;
