@@ -2,14 +2,16 @@
 import type { Models } from '@/models/models';
 import { http, type HttpResponse } from '@/shared/Http';
 import type { AxiosError } from 'axios';
-import { type FormInstance, ElForm, ElFormItem, ElInput, ElButton, type FormRules, ElNotification } from 'element-plus';
 import { reactive, ref } from 'vue'
+import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification } from "naive-ui";
 
 const props = defineProps<{
   user: Models.User,
 }>()
 
-const formRef = ref<FormInstance>()
+const notification = useNotification()
+
+const formRef = ref<FormInst | null>(null)
 const validateWebsite = (rule: any, value: string, callback: any) => {
   if (!value) {
     callback()
@@ -38,48 +40,46 @@ type UserUpdateProps = {
   atCoder?: string,
 }
 
-const form = reactive<UserUpdateProps>({
+const formValue = ref<UserUpdateProps>({
   name: props.user.name,
   codeforces: props.user.socialAccount.codeforces,
   atCoder: props.user.socialAccount.atCoder,
   github: props.user.socialAccount.github,
   website: props.user.socialAccount.website,
 })
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) {
-    return
-  }
-  await formEl.validate(async (valid) => {
-    if (valid) {
+const handleFormSubmit = (e: MouseEvent) => {
+  e.preventDefault()
+  formRef.value?.validate((errors) => {
+    if (!errors) {
       const params: UserUpdateProps = {}
-      if (form.name !== props.user.name) {
-        params.name = form.name
+      if (formValue.value.name !== props.user.name) {
+        params.name = formValue.value.name
       }
-      if (form.codeforces !== props.user.socialAccount.codeforces) {
-        params.codeforces = form.codeforces
+      if (formValue.value.codeforces !== props.user.socialAccount.codeforces) {
+        params.codeforces = formValue.value.codeforces
       }
-      if (form.atCoder !== props.user.socialAccount.atCoder) {
-        params.atCoder = form.atCoder
+      if (formValue.value.atCoder !== props.user.socialAccount.atCoder) {
+        params.atCoder = formValue.value.atCoder
       }
-      if (form.github !== props.user.socialAccount.github) {
-        params.github = form.github
+      if (formValue.value.github !== props.user.socialAccount.github) {
+        params.github = formValue.value.github
       }
-      if (form.website !== props.user.socialAccount.website) {
-        params.website = form.website
+      if (formValue.value.website !== props.user.socialAccount.website) {
+        params.website = formValue.value.website
       }
-      await http
+      http
         .patch('/user', params)
         .then(() => {
-          ElNotification({
+          notification.success({
             title: '修改成功',
-            type: 'success',
+            duration: 2000,
           })
         })
         .catch((e: AxiosError<HttpResponse>) => {
-          ElNotification({
+          notification.error({
             title: '修改失败',
-            message: e.response?.data.message,
-            type: 'error'
+            content: e.response?.data.message,
+            duration: 2000,
           })
         })
     }
@@ -88,26 +88,36 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-  <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
-    <el-form-item label="姓名" prop="name">
-      <el-input v-model="form.name" />
-    </el-form-item>
-    <el-form-item label="Codeforces" prop="codeforces">
-      <el-input v-model="form.codeforces" />
-    </el-form-item>
-    <el-form-item label="AtCoder" prop="atCoder">
-      <el-input v-model="form.atCoder" />
-    </el-form-item>
-    <el-form-item label="GitHub" prop="github">
-      <el-input v-model="form.github" />
-    </el-form-item>
-    <el-form-item label="个人网站" prop="website">
-      <el-input v-model="form.website" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(formRef)">修改</el-button>
-    </el-form-item>
-  </el-form>
+  <NForm
+    ref="formRef"
+    :model="formValue"
+    :rules="rules"
+    label-placement="left"
+    label-width="auto"
+    require-mark-placement="right-hanging"
+    size="medium"
+  >
+    <NFormItem label="姓名" path="name">
+      <NInput v-model:value="formValue.name" placeholder="姓名" />
+    </NFormItem>
+    <NFormItem label="Codeforces" prop="codeforces">
+      <NInput v-model:value="formValue.codeforces" placeholder="Codeforces 账号" />
+    </NFormItem>
+    <NFormItem label="AtCoder" prop="atCoder">
+      <NInput v-model:value="formValue.atCoder" placeholder="AtCoder 账号" />
+    </NFormItem>
+    <NFormItem label="GitHub" prop="github">
+      <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />
+    </NFormItem>
+    <NFormItem label="个人网站" prop="website">
+      <NInput v-model:value="formValue.website" placeholder="个人网站链接" />
+    </NFormItem>
+    <div style="display: flex; justify-content: center">
+      <NButton round type="primary" @click="handleFormSubmit">
+        修改
+      </NButton>
+    </div>
+  </NForm>
 </template>
 
 <style lang="scss" scoped>
