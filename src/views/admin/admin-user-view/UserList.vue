@@ -57,21 +57,21 @@ const columns: DataTableColumns<AdminUser> = [
     title: '已激活',
     key: 'active',
     render(row) {
-      return row.active ? '是' : '否'
+      return row.active === true ? '是' : '否'
     }
   },
   {
     title: '管理员',
     key: 'admin',
     render(row) {
-      return row.active ? '是' : '否'
+      return row.active === true ? '是' : '否'
     }
   },
   {
     title: '超级管理员',
     key: 'superAdmin',
     render(row) {
-      return row.active ? '是' : '否'
+      return row.active === true ? '是' : '否'
     }
   },
   {
