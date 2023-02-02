@@ -1,114 +1,134 @@
 <script setup lang="tsx">
-import { reactive, ref } from 'vue'
+import { h, ref } from 'vue'
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import { http } from "@/shared/Http";
 import {
-  type Column,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElButton,
-  ElNotification,
-  ElPopconfirm,
-  ElAutoResizer
-} from "element-plus";
+  NForm,
+  NFormItem,
+  NInput,
+  NButton,
+  NDataTable,
+  useNotification,
+  DataTableColumns,
+  NPopconfirm
+} from "naive-ui";
 
-const form = reactive<AdminUser>({
+const notification = useNotification()
+const formValue = ref<AdminUser>({
   username: undefined,
   name: undefined,
   active: undefined,
   admin: undefined,
   superAdmin: undefined,
 })
+const data = ref<AdminUser[]>([])
+const columns: DataTableColumns<AdminUser> = [
+  {
+    title: 'ID',
+    key: 'userId',
+  },
+  {
+    title: '用户名',
+    key: 'username',
+  },
+  {
+    title: '姓名',
+    key: 'name',
+  },
+  {
+    title: '已激活',
+    key: 'active',
+    render(row) {
+      return row.active ? '是' : '否'
+    }
+  },
+  {
+    title: '管理员',
+    key: 'admin',
+    render(row) {
+      return row.active ? '是' : '否'
+    }
+  },
+  {
+    title: '超级管理员',
+    key: 'superAdmin',
+    render(row) {
+      return row.active ? '是' : '否'
+    }
+  },
+  {
+    title: '操作',
+    key: 'actions',
+    render(row) {
+      // return () => (<>
+      //   { !row.active ?
+      //     <NButton size="small">激活</NButton>
+      //     : null }
+      // </>)
+      return h(
+        'div',
+        [
+          !row.active ?
+            h(
+              NButton,
+              {
+                size: 'small',
+                onClick: () => activeUser(row.userId ?? 0),
+              },
+              { default: () => '激活' }
+            )
+            : null,
+          h(
+            NPopconfirm,
+            {
+              onPositiveClick: () => deleteUser(row.userId ?? 0),
+            },
+            {
+              default: () => '确定删除吗？',
+              trigger: () => h(
+                NButton,
+                {
+                  size: 'small',
+                },
+                {
+                  default: () => '删除'
+                }
+              )
+            },
+          )
+        ]
+      )
+    }
+  },
+]
 const deleteUser = (userId: number) => {
   http.delete<void>(`/admin/user/${ userId }`)
     .then(res => {
-      ElNotification({
+      notification.success({
         title: res.data.message,
-        position: 'top-right',
+        duration: 2000,
       })
     })
-  onFormSubmit()
+  handleFormSubmit()
 }
 const activeUser = (userId: number) => {
   http.patch<AdminUser>(`/admin/user/${ userId }`, { active: true })
     .then(res => {
-      ElNotification({
+      notification.success({
         title: res.data.message,
-        position: 'top-right',
+        duration: 2000,
       })
     })
-  onFormSubmit()
+  handleFormSubmit()
 }
 type ListWrapper<T> = {
   total?: number,
   data?: T[],
 }
-const tableColumns: Column[] = [
-  {
-    key: 'userId',
-    title: 'ID',
-    width: 120,
-    dataKey: 'userId',
-  },
-  {
-    key: 'username',
-    title: '用户名',
-    width: 200,
-    dataKey: 'username',
-  },
-  {
-    key: 'name',
-    title: '姓名',
-    width: 200,
-    dataKey: 'name',
-  },
-  {
-    key: 'active',
-    title: '已激活',
-    width: 200,
-    dataKey: 'active',
-  },
-  {
-    key: 'admin',
-    title: '管理员',
-    width: 200,
-    dataKey: 'admin',
-  },
-  {
-    key: 'superAdmin',
-    title: '超级管理员',
-    width: 200,
-    dataKey: 'superAdmin',
-  },
-  {
-    key: 'operations',
-    title: '操作',
-    width: 200,
-    dataKey: 'userId',
-    cellRenderer: ({ cellData: userId }) => (
-      <>
-        { !tableData.value.filter(user => user.userId === userId)[0].active ?
-          <ElButton size="small" type="primary" onClick={ () => activeUser(userId) }>激活</ElButton> : null }
-        <ElButton size="small">Edit</ElButton>
-        <ElPopconfirm title="确定删除吗？" onConfirm={ () => deleteUser(userId) }>
-          { {
-            reference: () => (
-              <ElButton size="small" type="danger">
-                Delete
-              </ElButton>
-            )
-          } }
-        </ElPopconfirm>
-      </>
-    ),
-  },
-]
-const tableData = ref<AdminUser[]>([])
-const onFormSubmit = () => {
-  http.get<ListWrapper<AdminUser>>('/admin/user', form as Record<string, string>)
+const handleFormSubmit = () => {
+  http.get<ListWrapper<AdminUser>>('/admin/user', formValue.value as Record<string, string>)
     .then(res => {
-      tableData.value = res.data.data.data ?? []
+      data.value = res.data.data.data ?? []
     })
 }
 </script>
@@ -116,31 +136,32 @@ const onFormSubmit = () => {
 <template>
   <div>
     <div>
-      <el-form :inline="true" :model="form" class="demo-form-inline">
-        <el-form-item label="用户名">
-          <el-input v-model="form.username" placeholder="用户名" />
-        </el-form-item>
-        <el-form-item label="姓名">
-          <el-input v-model="form.name" placeholder="姓名" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onFormSubmit">查询</el-button>
-        </el-form-item>
-      </el-form>
+      <NForm
+        :model="formValue"
+        label-placement="left"
+        label-width="auto"
+        require-mark-placement="right-hanging"
+        size="small"
+        inline
+      >
+        <NFormItem label="用户名" path="username">
+          <NInput v-model:value="formValue.username" placeholder="用户名" />
+        </NFormItem>
+        <NFormItem label="姓名" path="name">
+          <NInput v-model:value="formValue.name" placeholder="姓名" />
+        </NFormItem>
+        <NFormItem>
+          <NButton round type="primary" @click="handleFormSubmit">
+            查询
+          </NButton>
+        </NFormItem>
+      </NForm>
     </div>
-    <div style="height: 400px">
-      <el-auto-resizer>
-        <template #default="{ height, width }">
-          <el-table-v2
-            :columns="tableColumns"
-            :data="tableData"
-            :width="width"
-            :height="height"
-            fixed
-          />
-        </template>
-      </el-auto-resizer>
-    </div>
+    <NDataTable
+      :bordered="false"
+      :columns="columns"
+      :data="data"
+    />
   </div>
 </template>
 
