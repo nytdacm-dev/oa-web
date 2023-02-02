@@ -25,6 +25,7 @@ import Auth from './components/Auth.vue';
   display: flex;
   align-items: center;
   height: var(--header-height);
+  padding: 0 10px;
 
   >.logo {
     display: flex;
