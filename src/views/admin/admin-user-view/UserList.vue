@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { h, ref } from 'vue'
+import { h, onMounted, reactive, ref } from 'vue'
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import { http } from "@/shared/Http";
 import {
@@ -9,18 +9,36 @@ import {
   NButton,
   NDataTable,
   useNotification,
-  DataTableColumns,
+  type DataTableColumns,
   NPopconfirm
 } from "naive-ui";
 
 const notification = useNotification()
-const formValue = ref<AdminUser>({
+type FormValue = {
+  username?: string,
+  name?: string,
+  active?: boolean,
+  admin?: boolean,
+  superAdmin?: boolean,
+}
+const formValue = ref<FormValue>({
   username: undefined,
   name: undefined,
   active: undefined,
   admin: undefined,
   superAdmin: undefined,
 })
+const pagination = reactive({
+  page: 1,
+  pageSize: 10,
+  itemCount: 0,
+  showSizePicker: true,
+  pageSizes: [10, 20, 50, 100],
+  prefix({ itemCount }) {
+    return `总共有 ${ itemCount } 个`
+  }
+})
+const loading = ref<boolean>(false)
 const data = ref<AdminUser[]>([])
 const columns: DataTableColumns<AdminUser> = [
   {
@@ -60,11 +78,6 @@ const columns: DataTableColumns<AdminUser> = [
     title: '操作',
     key: 'actions',
     render(row) {
-      // return () => (<>
-      //   { !row.active ?
-      //     <NButton size="small">激活</NButton>
-      //     : null }
-      // </>)
       return h(
         'div',
         [
@@ -111,6 +124,9 @@ const deleteUser = (userId: number) => {
     })
   handleFormSubmit()
 }
+onMounted(() => {
+  handleFormSubmit()
+})
 const activeUser = (userId: number) => {
   http.patch<AdminUser>(`/admin/user/${ userId }`, { active: true })
     .then(res => {
@@ -125,11 +141,32 @@ type ListWrapper<T> = {
   total?: number,
   data?: T[],
 }
-const handleFormSubmit = () => {
-  http.get<ListWrapper<AdminUser>>('/admin/user', formValue.value as Record<string, string>)
-    .then(res => {
-      data.value = res.data.data.data ?? []
+const requestData = () => {
+  loading.value = true
+  http
+    .get<ListWrapper<AdminUser>>('/admin/user', {
+      ...formValue.value,
+      page: pagination.page ? pagination.page - 1 : 0,
+      size: pagination.pageSize,
     })
+    .then(res => {
+      const resData = res.data.data
+      data.value = resData.data ?? []
+      console.log(resData.total)
+      pagination.itemCount = resData.total ?? 0
+    })
+  loading.value = false
+}
+const handlePageChange = (currentPage: number) => {
+  if (!loading.value) {
+    pagination.page = currentPage
+    requestData()
+  }
+}
+
+const handleFormSubmit = () => {
+  pagination.page = 1
+  requestData()
 }
 </script>
 
@@ -158,13 +195,14 @@ const handleFormSubmit = () => {
       </NForm>
     </div>
     <NDataTable
+      remote
+      ref="table"
+      :loading="loading"
       :bordered="false"
       :columns="columns"
       :data="data"
+      :pagination="pagination"
+      @update:page="handlePageChange"
     />
   </div>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
