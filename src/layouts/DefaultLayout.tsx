@@ -9,7 +9,7 @@ export const DefaultLayout = defineComponent({
   setup() {
     return () => (
       <>
-        <NLayout contentStyle={ "overflow-x: unset; " }>
+        <NLayout>
           <NLayoutHeader>
             <Header />
           </NLayoutHeader>
