@@ -27,4 +27,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  build: {
+    outDir: '../src/main/resources/static/',  // 构建至 Spring Boot static 目录
+  }
 })
