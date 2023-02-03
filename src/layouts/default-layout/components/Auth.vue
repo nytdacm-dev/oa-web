@@ -46,8 +46,13 @@ const handleSelect = (key: string | number) => {
 }
 </script>
 <template>
-  <RouterLink to="/login" underline="false" v-if="!userStore.userId">登录 | 注册</RouterLink>
-  <NDropdown trigger="hover" :options="options" @select="handleSelect" v-else>
-    <NAvatar round :size="40" :src="DefaultAvatar" />
-  </NDropdown>
+  <div class="wrapper">
+    <RouterLink to="/login" underline="false" v-if="!userStore.userId">登录 | 注册</RouterLink>
+    <NDropdown trigger="hover" :options="options" @select="handleSelect" v-else>
+      <NAvatar round :size="40" :src="DefaultAvatar" />
+    </NDropdown>
+  </div>
 </template>
+<style lang="scss" scoped>
+
+</style>

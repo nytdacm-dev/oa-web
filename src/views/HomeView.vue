@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { NH1 } from 'naive-ui'
 </script>
 
 <template>
   <div class="main">
-    <h1>This is a home page</h1>
+    <NH1>This is a home page</NH1>
   </div>
 </template>
