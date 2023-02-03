@@ -65,14 +65,14 @@ const columns: DataTableColumns<AdminUser> = [
     title: '管理员',
     key: 'admin',
     render(row) {
-      return row.active === true ? '是' : '否'
+      return row.admin === true ? '是' : '否'
     }
   },
   {
     title: '超级管理员',
     key: 'superAdmin',
     render(row) {
-      return row.active === true ? '是' : '否'
+      return row.superAdmin === true ? '是' : '否'
     }
   },
   {
