@@ -7,7 +7,7 @@ const collapsed = ref<boolean>(false)
 </script>
 
 <template>
-  <NLayout has-sider>
+  <NLayout has-sider class="wrapper">
     <NLayoutSider
       bordered
       collapse-mode="width"
@@ -17,7 +17,7 @@ const collapsed = ref<boolean>(false)
       show-trigger
       @collapse="collapsed = true"
       @expand="collapsed = false">
-      <AdminMenu :collapsed="collapsed" />
+      <AdminMenu :collapsed="collapsed" class="menu" />
     </NLayoutSider>
     <NLayoutContent content-style="padding: 12px;">
       <RouterView />
@@ -26,5 +26,7 @@ const collapsed = ref<boolean>(false)
 </template>
 
 <style lang="scss" scoped>
-
+.menu {
+  min-height: 100vh;
+}
 </style>

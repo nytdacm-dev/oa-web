@@ -13,7 +13,7 @@ export const DefaultLayout = defineComponent({
           <NLayoutHeader>
             <Header />
           </NLayoutHeader>
-          <NLayoutContent contentStyle={ "padding-left:24px;" } class={ style.main }>
+          <NLayoutContent contentStyle={ "padding:0 24px; " } class={ style.main }>
             <RouterView />
           </NLayoutContent>
           <NLayoutFooter class={ style.footer }>
