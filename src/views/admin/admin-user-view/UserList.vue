@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { h, onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from "vue";
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import { http } from "@/shared/Http";
 import {
@@ -88,50 +88,29 @@ const columns: DataTableColumns<AdminUser> = [
     title: '操作',
     key: 'actions',
     render(row) {
-      return h(
-        'div',
-        [
-          !row.active ?
-            h(
-              NButton,
-              {
-                size: "small",
-                onClick: () => activeUser(row.userId ?? 0)
-              },
-              { default: () => "激活" }
-            )
-            : null,
-          h(
-            NButton,
-            {
-              size: "small",
-            },
-            {
-              default: () => "修改",
-            },
-          ),
-          row.superAdmin === true || row.userId === userStore.userId ? null :
-            h(
-              NPopconfirm,
-              {
-                onPositiveClick: () => deleteUser(row.userId ?? 0)
-              },
-              {
+      return (
+        <div>
+          { !row.active ?
+            <NButton
+              size="small"
+              onClick={ () => activeUser(row.userId ?? 0) }
+            >
+              激活
+            </NButton>
+            : null }
+          <NButton size="small">
+            修改
+          </NButton>
+          { row.superAdmin === true || row.userId === userStore.userId ? null :
+            <NPopconfirm onPositiveClick={ () => deleteUser(row.userId ?? 0) }>
+              { {
                 default: () => "确定删除吗？",
-                trigger: () => h(
-                  NButton,
-                  {
-                    size: "small",
-                    type: "error"
-                  },
-                  {
-                    default: () => "删除"
-                  }
-                )
-              }
-            )
-        ]
-      )
+                trigger: () => <NButton size="small" type="error">删除</NButton>
+              } }
+            </NPopconfirm>
+          }
+        </div>
+      );
     }
   },
 ]
