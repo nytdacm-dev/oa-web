@@ -12,6 +12,7 @@ import {
   type DataTableColumns,
   NPopconfirm
 } from "naive-ui";
+import dayjs from "dayjs";
 
 const notification = useNotification()
 type FormValue = {
@@ -72,6 +73,13 @@ const columns: DataTableColumns<AdminUser> = [
     key: 'superAdmin',
     render(row) {
       return row.active === true ? '是' : '否'
+    }
+  },
+  {
+    title: '注册时间',
+    key: 'registerTime',
+    render(row) {
+      return dayjs.unix(row.registerTime ?? 0).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   {
