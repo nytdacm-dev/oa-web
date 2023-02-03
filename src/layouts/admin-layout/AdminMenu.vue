@@ -9,6 +9,10 @@ import {
   User as UserIcon,
 } from '@vicons/fa'
 
+const props = defineProps<{
+  collapsed: boolean
+}>()
+
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
@@ -39,7 +43,7 @@ const menuOptions: MenuOption[] = [
 </script>
 
 <template>
-  <NMenu :options="menuOptions" />
+  <NMenu :options="menuOptions" :collapsed="props.collapsed" :collapsed-width="64" />
 </template>
 
 <style lang="scss" scoped>
