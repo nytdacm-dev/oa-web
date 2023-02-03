@@ -13,8 +13,10 @@ import {
   NPopconfirm
 } from "naive-ui";
 import dayjs from "dayjs";
+import { useUserStore } from "@/stores/userStore";
 
-const notification = useNotification()
+const userStore = useUserStore();
+const notification = useNotification();
 type FormValue = {
   username?: string,
   name?: string,
@@ -93,30 +95,41 @@ const columns: DataTableColumns<AdminUser> = [
             h(
               NButton,
               {
-                size: 'small',
-                onClick: () => activeUser(row.userId ?? 0),
+                size: "small",
+                onClick: () => activeUser(row.userId ?? 0)
               },
-              { default: () => '激活' }
+              { default: () => "激活" }
             )
             : null,
           h(
-            NPopconfirm,
+            NButton,
             {
-              onPositiveClick: () => deleteUser(row.userId ?? 0),
+              size: "small",
             },
             {
-              default: () => '确定删除吗？',
-              trigger: () => h(
-                NButton,
-                {
-                  size: 'small',
-                },
-                {
-                  default: () => '删除'
-                }
-              )
+              default: () => "修改",
             },
-          )
+          ),
+          row.superAdmin === true || row.userId === userStore.userId ? null :
+            h(
+              NPopconfirm,
+              {
+                onPositiveClick: () => deleteUser(row.userId ?? 0)
+              },
+              {
+                default: () => "确定删除吗？",
+                trigger: () => h(
+                  NButton,
+                  {
+                    size: "small",
+                    type: "error"
+                  },
+                  {
+                    default: () => "删除"
+                  }
+                )
+              }
+            )
         ]
       )
     }
@@ -160,7 +173,6 @@ const requestData = () => {
     .then(res => {
       const resData = res.data.data
       data.value = resData.data ?? []
-      console.log(resData.total)
       pagination.itemCount = resData.total ?? 0
     })
   loading.value = false
