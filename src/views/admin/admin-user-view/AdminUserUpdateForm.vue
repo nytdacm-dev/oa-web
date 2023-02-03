@@ -1,0 +1,128 @@
+<script setup lang="ts">
+import { http, type HttpResponse } from "@/shared/Http";
+import type { AxiosError } from "axios";
+import { reactive, ref } from "vue";
+import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification, NRadio } from "naive-ui";
+import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
+
+const props = defineProps<{
+  user: AdminUser,
+}>();
+
+const notification = useNotification();
+
+const formRef = ref<FormInst | null>(null);
+const validateWebsite = (rule: any, value: string, callback: any) => {
+  if (!value) {
+    callback();
+  } else if (value.startsWith("http://") || value.startsWith("https://")) {
+    callback();
+  } else {
+    callback(new Error("你输入的不是网址"));
+  }
+};
+const rules = reactive<FormRules>({
+    name: [
+      { required: true, message: "请输入姓名", trigger: "blur" },
+      { max: 6, message: "姓名长度最多 6 位", trigger: "blur" }
+    ],
+    password: [
+      { min: 6, message: "密码长度至少为 6 位", trigger: "blur" }
+    ]
+  } as { [k in keyof UserUpdateProps]: FormRules[k] }
+);
+
+type UserUpdateProps = {
+  name?: string,
+  password?: string,
+  active?: boolean,
+  admin?: boolean,
+  superAdmin?: boolean,
+}
+
+const formValue = ref<UserUpdateProps>({
+  name: props.user.name,
+  password: undefined,
+  active: props.user.active,
+  admin: props.user.admin,
+  superAdmin: props.user.superAdmin
+});
+const handleFormSubmit = (e: MouseEvent) => {
+  e.preventDefault();
+  formRef.value?.validate((errors) => {
+    if (!errors) {
+      const params: UserUpdateProps = {};
+      if (formValue.value.name !== props.user.name) {
+        params.name = formValue.value.name;
+      }
+      if (formValue.value.password) {
+        params.password = formValue.value.password;
+      }
+      if (formValue.value.active !== props.user.active) {
+        params.active = formValue.value.active;
+      }
+      if (formValue.value.admin !== props.user.admin) {
+        params.admin = formValue.value.admin;
+      }
+      if (formValue.value.superAdmin !== props.user.superAdmin) {
+        params.superAdmin = formValue.value.superAdmin;
+      }
+      http
+        .patch<AdminUser>(`/admin/user/${ props.user.userId }`, params)
+        .then(res => {
+          notification.success({
+            title: res.data.message,
+            duration: 2000
+          });
+        })
+        .catch((e: AxiosError<HttpResponse>) => {
+          notification.error({
+            title: "修改失败",
+            content: e.response?.data.message,
+            duration: 2000
+          });
+        });
+    }
+  });
+};
+</script>
+
+<template>
+  <NForm
+    ref="formRef"
+    :model="formValue"
+    :rules="rules"
+    label-placement="left"
+    label-width="auto"
+    require-mark-placement="right-hanging"
+    size="medium"
+  >
+    <NFormItem label="姓名" path="name">
+      <NInput v-model:value="formValue.name" placeholder="姓名" />
+    </NFormItem>
+    <NFormItem label="密码" path="password">
+      <NInput v-model:value="formValue.password" placeholder="修改密码" type="password" />
+    </NFormItem>
+    <NFormItem label="已激活" path="active">
+      <NRadio :checked="formValue.active" @change="() => formValue.active = true">是</NRadio>
+      <NRadio :checked="!formValue.active" @change="() => formValue.active = false">否</NRadio>
+    </NFormItem>
+    <NFormItem label="管理员" path="admin">
+      <NRadio :checked="formValue.admin" @change="() => formValue.admin = true">是</NRadio>
+      <NRadio :checked="!formValue.admin" @change="() => formValue.admin = false">否</NRadio>
+    </NFormItem>
+    <NFormItem label="超级管理员" path="superAdmin">
+      <NRadio :checked="formValue.superAdmin" @change="() => formValue.superAdmin = true">是</NRadio>
+      <NRadio :checked="!formValue.superAdmin" @change="() => formValue.superAdmin = false">否</NRadio>
+    </NFormItem>
+    <div style="display: flex; justify-content: center">
+      <NButton round type="primary" @click="handleFormSubmit">
+        修改
+      </NButton>
+    </div>
+  </NForm>
+</template>
+
+<style lang="scss" scoped>
+
+</style>

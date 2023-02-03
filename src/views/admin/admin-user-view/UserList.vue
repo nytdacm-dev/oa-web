@@ -10,13 +10,16 @@ import {
   NDataTable,
   useNotification,
   type DataTableColumns,
-  NPopconfirm
+  NPopconfirm,
+  NModal
 } from "naive-ui";
 import dayjs from "dayjs";
 import { useUserStore } from "@/stores/userStore";
+import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateForm.vue";
 
 const userStore = useUserStore();
 const notification = useNotification();
+const modalVisible = ref(false);
 type FormValue = {
   username?: string,
   name?: string,
@@ -98,9 +101,15 @@ const columns: DataTableColumns<AdminUser> = [
               激活
             </NButton>
             : null }
-          <NButton size="small">
+          <NButton size="small" onClick={ () => modalVisible.value = true }>
             修改
           </NButton>
+          <NModal show={ modalVisible.value } title={ `修改个人信息：${ row.username }` }
+                  class="custom-card"
+                  preset="card"
+                  style="width: 80%">
+            <AdminUserUpdateForm user={ row } />
+          </NModal>
           { row.superAdmin === true || row.userId === userStore.userId ? null :
             <NPopconfirm onPositiveClick={ () => deleteUser(row.userId ?? 0) }>
               { {
