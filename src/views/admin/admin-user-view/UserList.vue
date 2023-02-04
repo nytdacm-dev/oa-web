@@ -42,19 +42,19 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [10, 20, 50, 100],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${ itemCount } 个`
+    return `总共有 ${ itemCount } 个`;
   }
-})
-const loading = ref<boolean>(false)
-const data = ref<AdminUser[]>([])
+});
+const loading = ref<boolean>(true);
+const data = ref<AdminUser[]>([]);
 const columns: DataTableColumns<AdminUser> = [
   {
-    title: 'ID',
-    key: 'userId',
+    title: "ID",
+    key: "userId"
   },
   {
-    title: '用户名',
-    key: 'username',
+    title: "用户名",
+    key: "username"
   },
   {
     title: '姓名',
@@ -132,7 +132,7 @@ const deleteUser = (userId: number) => {
   handleFormSubmit()
 }
 onMounted(() => {
-  handleFormSubmit()
+  handleFormSubmit();
 })
 const activeUser = (userId: number) => {
   http.patch<AdminUser>(`/admin/user/${ userId }`, { active: true })
@@ -149,7 +149,6 @@ type ListWrapper<T> = {
   data?: T[],
 }
 const requestData = () => {
-  loading.value = true
   http
     .get<ListWrapper<AdminUser>>('/admin/user', {
       ...formValue.value,
@@ -161,18 +160,21 @@ const requestData = () => {
       data.value = resData.data ?? []
       pagination.itemCount = resData.total ?? 0
     })
-  loading.value = false
 }
 const handlePageChange = (currentPage: number) => {
   if (!loading.value) {
-    pagination.page = currentPage
-    requestData()
+    pagination.page = currentPage;
+    loading.value = true;
+    requestData();
+    loading.value = false;
   }
 }
 
 const handleFormSubmit = () => {
-  pagination.page = 1
-  requestData()
+  pagination.page = 1;
+  loading.value = true;
+  requestData();
+  loading.value = false;
 }
 </script>
 
