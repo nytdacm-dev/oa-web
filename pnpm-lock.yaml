@@ -11,6 +11,7 @@ specifiers:
   dayjs: 1.11.7
   naive-ui: 2.34.3
   npm-run-all: 4.1.5
+  nprogress: 0.2.0
   pinia: 2.0.29
   sass: 1.57.1
   typescript: 4.9.4
@@ -25,6 +26,7 @@ specifiers:
 dependencies:
   axios: 1.2.6
   dayjs: 1.11.7
+  nprogress: 0.2.0
   pinia: 2.0.29_prq2uz4lho2pwp6irk4cfkrxwu
   sass: 1.57.1
   vue: 3.2.45
@@ -1996,6 +1998,10 @@ packages:
       shell-quote: 1.7.4
       string.prototype.padend: 3.1.4
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /object-inspect/1.12.3:
     resolution: {integrity: sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==}

@@ -7,10 +7,11 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
-import { setupUserInfoGuard } from './router/guard/userLoginInfo'
+import { setupUserInfoGuard } from "./router/guard/userLoginInfo";
+import { setupNProcess } from "@/router/guard/process";
 
 const app = createApp(App)
-
+setupNProcess(router);
 setupUserInfoGuard(router);
 router.afterEach((to) => {
   //遍历meta改变title
