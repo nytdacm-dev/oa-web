@@ -20,6 +20,7 @@ import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateFo
 const userStore = useUserStore();
 const notification = useNotification();
 const modalVisible = ref(false);
+const updateUserId = ref(0);
 type FormValue = {
   username?: string,
   name?: string,
@@ -101,15 +102,12 @@ const columns: DataTableColumns<AdminUser> = [
               激活
             </NButton>
             : null }
-          <NButton size="small" onClick={ () => modalVisible.value = true }>
+          <NButton size="small" onClick={ () => {
+            modalVisible.value = true;
+            updateUserId.value = row.userId ?? 0;
+          } }>
             修改
           </NButton>
-          <NModal show={ modalVisible.value } title={ `修改个人信息：${ row.username }` }
-                  class="custom-card"
-                  preset="card"
-                  style="width: 80%">
-            <AdminUserUpdateForm user={ row } />
-          </NModal>
           { row.superAdmin === true || row.userId === userStore.userId ? null :
             <NPopconfirm onPositiveClick={ () => deleteUser(row.userId ?? 0) }>
               { {
@@ -212,5 +210,12 @@ const handleFormSubmit = () => {
       :pagination="pagination"
       @update:page="handlePageChange"
     />
+    <NModal :show="modalVisible" title="修改个人信息"
+            class="custom-card"
+            preset="card"
+            style="width: 80%"
+            @close="() => modalVisible = false">
+      <AdminUserUpdateForm :userId="updateUserId" />
+    </NModal>
   </div>
 </template>

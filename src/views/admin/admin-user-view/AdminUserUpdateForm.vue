@@ -1,26 +1,17 @@
 <script setup lang="ts">
 import { http, type HttpResponse } from "@/shared/Http";
 import type { AxiosError } from "axios";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification, NRadio } from "naive-ui";
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 
 const props = defineProps<{
-  user: AdminUser,
+  userId: number,
 }>();
 
 const notification = useNotification();
 
 const formRef = ref<FormInst | null>(null);
-const validateWebsite = (rule: any, value: string, callback: any) => {
-  if (!value) {
-    callback();
-  } else if (value.startsWith("http://") || value.startsWith("https://")) {
-    callback();
-  } else {
-    callback(new Error("你输入的不是网址"));
-  }
-};
 const rules = reactive<FormRules>({
     name: [
       { required: true, message: "请输入姓名", trigger: "blur" },
@@ -39,36 +30,54 @@ type UserUpdateProps = {
   admin?: boolean,
   superAdmin?: boolean,
 }
+const user = ref<AdminUser | undefined>();
+onMounted(() => {
+  http
+    .get<AdminUser>(`/admin/user/${ props.userId }`)
+    .then(res => {
+      user.value = res.data.data;
+      formValue.value.name = user.value?.name;
+      formValue.value.active = user.value?.active;
+      formValue.value.admin = user.value?.admin;
+      formValue.value.superAdmin = user.value?.superAdmin;
+    })
+    .catch((e: AxiosError) => {
+      notification.error({
+        title: "获取失败",
+        content: e.message
+      });
+    });
+});
 
 const formValue = ref<UserUpdateProps>({
-  name: props.user.name,
+  name: "",
   password: undefined,
-  active: props.user.active,
-  admin: props.user.admin,
-  superAdmin: props.user.superAdmin
+  active: false,
+  admin: false,
+  superAdmin: false
 });
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault();
   formRef.value?.validate((errors) => {
     if (!errors) {
       const params: UserUpdateProps = {};
-      if (formValue.value.name !== props.user.name) {
+      if (formValue.value.name !== user.value?.name) {
         params.name = formValue.value.name;
       }
       if (formValue.value.password) {
         params.password = formValue.value.password;
       }
-      if (formValue.value.active !== props.user.active) {
+      if (formValue.value.active !== user.value?.active) {
         params.active = formValue.value.active;
       }
-      if (formValue.value.admin !== props.user.admin) {
+      if (formValue.value.admin !== user.value?.admin) {
         params.admin = formValue.value.admin;
       }
-      if (formValue.value.superAdmin !== props.user.superAdmin) {
+      if (formValue.value.superAdmin !== user.value?.superAdmin) {
         params.superAdmin = formValue.value.superAdmin;
       }
       http
-        .patch<AdminUser>(`/admin/user/${ props.user.userId }`, params)
+        .patch<AdminUser>(`/admin/user/${ props.userId }`, params)
         .then(res => {
           notification.success({
             title: res.data.message,
