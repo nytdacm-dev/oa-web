@@ -9,18 +9,13 @@ import router from './router'
 import './assets/main.css'
 import { setupUserInfoGuard } from "./router/guard/userLoginInfo";
 import { setupNProcess } from "@/router/guard/process";
+import { setupTitleChange } from "@/router/guard/title";
 
 const app = createApp(App)
+
 setupNProcess(router);
 setupUserInfoGuard(router);
-router.afterEach((to) => {
-  //遍历meta改变title
-  if (to.meta.title) {
-    document.title = to.meta.title as string + ' | 南邮通达程序设计校队';
-  } else {
-    document.title = ' 南邮通达程序设计校队';
-  }
-})
+setupTitleChange(router);
 
 app.use(createPinia())
 app.use(router)
