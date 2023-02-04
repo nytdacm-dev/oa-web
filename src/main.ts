@@ -8,12 +8,12 @@ import router from './router'
 
 import './assets/main.css'
 import { setupUserInfoGuard } from "./router/guard/userLoginInfo";
-import { setupNProcess } from "@/router/guard/process";
+import { setupNProgress } from "@/router/guard/progress";
 import { setupTitleChange } from "@/router/guard/title";
 
 const app = createApp(App)
 
-setupNProcess(router);
+setupNProgress(router);
 setupUserInfoGuard(router);
 setupTitleChange(router);
 
