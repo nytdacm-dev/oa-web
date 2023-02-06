@@ -1,34 +1,37 @@
 <script setup lang="ts">
-import DefaultAvatar from '@/assets/user-default-avatar.png'
-import UserProfileUpdateForm from './UserProfileUpdateForm.vue';
-import type { Models } from '@/models/models';
-import { http } from '@/shared/Http';
-import { useUserStore } from '@/stores/userStore';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import DefaultAvatar from "@/assets/user-default-avatar.png";
+import UserProfileUpdateForm from "./UserProfileUpdateForm.vue";
+import type { Models } from "@/models/models";
+import { http } from "@/shared/Http";
+import { useUserStore } from "@/stores/userStore";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 import Codeforces from "@/components/icons/Codeforces.vue";
 import GitHub from "@/components/icons/GitHub.vue";
 import Website from "@/components/icons/Website.vue";
 import AtCoder from "@/components/icons/AtCoder.vue";
-import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui"
+import Luogu from "@/components/icons/Luogu.vue";
+import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui";
 
 
-const userStore = useUserStore()
-const route = useRoute()
-const username = route.params['username']
-const user = ref<Models.User>()
-const modalVisible = ref(false)
-const cfLink = ref('https://codeforces.com/profile/')
-const atCoderLink = ref('https://atcoder.jp/users/')
-const githubLink = ref('https://github.com/')
-const websiteLink = ref()
+const userStore = useUserStore();
+const route = useRoute();
+const username = route.params["username"];
+const user = ref<Models.User>();
+const modalVisible = ref(false);
+const cfLink = ref("https://codeforces.com/profile/");
+const atCoderLink = ref("https://atcoder.jp/users/");
+const luoguLink = ref("https://www.luogu.com.cn/user/");
+const githubLink = ref("https://github.com/");
+const websiteLink = ref();
 http.get<Models.User>(`/user/${ username }`)
   .then(res => {
-    user.value = res.data.data
-    cfLink.value = `https://codeforces.com/profile/${ user.value?.socialAccount.codeforces }`
-    atCoderLink.value = `https://atcoder.jp/users/${ user.value?.socialAccount.atCoder }`
-    githubLink.value = `https://github.com/${ user.value?.socialAccount.github }`
-    websiteLink.value = user.value?.socialAccount.website
+    user.value = res.data.data;
+    cfLink.value = `https://codeforces.com/profile/${ user.value?.socialAccount.codeforces }`;
+    atCoderLink.value = `https://atcoder.jp/users/${ user.value?.socialAccount.atCoder }`;
+    luoguLink.value = `https://www.luogu.com.cn/user/${ user.value?.socialAccount.luogu }`;
+    githubLink.value = `https://github.com/${ user.value?.socialAccount.github }`;
+    websiteLink.value = user.value?.socialAccount.website;
   })
   .catch(err => {
     // TODO: Go to 404 page
@@ -58,28 +61,35 @@ http.get<Models.User>(`/user/${ username }`)
         <div class="right">
           <div class="social">
             <div class="icon">
-              <a :href="cfLink" v-if="user.socialAccount.codeforces">
+              <a :href="cfLink" target="_blank" v-if="user.socialAccount.codeforces">
                 <NIcon :size="20">
                   <Codeforces />
                 </NIcon>
               </a>
             </div>
             <div class="icon">
-              <a :href="atCoderLink" v-if="user.socialAccount.atCoder">
+              <a :href="atCoderLink" target="_blank" v-if="user.socialAccount.atCoder">
                 <NIcon :size="20">
                   <AtCoder />
                 </NIcon>
               </a>
             </div>
             <div class="icon">
-              <a :href="githubLink" v-if="user.socialAccount.github">
+              <a :href="luoguLink" target="_blank" v-if="user.socialAccount.luogu">
+                <NIcon :size="20">
+                  <Luogu />
+                </NIcon>
+              </a>
+            </div>
+            <div class="icon">
+              <a :href="githubLink" target="_blank" v-if="user.socialAccount.github">
                 <NIcon :size="20">
                   <GitHub />
                 </NIcon>
               </a>
             </div>
             <div class="icon">
-              <a :href="websiteLink" v-if="user.socialAccount.website">
+              <a :href="websiteLink" target="_blank" v-if="user.socialAccount.website">
                 <NIcon :size="20">
                   <Website />
                 </NIcon>

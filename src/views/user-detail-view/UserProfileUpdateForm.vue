@@ -38,37 +38,42 @@ type UserUpdateProps = {
   github?: string,
   website?: string,
   atCoder?: string,
+  luogu?: string,
 }
 
 const formValue = ref<UserUpdateProps>({
   name: props.user.name,
   codeforces: props.user.socialAccount.codeforces,
   atCoder: props.user.socialAccount.atCoder,
+  luogu: props.user.socialAccount.luogu,
   github: props.user.socialAccount.github,
-  website: props.user.socialAccount.website,
+  website: props.user.socialAccount.website
 })
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault()
   formRef.value?.validate((errors) => {
     if (!errors) {
-      const params: UserUpdateProps = {}
+      const params: UserUpdateProps = {};
       if (formValue.value.name !== props.user.name) {
-        params.name = formValue.value.name
+        params.name = formValue.value.name;
       }
       if (formValue.value.codeforces !== props.user.socialAccount.codeforces) {
-        params.codeforces = formValue.value.codeforces
+        params.codeforces = formValue.value.codeforces;
       }
       if (formValue.value.atCoder !== props.user.socialAccount.atCoder) {
-        params.atCoder = formValue.value.atCoder
+        params.atCoder = formValue.value.atCoder;
+      }
+      if (formValue.value.luogu !== props.user.socialAccount.luogu) {
+        params.luogu = formValue.value.luogu;
       }
       if (formValue.value.github !== props.user.socialAccount.github) {
-        params.github = formValue.value.github
+        params.github = formValue.value.github;
       }
       if (formValue.value.website !== props.user.socialAccount.website) {
-        params.website = formValue.value.website
+        params.website = formValue.value.website;
       }
       http
-        .patch('/user', params)
+        .patch("/user", params)
         .then(() => {
           notification.success({
             title: '修改成功',
@@ -105,6 +110,9 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NFormItem>
     <NFormItem label="AtCoder" prop="atCoder">
       <NInput v-model:value="formValue.atCoder" placeholder="AtCoder 账号" />
+    </NFormItem>
+    <NFormItem label="洛谷" prop="luogu">
+      <NInput v-model:value="formValue.luogu" placeholder="洛谷 ID（为数字，从个人主页的地址栏获取，如 644058）" />
     </NFormItem>
     <NFormItem label="GitHub" prop="github">
       <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />

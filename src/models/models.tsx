@@ -15,6 +15,7 @@ export namespace Models {
       github?: string;
       website?: string;
       atCoder?: string;
+      luogu?: string;
     }
   }
 

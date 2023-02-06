@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AtCoder: typeof import('./src/components/icons/AtCoder.vue')['default']
     Codeforces: typeof import('./src/components/icons/Codeforces.vue')['default']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
+    Luogu: typeof import('./src/components/icons/Luogu.vue')['default']
     NSpace: typeof import('naive-ui')['NSpace']
     NTransfer: typeof import('naive-ui')['NTransfer']
     RouterLink: typeof import('vue-router')['RouterLink']
