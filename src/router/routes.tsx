@@ -50,6 +50,14 @@ export const routes: RouteRecordRaw[] = [
               title: '用户管理',
             },
           },
+          {
+            path: 'group',
+            name: 'admin-group',
+            component: () => import('../views/admin/AdminGroupListView.vue'),
+            meta: {
+              title: '群组管理',
+            },
+          },
         ],
       },
       {

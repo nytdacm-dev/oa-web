@@ -16,6 +16,7 @@ import {
 import dayjs from "dayjs";
 import { useUserStore } from "@/stores/userStore";
 import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateForm.vue";
+import type { ListWrapper } from "@/models/models";
 
 const userStore = useUserStore();
 const notification = useNotification();
@@ -143,10 +144,6 @@ const activeUser = (userId: number) => {
       })
     })
   handleFormSubmit()
-}
-type ListWrapper<T> = {
-  total?: number,
-  data?: T[],
 }
 const requestData = () => {
   http

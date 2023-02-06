@@ -5,41 +5,50 @@ import type { Component } from "vue";
 import { NIcon, NMenu } from "naive-ui";
 import { h } from "vue";
 import {
-  HouseUser as HouseUserIcon,
-  User as UserIcon,
-} from '@vicons/fa'
+  User as UserIcon
+} from "@vicons/fa";
+import {
+  GroupFilled as GroupIcon
+} from "@vicons/material";
 
 const props = defineProps<{
   collapsed: boolean
-}>()
+}>();
 
 function renderIcon(icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) })
+  return () => h(NIcon, null, { default: () => h(icon) });
 }
 
 const menuOptions: MenuOption[] = [
   {
-    label: '用户',
-    key: 'user',
-    icon: renderIcon(HouseUserIcon),
-    children: [
-      {
-        label: () =>
-          h(
-            RouterLink,
-            {
-              to: {
-                name: 'admin-user',
-              }
-            },
-            { default: () => '用户管理' }
-          ),
-        key: 'go-back-home',
-        icon: renderIcon(UserIcon)
-      }
-    ],
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "admin-user"
+          }
+        },
+        { default: () => "用户管理" }
+      ),
+    key: "admin-user",
+    icon: renderIcon(UserIcon)
   },
-]
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "admin-group"
+          }
+        },
+        { default: () => "群组管理" }
+      ),
+    key: "admin-group",
+    icon: renderIcon(GroupIcon)
+  }
+];
 </script>
 
 <template>

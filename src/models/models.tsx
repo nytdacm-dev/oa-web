@@ -18,3 +18,8 @@ export namespace Models {
     }
   }
 }
+
+export type ListWrapper<T> = {
+  total?: number,
+  data?: T[],
+}
