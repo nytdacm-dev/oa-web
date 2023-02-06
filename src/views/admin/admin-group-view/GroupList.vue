@@ -10,7 +10,8 @@ import {
   useNotification,
   type DataTableColumns,
   NPopconfirm,
-  NModal
+  NModal,
+  NSpace
 } from "naive-ui";
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
@@ -74,7 +75,7 @@ const columns: DataTableColumns<Models.Group> = [
     key: "actions",
     render(row) {
       return (
-        <div>
+        <NSpace>
           <NButton size="small" onClick={ () => {
             updateGroupModalVisible.value = true;
             updateGroupId.value = row.groupId ?? 0;
@@ -90,7 +91,7 @@ const columns: DataTableColumns<Models.Group> = [
               trigger: () => <NButton size="small" type="error">删除</NButton>
             } }
           </NPopconfirm>
-        </div>
+        </NSpace>
       );
     }
   }

@@ -11,7 +11,8 @@ import {
   useNotification,
   type DataTableColumns,
   NPopconfirm,
-  NModal
+  NModal,
+  NSpace
 } from "naive-ui";
 import dayjs from "dayjs";
 import { useUserStore } from "@/stores/userStore";
@@ -102,7 +103,7 @@ const columns: DataTableColumns<AdminUser> = [
     key: 'actions',
     render(row) {
       return (
-        <div>
+        <NSpace>
           { !row.active ?
             <NButton
               size="small"
@@ -131,7 +132,7 @@ const columns: DataTableColumns<AdminUser> = [
               } }
             </NPopconfirm>
           }
-        </div>
+        </NSpace>
       );
     }
   },
