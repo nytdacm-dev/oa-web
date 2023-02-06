@@ -79,6 +79,9 @@ const columns: DataTableColumns<GroupDto> = [
           } }>
             修改
           </NButton>
+          <NButton size="small">
+            成员
+          </NButton>
           <NPopconfirm onPositiveClick={ () => deleteUser(row.groupId ?? 0) }>
             { {
               default: () => "确定删除吗？",
