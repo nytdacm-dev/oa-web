@@ -16,9 +16,11 @@ import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
 import AdminGroupUpdateForm from "@/views/admin/admin-group-view/AdminGroupUpdateForm.vue";
+import AdminGroupNewForm from "@/views/admin/admin-group-view/AdminGroupNewForm.vue";
 
 const notification = useNotification();
-const modalVisible = ref(false);
+const updateGroupModalVisible = ref(false);
+const newGroupModalVisible = ref(false);
 const updateGroupId = ref(0);
 type FormValue = {
   name?: string,
@@ -74,7 +76,7 @@ const columns: DataTableColumns<Models.Group> = [
       return (
         <div>
           <NButton size="small" onClick={ () => {
-            modalVisible.value = true;
+            updateGroupModalVisible.value = true;
             updateGroupId.value = row.groupId ?? 0;
           } }>
             修改
@@ -158,6 +160,20 @@ const handleFormSubmit = () => {
         </NFormItem>
       </NForm>
     </div>
+    <div class="operation">
+      <div class="right">
+        <NButton round size="small" type="primary" @click="() => newGroupModalVisible = true">
+          新建
+        </NButton>
+        <NModal :show="newGroupModalVisible" title="创建群组"
+                class="custom-card"
+                preset="card"
+                style="width: 80%"
+                @close="() => newGroupModalVisible = false">
+          <AdminGroupNewForm />
+        </NModal>
+      </div>
+    </div>
     <NDataTable
       remote
       ref="table"
@@ -168,12 +184,20 @@ const handleFormSubmit = () => {
       :pagination="pagination"
       @update:page="handlePageChange"
     />
-    <NModal :show="modalVisible" title="修改群组信息"
+    <NModal :show="updateGroupModalVisible" title="修改群组信息"
             class="custom-card"
             preset="card"
             style="width: 80%"
-            @close="() => modalVisible = false">
+            @close="() => updateGroupModalVisible = false">
       <AdminGroupUpdateForm :groupId="updateGroupId" />
     </NModal>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.operation {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
