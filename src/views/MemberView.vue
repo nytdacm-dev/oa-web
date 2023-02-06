@@ -11,6 +11,7 @@ onMounted(() => {
     .then(res => {
       groups.value = res.data.data;
       groups.value.sort((a, b) => b.groupId - a.groupId);
+      groups.value.forEach(group => group.users.sort((a, b) => a.userId - b.userId));
     });
 });
 </script>
