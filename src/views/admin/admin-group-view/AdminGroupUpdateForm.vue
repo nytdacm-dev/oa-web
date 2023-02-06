@@ -4,7 +4,7 @@ import type { AxiosError } from "axios";
 import { onMounted, reactive, ref } from "vue";
 import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification, NRadio } from "naive-ui";
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
-import { Models } from "@/models/models";
+import type { Models } from "@/models/models";
 
 const props = defineProps<{
   groupId: number,

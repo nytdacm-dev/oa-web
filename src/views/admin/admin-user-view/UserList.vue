@@ -17,11 +17,14 @@ import dayjs from "dayjs";
 import { useUserStore } from "@/stores/userStore";
 import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateForm.vue";
 import type { ListWrapper } from "@/models/models";
+import UserGroupUpdateModal from "@/views/admin/admin-user-view/UserGroupUpdateModal.vue";
 
 const userStore = useUserStore();
 const notification = useNotification();
 const modalVisible = ref(false);
 const updateUserId = ref(0);
+const groupModalVisible = ref(false);
+const groupUserId = ref(0);
 type FormValue = {
   username?: string,
   name?: string,
@@ -109,7 +112,10 @@ const columns: DataTableColumns<AdminUser> = [
           } }>
             修改
           </NButton>
-          <NButton size="small">
+          <NButton size="small" onClick={ () => {
+            groupModalVisible.value = true;
+            groupUserId.value = row.userId ?? 0;
+          } }>
             群组
           </NButton>
           { row.superAdmin === true || row.userId === userStore.userId ? null :
@@ -218,6 +224,13 @@ const handleFormSubmit = () => {
             style="width: 80%"
             @close="() => modalVisible = false">
       <AdminUserUpdateForm :userId="updateUserId" />
+    </NModal>
+    <NModal :show="groupModalVisible" title="成员列表"
+            class="custom-card"
+            preset="card"
+            style="width: 80%"
+            @close="() => groupModalVisible = false">
+      <UserGroupUpdateModal :userId="groupUserId" />
     </NModal>
   </div>
 </template>
