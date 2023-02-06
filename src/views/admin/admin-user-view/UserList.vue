@@ -58,11 +58,16 @@ const columns: DataTableColumns<AdminUser> = [
   },
   {
     title: "用户名",
-    key: "username"
+    key: "username",
+    render(row) {
+      return (
+        <a href={ `/user/${ row.username }` } target="_blank">{ row.username }</a>
+      );
+    }
   },
   {
     title: '姓名',
-    key: 'name',
+    key: "name"
   },
   {
     title: '已激活',
