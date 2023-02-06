@@ -12,7 +12,7 @@ import Auth from './components/Auth.vue';
     </div>
     <div class="menu">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/member">队员</router-link>
     </div>
     <div class="auth">
       <Auth />

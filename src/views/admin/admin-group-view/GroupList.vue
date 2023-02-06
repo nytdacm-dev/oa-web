@@ -14,13 +14,8 @@ import {
 } from "naive-ui";
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
+import type { Models } from "@/models/models";
 
-type GroupDto = {
-  groupId: number,
-  name: string,
-  showInHomepage: boolean,
-  createdAt: number,
-}
 const notification = useNotification();
 const modalVisible = ref(false);
 const updateGroupId = ref(0);
@@ -43,8 +38,8 @@ const pagination = reactive({
   }
 });
 const loading = ref<boolean>(true);
-const data = ref<GroupDto[]>([]);
-const columns: DataTableColumns<GroupDto> = [
+const data = ref<Models.Group[]>([]);
+const columns: DataTableColumns<Models.Group> = [
   {
     title: "ID",
     key: "groupId"
@@ -109,7 +104,7 @@ onMounted(() => {
 
 const requestData = () => {
   http
-    .get<ListWrapper<GroupDto>>("/admin/group", {
+    .get<ListWrapper<Models.Group>>("/admin/group", {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
       size: pagination.pageSize

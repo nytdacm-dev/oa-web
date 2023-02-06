@@ -7,26 +7,34 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('../layouts/DefaultLayout'),
     children: [
       {
-        path: '/',
-        name: 'home',
-        component: () => import('../views/HomeView.vue'),
+        path: "/",
+        name: "home",
+        component: () => import("../views/HomeView.vue"),
         meta: {
-          title: '首页',
-        },
+          title: "首页"
+        }
       },
       {
-        path: '/user',
-        name: 'user',
+        path: "/member",
+        name: "member",
+        component: () => import("../views/MemberView.vue"),
+        meta: {
+          title: "队员列表"
+        }
+      },
+      {
+        path: "/user",
+        name: "user",
         children: [
           {
-            path: ':username',
-            name: 'user-detail',
-            component: () => import('../views/UserDetailView.vue'),
+            path: ":username",
+            name: "user-detail",
+            component: () => import("../views/UserDetailView.vue"),
             meta: {
-              title: '个人中心',
-            },
+              title: "个人中心"
+            }
           }
-        ],
+        ]
       },
       {
         path: '/admin',
@@ -66,14 +74,6 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('../views/LoginView.vue'),
         meta: {
           title: '用户登录',
-        },
-      },
-      {
-        path: '/about',
-        name: 'about',
-        component: () => import('../views/AboutView.vue'),
-        meta: {
-          title: '关于',
         },
       },
     ],

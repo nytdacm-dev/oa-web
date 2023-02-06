@@ -17,6 +17,14 @@ export namespace Models {
       atCoder?: string;
     }
   }
+
+  export type Group = {
+    groupId: number,
+    name: string,
+    showInHomepage: boolean,
+    users: User[],
+    createdAt: number,
+  }
 }
 
 export type ListWrapper<T> = {
