@@ -11,7 +11,7 @@ const props = defineProps<{
 <template>
   <div class="wrapper">
     <NDivider>
-      <span class="title">{{ props.group.name }}</span>
+      <span class="title">{{ group.displayName ? group.displayName : group.name }}</span>
     </NDivider>
     <UserList :users="props.group.users" />
   </div>

@@ -21,7 +21,8 @@ export namespace Models {
   export type Group = {
     groupId: number,
     name: string,
-    showInHomepage: boolean,
+    displayName?: string,
+    showInHomepage?: boolean,
     users: User[],
     createdAt: number,
   }

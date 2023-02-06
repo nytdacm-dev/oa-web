@@ -49,6 +49,10 @@ const columns: DataTableColumns<Models.Group> = [
     key: "name"
   },
   {
+    title: "显示名称",
+    key: "displayName"
+  },
+  {
     title: "首页显示",
     key: "showInHomepage",
     render(row) {
