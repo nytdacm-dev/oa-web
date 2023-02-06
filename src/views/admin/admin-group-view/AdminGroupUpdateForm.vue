@@ -52,9 +52,6 @@ const handleFormSubmit = (e: MouseEvent) => {
   formRef.value?.validate((errors) => {
     if (!errors) {
       const params: GroupUpdateProps = {};
-      console.log(formValue.value.name, group.value?.name);
-      console.log(formValue.value.displayName, group.value?.displayName);
-      console.log(formValue.value.showInHomepage, group.value?.showInHomepage);
       if (formValue.value.name !== group.value?.name) {
         params.name = formValue.value.name;
       }
