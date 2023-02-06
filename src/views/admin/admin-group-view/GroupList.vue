@@ -18,16 +18,19 @@ import type { ListWrapper } from "@/models/models";
 type GroupDto = {
   groupId: number,
   name: string,
-  createdAt: number
+  showInHomepage: boolean,
+  createdAt: number,
 }
 const notification = useNotification();
 const modalVisible = ref(false);
 const updateGroupId = ref(0);
 type FormValue = {
   name?: string,
+  showInHomepage?: boolean,
 }
 const formValue = ref<FormValue>({
-  name: undefined
+  name: undefined,
+  showInHomepage: undefined
 });
 const pagination = reactive({
   page: 1,
@@ -49,6 +52,13 @@ const columns: DataTableColumns<GroupDto> = [
   {
     title: "名称",
     key: "name"
+  },
+  {
+    title: "首页显示",
+    key: "showInHomepage",
+    render(row) {
+      return row.showInHomepage === true ? "是" : "否";
+    }
   },
   {
     title: "创建时间",
