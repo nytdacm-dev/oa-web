@@ -15,6 +15,7 @@ import {
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
+import AdminGroupUpdateForm from "@/views/admin/admin-group-view/AdminGroupUpdateForm.vue";
 
 const notification = useNotification();
 const modalVisible = ref(false);
@@ -172,7 +173,7 @@ const handleFormSubmit = () => {
             preset="card"
             style="width: 80%"
             @close="() => modalVisible = false">
-      <!--<AdminUserUpdateForm :userId="updateGroupId" />-->
+      <AdminGroupUpdateForm :groupId="updateGroupId" />
     </NModal>
   </div>
 </template>
