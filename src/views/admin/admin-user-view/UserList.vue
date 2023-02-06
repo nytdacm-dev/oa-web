@@ -109,6 +109,9 @@ const columns: DataTableColumns<AdminUser> = [
           } }>
             修改
           </NButton>
+          <NButton size="small">
+            群组
+          </NButton>
           { row.superAdmin === true || row.userId === userStore.userId ? null :
             <NPopconfirm onPositiveClick={ () => deleteUser(row.userId ?? 0) }>
               { {
