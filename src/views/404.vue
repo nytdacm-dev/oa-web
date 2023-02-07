@@ -19,8 +19,8 @@ const home = () => {
     <NResult status="404" title="404 资源不存在" description="生活总归带点荒谬">
       <template #footer>
         <NSpace>
-          <NButton @click="play">找点乐子吧</NButton>
-          <NButton @click="study">干点正事吧</NButton>
+          <NButton @click="study">找点乐子吧</NButton>
+          <NButton @click="play">干点正事吧</NButton>
           <NButton @click="home">回到首页吧</NButton>
         </NSpace>
       </template>
