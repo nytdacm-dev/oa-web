@@ -17,7 +17,7 @@ const rules = reactive<FormRules>({
       { required: true, message: "请输入姓名", trigger: "blur" },
       { max: 6, message: "姓名长度最多 6 位", trigger: "blur" }
     ],
-    password: [
+    newPassword: [
       { min: 6, message: "密码长度至少为 6 位", trigger: "blur" }
     ]
   } as { [k in keyof UserUpdateProps]: FormRules[k] }
@@ -26,6 +26,7 @@ const rules = reactive<FormRules>({
 type UserUpdateProps = {
   name?: string,
   password?: string,
+  newPassword?: string,
   active?: boolean,
   admin?: boolean,
   superAdmin?: boolean,
@@ -51,7 +52,7 @@ onMounted(() => {
 
 const formValue = ref<UserUpdateProps>({
   name: "",
-  password: undefined,
+  newPassword: undefined,
   active: false,
   admin: false,
   superAdmin: false
@@ -64,8 +65,8 @@ const handleFormSubmit = (e: MouseEvent) => {
       if (formValue.value.name !== user.value?.name) {
         params.name = formValue.value.name;
       }
-      if (formValue.value.password) {
-        params.password = formValue.value.password;
+      if (formValue.value.newPassword) {
+        params.password = formValue.value.newPassword;
       }
       if (formValue.value.active !== user.value?.active) {
         params.active = formValue.value.active;
@@ -109,8 +110,8 @@ const handleFormSubmit = (e: MouseEvent) => {
     <NFormItem label="姓名" path="name">
       <NInput v-model:value="formValue.name" placeholder="姓名" />
     </NFormItem>
-    <NFormItem label="密码" path="password">
-      <NInput v-model:value="formValue.password" placeholder="修改密码" type="password" />
+    <NFormItem label="修改密码" path="newPassword">
+      <NInput v-model:value="formValue.newPassword" placeholder="修改密码" type="password" />
     </NFormItem>
     <NFormItem label="已激活" path="active">
       <NRadio :checked="formValue.active" @change="() => formValue.active = true">是</NRadio>
