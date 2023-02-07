@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type AxiosError, type AxiosRequestHeaders } from "axios";
 import { getToken } from "./token";
+import router from "@/router";
 
 export type HttpResponse<T = unknown> = {
   code: number;
@@ -64,10 +65,12 @@ http.instance.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     return response;
   },
-  (error) => {
+  async (error) => {
     if (error.response) {
       const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 429) {
+      if (axiosError.response?.status === 404) {
+        await router.push({ name: "not-found" });
+      } else if (axiosError.response?.status === 429) {
         // TODO: 请求过于频繁
       }
     }
