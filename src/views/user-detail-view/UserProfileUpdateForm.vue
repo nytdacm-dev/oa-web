@@ -39,6 +39,7 @@ type UserUpdateProps = {
   website?: string,
   atCoder?: string,
   luogu?: string,
+  nowcoder?: string,
 }
 
 const formValue = ref<UserUpdateProps>({
@@ -46,6 +47,7 @@ const formValue = ref<UserUpdateProps>({
   codeforces: props.user.socialAccount.codeforces,
   atCoder: props.user.socialAccount.atCoder,
   luogu: props.user.socialAccount.luogu,
+  nowcoder: props.user.socialAccount.nowcoder,
   github: props.user.socialAccount.github,
   website: props.user.socialAccount.website
 })
@@ -65,6 +67,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
       if (formValue.value.luogu !== props.user.socialAccount.luogu) {
         params.luogu = formValue.value.luogu;
+      }
+      if (formValue.value.nowcoder !== props.user.socialAccount.nowcoder) {
+        params.nowcoder = formValue.value.nowcoder;
       }
       if (formValue.value.github !== props.user.socialAccount.github) {
         params.github = formValue.value.github;
@@ -113,6 +118,9 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NFormItem>
     <NFormItem label="洛谷" prop="luogu">
       <NInput v-model:value="formValue.luogu" placeholder="洛谷 ID（为数字，从个人主页的地址栏获取，如 644058）" />
+    </NFormItem>
+    <NFormItem label="牛客" prop="nowcoder">
+      <NInput v-model:value="formValue.nowcoder" placeholder="牛客 ID（为数字，从个人主页的地址栏获取，如 444598457）" />
     </NFormItem>
     <NFormItem label="GitHub" prop="github">
       <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />

@@ -16,6 +16,7 @@ export namespace Models {
       website?: string;
       atCoder?: string;
       luogu?: string;
+      nowcoder?: string;
     }
   }
 
