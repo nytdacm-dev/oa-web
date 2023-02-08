@@ -4,7 +4,7 @@ import { http } from "@/shared/Http";
 import {
   NForm,
   NFormItem,
-  NInput,
+  NSelect,
   NButton,
   NDataTable,
   type DataTableColumns,
@@ -12,12 +12,15 @@ import {
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
+import { SelectMixedOption } from "naive-ui/es/select/src/interface";
 
 type FormValue = {
   oj?: string,
+  group?: number,
 }
 const formValue = ref<FormValue>({
   oj: undefined,
+  group: undefined,
 });
 const pagination = reactive({
   page: 1,
@@ -77,7 +80,37 @@ const columns: DataTableColumns<Models.Submission> = [
 ];
 onMounted(() => {
   handleFormSubmit();
+  http
+    .get<ListWrapper<Models.Group>>("/admin/group")
+    .then(res => {
+      const resData = res.data.data;
+      groupOptions.value = [
+        {
+          label: "全部",
+          value: undefined,
+        }
+      ]
+      groupOptions.value.push(...resData.data?.map(item => ({
+        label: item.name + `${ item.displayName ? `（${ item.displayName }）` : "" }`,
+        value: item.groupId,
+      })) ?? []);
+    });
 });
+const groupOptions = ref<SelectMixedOption[]>([])
+const ojOptions = ref<SelectMixedOption[]>([
+  {
+    label: "全部",
+    value: undefined,
+  },
+  {
+    label: "Codeforces",
+    value: "codeforces",
+  },
+  {
+    label: "牛客",
+    value: "nowcoder",
+  },
+])
 
 const requestData = () => {
   http
@@ -129,7 +162,20 @@ const handleFormSubmit = () => {
         inline
       >
         <NFormItem label="OJ" path="oj">
-          <NInput v-model:value="formValue.oj" placeholder="OJ平台" />
+          <NSelect
+            v-model:value="formValue.oj"
+            placeholder="OJ 平台"
+            :options="ojOptions"
+            style="width: 120px"
+          />
+        </NFormItem>
+        <NFormItem label="群组" path="group">
+          <NSelect
+            v-model:value="formValue.group"
+            placeholder="群组"
+            :options="groupOptions"
+            style="width: 200px"
+          />
         </NFormItem>
         <NFormItem>
           <NButton round type="primary" @click="handleFormSubmit">
