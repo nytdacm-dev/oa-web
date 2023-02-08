@@ -96,6 +96,9 @@ const columns: DataTableColumns<Models.Group> = [
     }
   }
 ];
+const rowKey = (rowData: Models.Group) => {
+  return rowData.groupId;
+}
 const deleteUser = (userId: number) => {
   http.delete<void>(`/admin/group/${ userId }`)
     .then(res => {
@@ -186,6 +189,7 @@ const handleFormSubmit = () => {
     <NDataTable
       remote
       ref="table"
+      :row-key="rowKey"
       :loading="loading"
       :bordered="false"
       :columns="columns"

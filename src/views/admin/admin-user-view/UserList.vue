@@ -138,6 +138,9 @@ const columns: DataTableColumns<AdminUser> = [
     }
   },
 ]
+const rowKey = (rowData: AdminUser) => {
+  return rowData.userId ?? 0;
+}
 const deleteUser = (userId: number) => {
   http.delete<void>(`/admin/user/${ userId }`)
     .then(res => {
@@ -226,6 +229,7 @@ const handleFormSubmit = () => {
     <NDataTable
       remote
       ref="table"
+      :row-key="rowKey"
       :loading="loading"
       :bordered="false"
       :columns="columns"

@@ -96,6 +96,9 @@ const columns: DataTableColumns<Models.Submission> = [
     },
   },
 ];
+const rowKey = (rowData: Models.Submission) => {
+  return rowData.submissionId;
+}
 onMounted(() => {
   handleFormSubmit();
   http
@@ -205,6 +208,7 @@ const handleFormSubmit = () => {
     <NDataTable
       remote
       ref="table"
+      :row-key="rowKey"
       :loading="loading"
       :bordered="false"
       :columns="columns"
