@@ -42,7 +42,7 @@ const columns: DataTableColumns<Models.Submission> = [
     render(row) {
       return (
         <Link href={ `/user/${ row.user?.username }` } newWindow={ true }>
-          { `${ row.user?.username } （${ row.user?.name }）` }
+          { row.user?.name }
         </Link>
       )
     },
