@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
 import { SelectMixedOption } from "naive-ui/es/select/src/interface";
+import Link from "@/components/Link.vue"
 
 type FormValue = {
   oj?: string,
@@ -40,9 +41,9 @@ const columns: DataTableColumns<Models.Submission> = [
     key: "user",
     render(row) {
       return (
-        <a href={ `/#/user/${ row.user?.username }` } target="_blank">
+        <Link href={ `/user/${ row.user?.username }` } newWindow={ true }>
           { `${ row.user?.username } （${ row.user?.name }）` }
-        </a>
+        </Link>
       )
     },
   },

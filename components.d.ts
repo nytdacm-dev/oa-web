@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AtCoder: typeof import('./src/components/icons/AtCoder.vue')['default']
     Codeforces: typeof import('./src/components/icons/Codeforces.vue')['default']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
+    Link: typeof import('./src/components/Link.vue')['default']
     Luogu: typeof import('./src/components/icons/Luogu.vue')['default']
     Nowcoder: typeof import('./src/components/icons/Nowcoder.vue')['default']
     NSelect: typeof import('naive-ui')['NSelect']

@@ -19,6 +19,7 @@ import { useUserStore } from "@/stores/userStore";
 import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateForm.vue";
 import type { ListWrapper } from "@/models/models";
 import UserGroupUpdateModal from "@/views/admin/admin-user-view/UserGroupUpdateModal.vue";
+import Link from "@/components/Link.vue"
 
 const userStore = useUserStore();
 const notification = useNotification();
@@ -62,7 +63,7 @@ const columns: DataTableColumns<AdminUser> = [
     key: "username",
     render(row) {
       return (
-        <a href={ `/#/user/${ row.username }` } target="_blank">{ row.username }</a>
+        <Link href={ `/user/${ row.username }` } newWindow={ true }>{ row.username }</Link>
       );
     }
   },

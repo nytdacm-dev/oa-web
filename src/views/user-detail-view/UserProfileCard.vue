@@ -13,7 +13,7 @@ import AtCoder from "@/components/icons/AtCoder.vue";
 import Luogu from "@/components/icons/Luogu.vue";
 import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui";
 import Nowcoder from "@/components/icons/Nowcoder.vue";
-
+import Link from "@/components/Link.vue"
 
 const userStore = useUserStore();
 const route = useRoute();
@@ -64,46 +64,46 @@ http.get<Models.User>(`/user/${ username }`)
         <div class="right">
           <div class="social">
             <div class="icon">
-              <a :href="cfLink" target="_blank" v-if="user.socialAccount.codeforces">
+              <Link :href="cfLink" :new-window="true" v-if="user.socialAccount.codeforces">
                 <NIcon :size="20">
                   <Codeforces />
                 </NIcon>
-              </a>
+              </Link>
             </div>
             <div class="icon">
-              <a :href="atCoderLink" target="_blank" v-if="user.socialAccount.atCoder">
+              <Link :href="atCoderLink" target="_blank" v-if="user.socialAccount.atCoder">
                 <NIcon :size="20">
                   <AtCoder />
                 </NIcon>
-              </a>
+              </Link>
             </div>
             <div class="icon">
-              <a :href="luoguLink" target="_blank" v-if="user.socialAccount.luogu">
+              <Link :href="luoguLink" target="_blank" v-if="user.socialAccount.luogu">
                 <NIcon :size="20">
                   <Luogu />
                 </NIcon>
-              </a>
+              </Link>
             </div>
             <div class="icon">
-              <a :href="nowcoderLink" target="_blank" v-if="user.socialAccount.nowcoder">
+              <Link :href="nowcoderLink" target="_blank" v-if="user.socialAccount.nowcoder">
                 <NIcon :size="20">
                   <Nowcoder />
                 </NIcon>
-              </a>
+              </Link>
             </div>
             <div class="icon">
-              <a :href="githubLink" target="_blank" v-if="user.socialAccount.github">
+              <Link :href="githubLink" target="_blank" v-if="user.socialAccount.github">
                 <NIcon :size="20">
                   <GitHub />
                 </NIcon>
-              </a>
+              </Link>
             </div>
             <div class="icon">
-              <a :href="websiteLink" target="_blank" v-if="user.socialAccount.website">
+              <Link :href="websiteLink" target="_blank" v-if="user.socialAccount.website">
                 <NIcon :size="20">
                   <Website />
                 </NIcon>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ http.get<Models.User>(`/user/${ username }`)
   background-color: #fff;
   padding: 2.5rem;
 
-  >.avatar {
+  > .avatar {
     margin-right: 2rem;
   }
 
