@@ -92,6 +92,14 @@ const requestData = () => {
       pagination.itemCount = resData.total ?? 0;
     });
 };
+const handlePageSizeChange = (pageSize: number) => {
+  if (!loading.value) {
+    pagination.pageSize = pageSize;
+    loading.value = true;
+    requestData();
+    loading.value = false;
+  }
+};
 const handlePageChange = (currentPage: number) => {
   if (!loading.value) {
     pagination.page = currentPage;
@@ -139,6 +147,7 @@ const handleFormSubmit = () => {
       :data="data"
       :pagination="pagination"
       @update:page="handlePageChange"
+      @update:page-size="handlePageSizeChange"
     />
   </div>
 </template>
