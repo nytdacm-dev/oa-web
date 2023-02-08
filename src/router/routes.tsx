@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import { useUserStore } from "@/stores/userStore";
+import { getToken } from "@/shared/token";
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -42,6 +43,9 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('../layouts/AdminLayout.vue'),
         beforeEnter: () => {
           const userStore = useUserStore()
+          if (!getToken()) {
+            return '/login'
+          }
           if (!userStore.admin && !userStore.superAdmin) {
             return '/403'
           }

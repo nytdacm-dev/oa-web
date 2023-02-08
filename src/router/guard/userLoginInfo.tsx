@@ -27,7 +27,7 @@ export const setupUserInfoGuard = (router: Router) => {
         next()
       }
     } else {
-      next({ name: 'login' })
+      next()
     }
   });
 };
