@@ -13,8 +13,6 @@ declare module '@vue/runtime-core' {
     Link: typeof import('./src/components/Link.vue')['default']
     Luogu: typeof import('./src/components/icons/Luogu.vue')['default']
     Nowcoder: typeof import('./src/components/icons/Nowcoder.vue')['default']
-    NSelect: typeof import('naive-ui')['NSelect']
-    NSpace: typeof import('naive-ui')['NSpace']
     NTransfer: typeof import('naive-ui')['NTransfer']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

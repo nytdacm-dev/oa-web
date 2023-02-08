@@ -12,7 +12,7 @@ import {
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
-import { SelectMixedOption } from "naive-ui/es/select/src/interface";
+import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
 import Link from "@/components/Link.vue"
 
 type FormValue = {
