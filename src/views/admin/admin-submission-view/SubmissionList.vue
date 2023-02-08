@@ -50,18 +50,68 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: "题目名称",
     key: "name",
+    render(row) {
+      switch (row.oj) {
+        case "codeforces":
+          return <Link
+            href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
+            newWindow={ true }>{ row.name }</Link>;
+        case "nowcoder":
+          return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
+                       newWindow={ true }>{ row.name }</Link>;
+        default:
+          return <span>{ row.name }</span>
+      }
+    }
   },
   {
     title: "题目编号",
     key: "remoteProblemId",
+    render(row) {
+      switch (row.oj) {
+        case "codeforces":
+          return <Link
+            href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
+            newWindow={ true }>{ row.remoteProblemId }</Link>;
+        case "nowcoder":
+          return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
+                       newWindow={ true }>{ row.remoteProblemId }</Link>;
+        default:
+          return <span>{ row.remoteProblemId }</span>
+      }
+    }
   },
   {
     title: "OJ",
     key: "oj",
+    render(row) {
+      switch (row.oj) {
+        case "codeforces":
+          return <Link href="https://codeforces.com" newWindow={ true }>Codeforces</Link>;
+        case "nowcoder":
+          return <Link href="https://ac.nowcoder.com" newWindow={ true }>牛客</Link>;
+        default:
+          return <span>{ row.oj }</span>
+      }
+    }
   },
   {
     title: "提交 ID",
     key: "remoteSubmissionId",
+    render(row) {
+      switch (row.oj) {
+        case "codeforces":
+          return <Link
+            href={ `https://codeforces.com/contest/${ row.contestId }/submission/${ row.remoteSubmissionId }` }
+            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+        case "nowcoder":
+          return <Link
+            href={ `https://ac.nowcoder.com/acm/contest/view-submission?submissionId=${ row.remoteSubmissionId }` }
+            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+        default:
+          return <span>{ row.remoteSubmissionId }</span>
+      }
+    },
   },
   {
     title: "状态",

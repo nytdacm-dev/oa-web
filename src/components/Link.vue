@@ -16,7 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a :href="href" :target="newWindow ? '_blank' : '_self'" class="link">
+  <a :href="href" :target="newWindow ? '_blank' : '_self'" rel="noopener noreferrer" class="link">
     <slot />
   </a>
 </template>

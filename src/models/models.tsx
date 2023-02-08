@@ -36,6 +36,7 @@ export namespace Models {
     remoteProblemId: string,
     name: string,
     remoteSubmissionId: string,
+    contestId: string,
     language: string,
     status: string,
     submitTime: number,
