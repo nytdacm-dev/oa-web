@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NResult, NSpace, NButton } from 'naive-ui'
+import { NSpace, NButton } from 'naive-ui'
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -15,17 +15,11 @@ const home = () => {
 </script>
 
 <template>
-  <div class="main">
-    <NResult status="404" title="404 资源不存在" description="生活总归带点荒谬">
-      <template #footer>
-        <NSpace>
-          <NButton @click="study">找点乐子吧</NButton>
-          <NButton @click="play">干点正事吧</NButton>
-          <NButton @click="home">回到首页吧</NButton>
-        </NSpace>
-      </template>
-    </NResult>
-  </div>
+  <NSpace>
+    <NButton @click="study">找点乐子吧</NButton>
+    <NButton @click="play">干点正事吧</NButton>
+    <NButton @click="home">回到首页吧</NButton>
+  </NSpace>
 </template>
 
 <style lang="scss" scoped>

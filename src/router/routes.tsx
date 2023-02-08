@@ -42,7 +42,9 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('../layouts/AdminLayout.vue'),
         beforeEnter: () => {
           const userStore = useUserStore()
-          return userStore.admin || userStore.superAdmin
+          if (!userStore.admin && !userStore.superAdmin) {
+            return '/403'
+          }
         },
         children: [
           {
@@ -87,8 +89,15 @@ export const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/403',
+    component: () => import('../views/error-page/403.vue'),
+    meta: {
+      title: '403',
+    }
+  },
+  {
     path: '/404',
-    component: () => import('../views/404.vue'),
+    component: () => import('../views/error-page/404.vue'),
     meta: {
       title: '404',
     }
