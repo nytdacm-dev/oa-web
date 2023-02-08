@@ -28,6 +28,18 @@ export namespace Models {
     users: User[],
     createdAt: number,
   }
+
+  export type Submission = {
+    submissionId: number,
+    user: User,
+    oj: string,
+    remoteProblemId: string,
+    name: string,
+    remoteSubmissionId: string,
+    language: string,
+    status: string,
+    submitTime: number,
+  }
 }
 
 export type ListWrapper<T> = {

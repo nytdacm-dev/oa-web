@@ -66,6 +66,14 @@ export const routes: RouteRecordRaw[] = [
               title: '群组管理',
             },
           },
+          {
+            path: 'submission',
+            name: 'admin-submission',
+            component: () => import('../views/admin/AdminSubmissionListView.vue'),
+            meta: {
+              title: '提交记录',
+            },
+          },
         ],
       },
       {

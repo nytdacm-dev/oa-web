@@ -47,6 +47,20 @@ const menuOptions: MenuOption[] = [
       ),
     key: "admin-group",
     icon: renderIcon(GroupIcon)
+  },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: "admin-submission"
+          }
+        },
+        { default: () => "提交记录" }
+      ),
+    key: "admin-submission",
+    icon: renderIcon(GroupIcon)
   }
 ];
 </script>
