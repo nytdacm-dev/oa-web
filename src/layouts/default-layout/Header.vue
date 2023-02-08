@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import Auth from './components/Auth.vue';
+import Link from "@/components/Link.vue";
 </script>
 
 <template>
   <div class="header">
     <div class="logo">
-      <router-link to="/">
+      <Link href="/">
         <img alt="nytdacm logo" class="img" src="@/assets/nytdacm-logo.png" width="40" height="40" />
-      </router-link>
+      </Link>
       <span>南邮通达程序设计校队</span>
     </div>
     <div class="menu">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/member">队员</router-link>
+      <NSpace>
+        <Link href="/">
+          <NButton quaternary>主页</NButton>
+        </Link>
+        <Link href="/member">
+          <NButton quaternary>队员</NButton>
+        </Link>
+      </NSpace>
     </div>
     <div class="auth">
       <Auth />
