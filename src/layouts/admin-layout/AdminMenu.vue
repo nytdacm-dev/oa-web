@@ -5,7 +5,8 @@ import type { Component } from "vue";
 import { NIcon, NMenu } from "naive-ui";
 import { h } from "vue";
 import {
-  User as UserIcon
+  User as UserIcon,
+  Table as TableIcon,
 } from "@vicons/fa";
 import {
   GroupFilled as GroupIcon
@@ -60,7 +61,7 @@ const menuOptions: MenuOption[] = [
         { default: () => "提交记录" }
       ),
     key: "admin-submission",
-    icon: renderIcon(GroupIcon)
+    icon: renderIcon(TableIcon)
   }
 ];
 </script>
