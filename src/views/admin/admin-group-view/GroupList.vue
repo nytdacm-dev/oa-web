@@ -128,6 +128,7 @@ const requestData = () => {
 };
 const handlePageSizeChange = (pageSize: number) => {
   if (!loading.value) {
+    pagination.page = 1;
     pagination.pageSize = pageSize;
     loading.value = true;
     requestData();
