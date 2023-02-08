@@ -65,6 +65,23 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: "状态",
     key: "status",
+    render(row) {
+      const status = row.status;
+      switch (status) {
+        case "OK":
+          return <span style="color: #64c3a8">通过</span>;
+        case "WRONG_ANSWER":
+          return <span style="color: red">答案错误</span>;
+        case "COMPILATION_ERROR":
+          return <span style="color: red">编译错误</span>;
+        case "TIME_LIMIT_EXCEEDED":
+          return <span>运行超时</span>;
+        case "MEMORY_LIMIT_EXCEEDED":
+          return <span>内存超限</span>;
+        default:
+          return <span>运行时错误</span>;
+      }
+    },
   },
   {
     title: "编程语言",
