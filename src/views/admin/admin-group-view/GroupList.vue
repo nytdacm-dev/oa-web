@@ -38,7 +38,7 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [10, 20, 50, 100],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${ itemCount } 个`;
+    return `总共有 ${ itemCount } 条`;
   }
 });
 const loading = ref<boolean>(true);

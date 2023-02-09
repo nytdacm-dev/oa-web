@@ -25,12 +25,12 @@ const formValue = ref<FormValue>({
 });
 const pagination = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 20,
   itemCount: 0,
   showSizePicker: true,
-  pageSizes: [10, 20, 50, 100],
+  pageSizes: [20, 50, 100, 200],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${ itemCount } 个`;
+    return `总共有 ${ itemCount } 条`;
   }
 });
 const loading = ref<boolean>(true);
