@@ -63,6 +63,9 @@ const columns: DataTableColumns<Models.Submission> = [
         case "nowcoder":
           return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
                        newWindow={ true }>{ row.name }</Link>;
+        case "atcoder":
+          return <Link href={ `https://atcoder.jp/contests/${ row.contestId }/tasks/${ row.remoteProblemId }` }
+                       newWindow={ true }>请进入题目内部查看！</Link>;
         default:
           return <span>{ row.name }</span>
       }
@@ -84,6 +87,9 @@ const columns: DataTableColumns<Models.Submission> = [
         case "nowcoder":
           return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
                        newWindow={ true }>{ row.remoteProblemId }</Link>;
+        case "atcoder":
+          return <Link href={ `https://atcoder.jp/contests/${ row.contestId }/tasks/${ row.remoteProblemId }` }
+                       newWindow={ true }>{ row.remoteProblemId }</Link>;
         default:
           return <span>{ row.remoteProblemId }</span>
       }
@@ -100,6 +106,8 @@ const columns: DataTableColumns<Models.Submission> = [
           return <Link href="https://codeforces.com" newWindow={ true }>Codeforces Gym</Link>;
         case "nowcoder":
           return <Link href="https://ac.nowcoder.com" newWindow={ true }>牛客</Link>;
+        case "atcoder":
+          return <Link href="https://atcoder.jp" newWindow={ true }>AtCoder</Link>;
         default:
           return <span>{ row.oj }</span>
       }
@@ -121,6 +129,10 @@ const columns: DataTableColumns<Models.Submission> = [
         case "nowcoder":
           return <Link
             href={ `https://ac.nowcoder.com/acm/contest/view-submission?submissionId=${ row.remoteSubmissionId }` }
+            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+        case "atcoder":
+          return <Link
+            href={ `https://atcoder.jp/contests/${ row.contestId }/submissions/${ row.remoteSubmissionId }` }
             newWindow={ true }>{ row.remoteSubmissionId }</Link>;
         default:
           return <span>{ row.remoteSubmissionId }</span>
@@ -194,6 +206,10 @@ const ojOptions = ref<SelectMixedOption[]>([
   {
     label: "牛客",
     value: "nowcoder",
+  },
+  {
+    label: "AtCoder",
+    value: "atcoder",
   },
 ])
 
