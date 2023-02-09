@@ -1,5 +1,3 @@
 # OA 前端
 
-## TODO
-
-- [ ] 封装 a 标签组件，支持通过是否为外链来决定是否使用 `target="_blank"` 属性，同时不会变色
+<https://nytdacm.com>
