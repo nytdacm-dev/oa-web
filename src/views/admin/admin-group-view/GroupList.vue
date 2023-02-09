@@ -11,7 +11,7 @@ import {
   type DataTableColumns,
   NPopconfirm,
   NModal,
-  NSpace
+  NSpace,
 } from "naive-ui";
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
@@ -24,12 +24,12 @@ const updateGroupModalVisible = ref(false);
 const newGroupModalVisible = ref(false);
 const updateGroupId = ref(0);
 type FormValue = {
-  name?: string,
-  showInHomepage?: boolean,
-}
+  name?: string;
+  showInHomepage?: boolean;
+};
 const formValue = ref<FormValue>({
   name: undefined,
-  showInHomepage: undefined
+  showInHomepage: undefined,
 });
 const pagination = reactive({
   page: 1,
@@ -38,41 +38,41 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [10, 20, 50, 100],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${ itemCount } 条`;
-  }
+    return `总共有 ${itemCount} 条`;
+  },
 });
 const loading = ref<boolean>(true);
 const data = ref<Models.Group[]>([]);
 const columns: DataTableColumns<Models.Group> = [
   {
     title: "ID",
-    key: "groupId"
+    key: "groupId",
   },
   {
     title: "名称",
-    key: "name"
+    key: "name",
   },
   {
     title: "显示名称",
-    key: "displayName"
+    key: "displayName",
   },
   {
     title: "首页显示",
     key: "showInHomepage",
     render(row) {
       return row.showInHomepage === true ? "是" : "否";
-    }
+    },
   },
   {
     title: "首页顺序",
-    key: "homepageOrder"
+    key: "homepageOrder",
   },
   {
     title: "创建时间",
     key: "registerTime",
     render(row) {
       return dayjs.unix(row.createdAt ?? 0).format("YYYY-MM-DD HH:mm:ss");
-    }
+    },
   },
   {
     title: "操作",
@@ -80,37 +80,41 @@ const columns: DataTableColumns<Models.Group> = [
     render(row) {
       return (
         <NSpace>
-          <NButton size="small" onClick={ () => {
-            updateGroupModalVisible.value = true;
-            updateGroupId.value = row.groupId ?? 0;
-          } }>
+          <NButton
+            size="small"
+            onClick={() => {
+              updateGroupModalVisible.value = true;
+              updateGroupId.value = row.groupId ?? 0;
+            }}
+          >
             修改
           </NButton>
-          <NButton size="small">
-            成员
-          </NButton>
-          <NPopconfirm onPositiveClick={ () => deleteUser(row.groupId ?? 0) }>
-            { {
+          <NButton size="small">成员</NButton>
+          <NPopconfirm onPositiveClick={() => deleteUser(row.groupId ?? 0)}>
+            {{
               default: () => "确定删除吗？",
-              trigger: () => <NButton size="small" type="error">删除</NButton>
-            } }
+              trigger: () => (
+                <NButton size="small" type="error">
+                  删除
+                </NButton>
+              ),
+            }}
           </NPopconfirm>
         </NSpace>
       );
-    }
-  }
+    },
+  },
 ];
 const rowKey = (rowData: Models.Group) => {
   return rowData.groupId;
-}
+};
 const deleteUser = (userId: number) => {
-  http.delete<void>(`/admin/group/${ userId }`)
-    .then(res => {
-      notification.success({
-        title: res.data.message,
-        duration: 2000
-      });
+  http.delete<void>(`/admin/group/${userId}`).then((res) => {
+    notification.success({
+      title: res.data.message,
+      duration: 2000,
     });
+  });
   handleFormSubmit();
 };
 onMounted(() => {
@@ -122,9 +126,9 @@ const requestData = () => {
     .get<ListWrapper<Models.Group>>("/admin/group", {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
-      size: pagination.pageSize
+      size: pagination.pageSize,
     })
-    .then(res => {
+    .then((res) => {
       const resData = res.data.data;
       data.value = resData.data ?? [];
       pagination.itemCount = resData.total ?? 0;
@@ -171,22 +175,21 @@ const handleFormSubmit = () => {
           <NInput v-model:value="formValue.name" placeholder="名称" />
         </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit">
-            查询
-          </NButton>
+          <NButton round type="primary" @click="handleFormSubmit"> 查询 </NButton>
         </NFormItem>
       </NForm>
     </div>
     <div class="operation">
       <div class="right">
-        <NButton round size="small" type="primary" @click="() => newGroupModalVisible = true">
-          新建
-        </NButton>
-        <NModal :show="newGroupModalVisible" title="创建群组"
-                class="custom-card"
-                preset="card"
-                style="width: 80%"
-                @close="() => newGroupModalVisible = false">
+        <NButton round size="small" type="primary" @click="() => (newGroupModalVisible = true)"> 新建 </NButton>
+        <NModal
+          :show="newGroupModalVisible"
+          title="创建群组"
+          class="custom-card"
+          preset="card"
+          style="width: 80%"
+          @close="() => (newGroupModalVisible = false)"
+        >
           <AdminGroupNewForm />
         </NModal>
       </div>
@@ -203,11 +206,14 @@ const handleFormSubmit = () => {
       @update:page="handlePageChange"
       @update:page-size="handlePageSizeChange"
     />
-    <NModal :show="updateGroupModalVisible" title="修改群组信息"
-            class="custom-card"
-            preset="card"
-            style="width: 80%"
-            @close="() => updateGroupModalVisible = false">
+    <NModal
+      :show="updateGroupModalVisible"
+      title="修改群组信息"
+      class="custom-card"
+      preset="card"
+      style="width: 80%"
+      @close="() => (updateGroupModalVisible = false)"
+    >
       <AdminGroupUpdateForm :groupId="updateGroupId" />
     </NModal>
   </div>

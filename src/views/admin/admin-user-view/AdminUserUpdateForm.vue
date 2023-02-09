@@ -6,36 +6,33 @@ import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNo
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 
 const props = defineProps<{
-  userId: number,
+  userId: number;
 }>();
 
 const notification = useNotification();
 
 const formRef = ref<FormInst | null>(null);
 const rules = reactive<FormRules>({
-    name: [
-      { required: true, message: "请输入姓名", trigger: "blur" },
-      { max: 6, message: "姓名长度最多 6 位", trigger: "blur" }
-    ],
-    newPassword: [
-      { min: 6, message: "密码长度至少为 6 位", trigger: "blur" }
-    ]
-  } as { [k in keyof UserUpdateProps]: FormRules[k] }
-);
+  name: [
+    { required: true, message: "请输入姓名", trigger: "blur" },
+    { max: 6, message: "姓名长度最多 6 位", trigger: "blur" },
+  ],
+  newPassword: [{ min: 6, message: "密码长度至少为 6 位", trigger: "blur" }],
+} as { [k in keyof UserUpdateProps]: FormRules[k] });
 
 type UserUpdateProps = {
-  name?: string,
-  password?: string,
-  newPassword?: string,
-  active?: boolean,
-  admin?: boolean,
-  superAdmin?: boolean,
-}
+  name?: string;
+  password?: string;
+  newPassword?: string;
+  active?: boolean;
+  admin?: boolean;
+  superAdmin?: boolean;
+};
 const user = ref<AdminUser | undefined>();
 onMounted(() => {
   http
-    .get<AdminUser>(`/admin/user/${ props.userId }`)
-    .then(res => {
+    .get<AdminUser>(`/admin/user/${props.userId}`)
+    .then((res) => {
       user.value = res.data.data;
       formValue.value.name = user.value?.name;
       formValue.value.active = user.value?.active;
@@ -45,7 +42,7 @@ onMounted(() => {
     .catch((e: AxiosError) => {
       notification.error({
         title: "获取失败",
-        content: e.message
+        content: e.message,
       });
     });
 });
@@ -55,7 +52,7 @@ const formValue = ref<UserUpdateProps>({
   newPassword: undefined,
   active: false,
   admin: false,
-  superAdmin: false
+  superAdmin: false,
 });
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault();
@@ -78,18 +75,18 @@ const handleFormSubmit = (e: MouseEvent) => {
         params.superAdmin = formValue.value.superAdmin;
       }
       http
-        .patch<AdminUser>(`/admin/user/${ props.userId }`, params)
-        .then(res => {
+        .patch<AdminUser>(`/admin/user/${props.userId}`, params)
+        .then((res) => {
           notification.success({
             title: res.data.message,
-            duration: 2000
+            duration: 2000,
           });
         })
         .catch((e: AxiosError<HttpResponse>) => {
           notification.error({
             title: "修改失败",
             content: e.response?.data.message,
-            duration: 2000
+            duration: 2000,
           });
         });
     }
@@ -114,25 +111,21 @@ const handleFormSubmit = (e: MouseEvent) => {
       <NInput v-model:value="formValue.newPassword" placeholder="修改密码" type="password" />
     </NFormItem>
     <NFormItem label="已激活" path="active">
-      <NRadio :checked="formValue.active" @change="() => formValue.active = true">是</NRadio>
-      <NRadio :checked="!formValue.active" @change="() => formValue.active = false">否</NRadio>
+      <NRadio :checked="formValue.active" @change="() => (formValue.active = true)">是</NRadio>
+      <NRadio :checked="!formValue.active" @change="() => (formValue.active = false)">否</NRadio>
     </NFormItem>
     <NFormItem label="管理员" path="admin">
-      <NRadio :checked="formValue.admin" @change="() => formValue.admin = true">是</NRadio>
-      <NRadio :checked="!formValue.admin" @change="() => formValue.admin = false">否</NRadio>
+      <NRadio :checked="formValue.admin" @change="() => (formValue.admin = true)">是</NRadio>
+      <NRadio :checked="!formValue.admin" @change="() => (formValue.admin = false)">否</NRadio>
     </NFormItem>
     <NFormItem label="超级管理员" path="superAdmin">
-      <NRadio :checked="formValue.superAdmin" @change="() => formValue.superAdmin = true">是</NRadio>
-      <NRadio :checked="!formValue.superAdmin" @change="() => formValue.superAdmin = false">否</NRadio>
+      <NRadio :checked="formValue.superAdmin" @change="() => (formValue.superAdmin = true)">是</NRadio>
+      <NRadio :checked="!formValue.superAdmin" @change="() => (formValue.superAdmin = false)">否</NRadio>
     </NFormItem>
     <div style="display: flex; justify-content: center">
-      <NButton round type="primary" @click="handleFormSubmit">
-        修改
-      </NButton>
+      <NButton round type="primary" @click="handleFormSubmit"> 修改 </NButton>
     </div>
   </NForm>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

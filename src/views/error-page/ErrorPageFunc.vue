@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { NSpace, NButton } from 'naive-ui'
+import { NSpace, NButton } from "naive-ui";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const play = () => {
-  window.open('https://www.4399.com/', '_blank')
-}
+  window.open("https://www.4399.com/", "_blank");
+};
 const study = () => {
-  window.open('https://www.acwing.com/', '_blank')
-}
+  window.open("https://www.acwing.com/", "_blank");
+};
 const home = () => {
-  router.push('/')
-}
+  router.push("/");
+};
 </script>
 
 <template>

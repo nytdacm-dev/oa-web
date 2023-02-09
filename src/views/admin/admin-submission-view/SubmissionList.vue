@@ -1,24 +1,17 @@
 <script setup lang="tsx">
 import { onMounted, reactive, ref } from "vue";
 import { http } from "@/shared/Http";
-import {
-  NForm,
-  NFormItem,
-  NSelect,
-  NButton,
-  NDataTable,
-  type DataTableColumns,
-} from "naive-ui";
+import { NForm, NFormItem, NSelect, NButton, NDataTable, type DataTableColumns } from "naive-ui";
 import dayjs from "dayjs";
 import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
 import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
-import Link from "@/components/Link.vue"
+import Link from "@/components/Link.vue";
 
 type FormValue = {
-  oj?: string,
-  group?: number,
-}
+  oj?: string;
+  group?: number;
+};
 const formValue = ref<FormValue>({
   oj: undefined,
   group: undefined,
@@ -30,8 +23,8 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [20, 50, 100, 200],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${ itemCount } 条`;
-  }
+    return `总共有 ${itemCount} 条`;
+  },
 });
 const loading = ref<boolean>(true);
 const data = ref<Models.Submission[]>([]);
@@ -41,10 +34,10 @@ const columns: DataTableColumns<Models.Submission> = [
     key: "user",
     render(row) {
       return (
-        <Link href={ `/user/${ row.user?.username }` } newWindow={ true }>
-          { row.user?.name }
+        <Link href={`/user/${row.user?.username}`} newWindow={true}>
+          {row.user?.name}
         </Link>
-      )
+      );
     },
   },
   {
@@ -53,23 +46,45 @@ const columns: DataTableColumns<Models.Submission> = [
     render(row) {
       switch (row.oj) {
         case "codeforces":
-          return <Link
-            href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
-            newWindow={ true }>{ row.name }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/problemset/problem/${row.contestId}/${row.remoteProblemId.replace(
+                row.contestId,
+                ""
+              )}`}
+              newWindow={true}
+            >
+              {row.name}
+            </Link>
+          );
         case "codeforces_gym":
-          return <Link
-            href={ `https://codeforces.com/gym/${ row.contestId }/problem/${ row.remoteProblemId.replace(row.contestId, "") }` }
-            newWindow={ true }>{ row.name }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/gym/${row.contestId}/problem/${row.remoteProblemId.replace(
+                row.contestId,
+                ""
+              )}`}
+              newWindow={true}
+            >
+              {row.name}
+            </Link>
+          );
         case "nowcoder":
-          return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
-                       newWindow={ true }>{ row.name }</Link>;
+          return (
+            <Link href={`https://ac.nowcoder.com/acm/problem/${row.remoteProblemId}`} newWindow={true}>
+              {row.name}
+            </Link>
+          );
         case "atcoder":
-          return <Link href={ `https://atcoder.jp/contests/${ row.contestId }/tasks/${ row.remoteProblemId }` }
-                       newWindow={ true }>请进入题目内部查看！</Link>;
+          return (
+            <Link href={`https://atcoder.jp/contests/${row.contestId}/tasks/${row.remoteProblemId}`} newWindow={true}>
+              请进入题目内部查看！
+            </Link>
+          );
         default:
-          return <span>{ row.name }</span>
+          return <span>{row.name}</span>;
       }
-    }
+    },
   },
   {
     title: "题目编号",
@@ -77,23 +92,45 @@ const columns: DataTableColumns<Models.Submission> = [
     render(row) {
       switch (row.oj) {
         case "codeforces":
-          return <Link
-            href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
-            newWindow={ true }>{ row.remoteProblemId }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/problemset/problem/${row.contestId}/${row.remoteProblemId.replace(
+                row.contestId,
+                ""
+              )}`}
+              newWindow={true}
+            >
+              {row.remoteProblemId}
+            </Link>
+          );
         case "codeforces_gym":
-          return <Link
-            href={ `https://codeforces.com/gym/${ row.contestId }/problem/${ row.remoteProblemId.replace(row.contestId, "") }` }
-            newWindow={ true }>{ row.remoteProblemId }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/gym/${row.contestId}/problem/${row.remoteProblemId.replace(
+                row.contestId,
+                ""
+              )}`}
+              newWindow={true}
+            >
+              {row.remoteProblemId}
+            </Link>
+          );
         case "nowcoder":
-          return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
-                       newWindow={ true }>{ row.remoteProblemId }</Link>;
+          return (
+            <Link href={`https://ac.nowcoder.com/acm/problem/${row.remoteProblemId}`} newWindow={true}>
+              {row.remoteProblemId}
+            </Link>
+          );
         case "atcoder":
-          return <Link href={ `https://atcoder.jp/contests/${ row.contestId }/tasks/${ row.remoteProblemId }` }
-                       newWindow={ true }>{ row.remoteProblemId }</Link>;
+          return (
+            <Link href={`https://atcoder.jp/contests/${row.contestId}/tasks/${row.remoteProblemId}`} newWindow={true}>
+              {row.remoteProblemId}
+            </Link>
+          );
         default:
-          return <span>{ row.remoteProblemId }</span>
+          return <span>{row.remoteProblemId}</span>;
       }
-    }
+    },
   },
   {
     title: "OJ",
@@ -101,17 +138,33 @@ const columns: DataTableColumns<Models.Submission> = [
     render(row) {
       switch (row.oj) {
         case "codeforces":
-          return <Link href="https://codeforces.com" newWindow={ true }>Codeforces</Link>;
+          return (
+            <Link href="https://codeforces.com" newWindow={true}>
+              Codeforces
+            </Link>
+          );
         case "codeforces_gym":
-          return <Link href="https://codeforces.com" newWindow={ true }>Codeforces Gym</Link>;
+          return (
+            <Link href="https://codeforces.com" newWindow={true}>
+              Codeforces Gym
+            </Link>
+          );
         case "nowcoder":
-          return <Link href="https://ac.nowcoder.com" newWindow={ true }>牛客</Link>;
+          return (
+            <Link href="https://ac.nowcoder.com" newWindow={true}>
+              牛客
+            </Link>
+          );
         case "atcoder":
-          return <Link href="https://atcoder.jp" newWindow={ true }>AtCoder</Link>;
+          return (
+            <Link href="https://atcoder.jp" newWindow={true}>
+              AtCoder
+            </Link>
+          );
         default:
-          return <span>{ row.oj }</span>
+          return <span>{row.oj}</span>;
       }
-    }
+    },
   },
   {
     title: "提交 ID",
@@ -119,23 +172,43 @@ const columns: DataTableColumns<Models.Submission> = [
     render(row) {
       switch (row.oj) {
         case "codeforces":
-          return <Link
-            href={ `https://codeforces.com/contest/${ row.contestId }/submission/${ row.remoteSubmissionId }` }
-            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/contest/${row.contestId}/submission/${row.remoteSubmissionId}`}
+              newWindow={true}
+            >
+              {row.remoteSubmissionId}
+            </Link>
+          );
         case "codeforces_gym":
-          return <Link
-            href={ `https://codeforces.com/gym/${ row.contestId }/submission/${ row.remoteSubmissionId }` }
-            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+          return (
+            <Link
+              href={`https://codeforces.com/gym/${row.contestId}/submission/${row.remoteSubmissionId}`}
+              newWindow={true}
+            >
+              {row.remoteSubmissionId}
+            </Link>
+          );
         case "nowcoder":
-          return <Link
-            href={ `https://ac.nowcoder.com/acm/contest/view-submission?submissionId=${ row.remoteSubmissionId }` }
-            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+          return (
+            <Link
+              href={`https://ac.nowcoder.com/acm/contest/view-submission?submissionId=${row.remoteSubmissionId}`}
+              newWindow={true}
+            >
+              {row.remoteSubmissionId}
+            </Link>
+          );
         case "atcoder":
-          return <Link
-            href={ `https://atcoder.jp/contests/${ row.contestId }/submissions/${ row.remoteSubmissionId }` }
-            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+          return (
+            <Link
+              href={`https://atcoder.jp/contests/${row.contestId}/submissions/${row.remoteSubmissionId}`}
+              newWindow={true}
+            >
+              {row.remoteSubmissionId}
+            </Link>
+          );
         default:
-          return <span>{ row.remoteSubmissionId }</span>
+          return <span>{row.remoteSubmissionId}</span>;
       }
     },
   },
@@ -174,26 +247,26 @@ const columns: DataTableColumns<Models.Submission> = [
 ];
 const rowKey = (rowData: Models.Submission) => {
   return rowData.submissionId;
-}
+};
 onMounted(() => {
   handleFormSubmit();
-  http
-    .get<ListWrapper<Models.Group>>("/admin/group")
-    .then(res => {
-      const resData = res.data.data;
-      groupOptions.value = [
-        {
-          label: "全部",
-          value: undefined,
-        }
-      ]
-      groupOptions.value.push(...resData.data?.map(item => ({
-        label: item.name + `${ item.displayName ? `（${ item.displayName }）` : "" }`,
+  http.get<ListWrapper<Models.Group>>("/admin/group").then((res) => {
+    const resData = res.data.data;
+    groupOptions.value = [
+      {
+        label: "全部",
+        value: undefined,
+      },
+    ];
+    groupOptions.value.push(
+      ...(resData.data?.map((item) => ({
+        label: item.name + `${item.displayName ? `（${item.displayName}）` : ""}`,
         value: item.groupId,
-      })) ?? []);
-    });
+      })) ?? [])
+    );
+  });
 });
-const groupOptions = ref<SelectMixedOption[]>([])
+const groupOptions = ref<SelectMixedOption[]>([]);
 const ojOptions = ref<SelectMixedOption[]>([
   {
     label: "全部",
@@ -211,16 +284,16 @@ const ojOptions = ref<SelectMixedOption[]>([
     label: "AtCoder",
     value: "atcoder",
   },
-])
+]);
 
 const requestData = () => {
   http
     .get<ListWrapper<Models.Submission>>("/admin/submission", {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
-      size: pagination.pageSize
+      size: pagination.pageSize,
     })
-    .then(res => {
+    .then((res) => {
       const resData = res.data.data;
       data.value = resData.data ?? [];
       pagination.itemCount = resData.total ?? 0;
@@ -264,25 +337,13 @@ const handleFormSubmit = () => {
         inline
       >
         <NFormItem label="OJ" path="oj">
-          <NSelect
-            v-model:value="formValue.oj"
-            placeholder="OJ 平台"
-            :options="ojOptions"
-            style="width: 120px"
-          />
+          <NSelect v-model:value="formValue.oj" placeholder="OJ 平台" :options="ojOptions" style="width: 120px" />
         </NFormItem>
         <NFormItem label="群组" path="group">
-          <NSelect
-            v-model:value="formValue.group"
-            placeholder="群组"
-            :options="groupOptions"
-            style="width: 200px"
-          />
+          <NSelect v-model:value="formValue.group" placeholder="群组" :options="groupOptions" style="width: 200px" />
         </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit">
-            查询
-          </NButton>
+          <NButton round type="primary" @click="handleFormSubmit"> 查询 </NButton>
         </NFormItem>
       </NForm>
     </div>
@@ -301,5 +362,4 @@ const handleFormSubmit = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

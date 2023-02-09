@@ -1,4 +1,10 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type AxiosError, type AxiosRequestHeaders } from "axios";
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse,
+  type AxiosError,
+  type AxiosRequestHeaders,
+} from "axios";
 import { getToken } from "./token";
 import router from "@/router";
 
@@ -56,8 +62,10 @@ export const http = new Http("/api");
 http.instance.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
-    if (!config.headers) { config.headers = {} as AxiosRequestHeaders; }
-    config.headers['Authorization'] = `Bearer ${token}`;
+    if (!config.headers) {
+      config.headers = {} as AxiosRequestHeaders;
+    }
+    config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
 });

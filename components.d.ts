@@ -7,18 +7,18 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AtCoder: typeof import('./src/components/icons/AtCoder.vue')['default']
-    Codeforces: typeof import('./src/components/icons/Codeforces.vue')['default']
-    GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
+    AtCoderIcon: typeof import('./src/components/icons/AtCoderIcon.vue')['default']
+    CodeforcesIcon: typeof import('./src/components/icons/CodeforcesIcon.vue')['default']
+    GitHubIcon: typeof import('./src/components/icons/GitHubIcon.vue')['default']
     Link: typeof import('./src/components/Link.vue')['default']
-    Luogu: typeof import('./src/components/icons/Luogu.vue')['default']
+    LuoguIcon: typeof import('./src/components/icons/LuoguIcon.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NInputNumber: typeof import('naive-ui')['NInputNumber']
-    Nowcoder: typeof import('./src/components/icons/Nowcoder.vue')['default']
+    NowcoderIcon: typeof import('./src/components/icons/NowcoderIcon.vue')['default']
     NSpace: typeof import('naive-ui')['NSpace']
     NTransfer: typeof import('naive-ui')['NTransfer']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Website: typeof import('./src/components/icons/Website.vue')['default']
+    WebsiteIcon: typeof import('./src/components/icons/WebsiteIcon.vue')['default']
   }
 }

@@ -1,46 +1,43 @@
 <script setup lang="ts">
-import type { Models } from '@/models/models';
-import { http, type HttpResponse } from '@/shared/Http';
-import type { AxiosError } from 'axios';
-import { reactive, ref } from 'vue'
+import type { Models } from "@/models/models";
+import { http, type HttpResponse } from "@/shared/Http";
+import type { AxiosError } from "axios";
+import { reactive, ref } from "vue";
 import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification } from "naive-ui";
 
 const props = defineProps<{
-  user: Models.User,
-}>()
+  user: Models.User;
+}>();
 
-const notification = useNotification()
+const notification = useNotification();
 
-const formRef = ref<FormInst | null>(null)
+const formRef = ref<FormInst | null>(null);
 const validateWebsite = (rule: any, value: string, callback: any) => {
   if (!value) {
-    callback()
-  } else if (value.startsWith('http://') || value.startsWith('https://')) {
-    callback()
+    callback();
+  } else if (value.startsWith("http://") || value.startsWith("https://")) {
+    callback();
   } else {
-    callback(new Error('你输入的不是网址'))
+    callback(new Error("你输入的不是网址"));
   }
-}
+};
 const rules = reactive<FormRules>({
-    name: [
-      { required: true, message: '请输入姓名', trigger: 'blur' },
-      { max: 6, message: '姓名长度最多 6 位', trigger: 'blur' },
-    ],
-    website: [
-      { validator: validateWebsite, trigger: 'blur' },
-    ],
-  } as { [k in keyof UserUpdateProps]: FormRules[k] }
-)
+  name: [
+    { required: true, message: "请输入姓名", trigger: "blur" },
+    { max: 6, message: "姓名长度最多 6 位", trigger: "blur" },
+  ],
+  website: [{ validator: validateWebsite, trigger: "blur" }],
+} as { [k in keyof UserUpdateProps]: FormRules[k] });
 
 type UserUpdateProps = {
-  name?: string,
-  codeforces?: string,
-  github?: string,
-  website?: string,
-  atCoder?: string,
-  luogu?: string,
-  nowcoder?: string,
-}
+  name?: string;
+  codeforces?: string;
+  github?: string;
+  website?: string;
+  atCoder?: string;
+  luogu?: string;
+  nowcoder?: string;
+};
 
 const formValue = ref<UserUpdateProps>({
   name: props.user.name,
@@ -49,10 +46,10 @@ const formValue = ref<UserUpdateProps>({
   luogu: props.user.socialAccount.luogu,
   nowcoder: props.user.socialAccount.nowcoder,
   github: props.user.socialAccount.github,
-  website: props.user.socialAccount.website
-})
+  website: props.user.socialAccount.website,
+});
 const handleFormSubmit = (e: MouseEvent) => {
-  e.preventDefault()
+  e.preventDefault();
   formRef.value?.validate((errors) => {
     if (!errors) {
       const params: UserUpdateProps = {};
@@ -81,20 +78,20 @@ const handleFormSubmit = (e: MouseEvent) => {
         .patch("/user", params)
         .then(() => {
           notification.success({
-            title: '修改成功',
+            title: "修改成功",
             duration: 2000,
-          })
+          });
         })
         .catch((e: AxiosError<HttpResponse>) => {
           notification.error({
-            title: '修改失败',
+            title: "修改失败",
             content: e.response?.data.message,
             duration: 2000,
-          })
-        })
+          });
+        });
     }
-  })
-}
+  });
+};
 </script>
 
 <template>
@@ -120,7 +117,10 @@ const handleFormSubmit = (e: MouseEvent) => {
       <NInput v-model:value="formValue.luogu" placeholder="洛谷 ID（为数字，从个人主页的地址栏获取，如 644058）" />
     </NFormItem>
     <NFormItem label="牛客" prop="nowcoder">
-      <NInput v-model:value="formValue.nowcoder" placeholder="牛客 ID（为数字，从个人主页的地址栏获取，如 444598457）" />
+      <NInput
+        v-model:value="formValue.nowcoder"
+        placeholder="牛客 ID（为数字，从个人主页的地址栏获取，如 444598457）"
+      />
     </NFormItem>
     <NFormItem label="GitHub" prop="github">
       <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />
@@ -129,13 +129,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       <NInput v-model:value="formValue.website" placeholder="个人网站链接" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
-      <NButton round type="primary" @click="handleFormSubmit">
-        修改
-      </NButton>
+      <NButton round type="primary" @click="handleFormSubmit"> 修改 </NButton>
     </div>
   </NForm>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

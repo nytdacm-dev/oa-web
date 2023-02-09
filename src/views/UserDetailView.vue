@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserProfileCard from './user-detail-view/UserProfileCard.vue';
+import UserProfileCard from "./user-detail-view/UserProfileCard.vue";
 </script>
 
 <template>
@@ -8,6 +8,4 @@ import UserProfileCard from './user-detail-view/UserProfileCard.vue';
   </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

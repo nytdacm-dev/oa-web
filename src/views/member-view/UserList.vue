@@ -3,14 +3,14 @@ import { NGrid, NGi } from "naive-ui";
 import type { Models } from "@/models/models";
 import SingleUserCard from "@/views/member-view/SingleUserCard.vue";
 
-const props = defineProps<{
-  users: Models.User[]
+defineProps<{
+  users: Models.User[];
 }>();
 </script>
 
 <template>
   <NGrid cols="2 720:4 1440:6">
-    <NGi v-for="user in users">
+    <NGi :key="user.userId" v-for="user in users">
       <SingleUserCard :user="user" />
     </NGi>
   </NGrid>

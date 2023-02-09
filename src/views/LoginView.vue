@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LoginForm from './login-view/LoginForm.vue';
-import SignupForm from './login-view/SignupForm.vue';
+import LoginForm from "./login-view/LoginForm.vue";
+import SignupForm from "./login-view/SignupForm.vue";
 import { NCard, NTabs, NTabPane } from "naive-ui";
 </script>
 
@@ -21,12 +21,12 @@ import { NCard, NTabs, NTabPane } from "naive-ui";
 
 <style lang="scss" scoped>
 .main {
-  height: calc(100vh - 2*var(--header-height));
+  height: calc(100vh - 2 * var(--header-height));
   display: flex;
   align-items: center;
   justify-content: center;
 
-  >.box-card {
+  > .box-card {
     width: 100%;
     max-width: 800px;
   }

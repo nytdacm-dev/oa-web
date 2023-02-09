@@ -6,14 +6,14 @@ import { http } from "@/shared/Http";
 import { useUserStore } from "@/stores/userStore";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import Codeforces from "@/components/icons/Codeforces.vue";
-import GitHub from "@/components/icons/GitHub.vue";
-import Website from "@/components/icons/Website.vue";
-import AtCoder from "@/components/icons/AtCoder.vue";
-import Luogu from "@/components/icons/Luogu.vue";
+import CodeforcesIcon from "@/components/icons/CodeforcesIcon.vue";
+import GitHubIcon from "@/components/icons/GitHubIcon.vue";
+import WebsiteIcon from "@/components/icons/WebsiteIcon.vue";
+import AtCoderIcon from "@/components/icons/AtCoderIcon.vue";
+import LuoguIcon from "@/components/icons/LuoguIcon.vue";
+import NowcoderIcon from "@/components/icons/NowcoderIcon.vue";
 import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui";
-import Nowcoder from "@/components/icons/Nowcoder.vue";
-import Link from "@/components/Link.vue"
+import Link from "@/components/Link.vue";
 
 const userStore = useUserStore();
 const route = useRoute();
@@ -26,20 +26,21 @@ const luoguLink = ref("https://www.luogu.com.cn/user/");
 const nowcoderLink = ref("https://ac.nowcoder.com/acm/contest/profile/");
 const githubLink = ref("https://github.com/");
 const websiteLink = ref();
-http.get<Models.User>(`/user/${ username }`)
-  .then(res => {
+http
+  .get<Models.User>(`/user/${username}`)
+  .then((res) => {
     user.value = res.data.data;
-    cfLink.value = `https://codeforces.com/profile/${ user.value?.socialAccount.codeforces }`;
-    atCoderLink.value = `https://atcoder.jp/users/${ user.value?.socialAccount.atCoder }`;
-    luoguLink.value = `https://www.luogu.com.cn/user/${ user.value?.socialAccount.luogu }`;
-    nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${ user.value?.socialAccount.nowcoder }`
-    githubLink.value = `https://github.com/${ user.value?.socialAccount.github }`;
+    cfLink.value = `https://codeforces.com/profile/${user.value?.socialAccount.codeforces}`;
+    atCoderLink.value = `https://atcoder.jp/users/${user.value?.socialAccount.atCoder}`;
+    luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`;
+    nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`;
+    githubLink.value = `https://github.com/${user.value?.socialAccount.github}`;
     websiteLink.value = user.value?.socialAccount.website;
   })
-  .catch(err => {
+  .catch((err) => {
     // TODO: Go to 404 page
-    console.log(err)
-  })
+    console.log(err);
+  });
 </script>
 
 <template>
@@ -57,51 +58,49 @@ http.get<Models.User>(`/user/${ username }`)
           <span class="name">
             {{ user?.name }}
           </span>
-          <span class="username">
-            @{{ user?.username }}
-          </span>
+          <span class="username"> @{{ user?.username }} </span>
         </div>
         <div class="right">
           <div class="social">
             <div class="icon">
               <Link :href="cfLink" :new-window="true" v-if="user.socialAccount.codeforces">
                 <NIcon :size="20">
-                  <Codeforces />
+                  <CodeforcesIcon />
                 </NIcon>
               </Link>
             </div>
             <div class="icon">
               <Link :href="atCoderLink" target="_blank" v-if="user.socialAccount.atCoder">
                 <NIcon :size="20">
-                  <AtCoder />
+                  <AtCoderIcon />
                 </NIcon>
               </Link>
             </div>
             <div class="icon">
               <Link :href="luoguLink" target="_blank" v-if="user.socialAccount.luogu">
                 <NIcon :size="20">
-                  <Luogu />
+                  <LuoguIcon />
                 </NIcon>
               </Link>
             </div>
             <div class="icon">
               <Link :href="nowcoderLink" target="_blank" v-if="user.socialAccount.nowcoder">
                 <NIcon :size="20">
-                  <Nowcoder />
+                  <NowcoderIcon />
                 </NIcon>
               </Link>
             </div>
             <div class="icon">
               <Link :href="githubLink" target="_blank" v-if="user.socialAccount.github">
                 <NIcon :size="20">
-                  <GitHub />
+                  <GitHubIcon />
                 </NIcon>
               </Link>
             </div>
             <div class="icon">
               <Link :href="websiteLink" target="_blank" v-if="user.socialAccount.website">
                 <NIcon :size="20">
-                  <Website />
+                  <WebsiteIcon />
                 </NIcon>
               </Link>
             </div>
@@ -114,7 +113,8 @@ http.get<Models.User>(`/user/${ username }`)
             Codeforces:
             <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
             <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
-              (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
+              (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span
+              >)
             </span>
             <span v-if="user.socialAccount?.codeforcesRank">
               Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
@@ -142,7 +142,8 @@ http.get<Models.User>(`/user/${ username }`)
     margin-right: 2rem;
   }
 
-  > .profile, .profile-skeleton {
+  > .profile,
+  .profile-skeleton {
     flex: 1 1 auto;
 
     > .top {
@@ -172,12 +173,12 @@ http.get<Models.User>(`/user/${ username }`)
       }
     }
 
-    >.bottom {
+    > .bottom {
       display: flex;
       justify-content: space-between;
 
       .left {
-        >.cf {
+        > .cf {
           font-size: 16px;
 
           .cf-rating,
@@ -191,7 +192,7 @@ http.get<Models.User>(`/user/${ username }`)
         }
       }
 
-      >.right {
+      > .right {
         display: flex;
         align-items: flex-end;
       }

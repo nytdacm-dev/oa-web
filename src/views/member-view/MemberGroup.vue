@@ -4,7 +4,7 @@ import type { Models } from "@/models/models";
 import UserList from "@/views/member-view/UserList.vue";
 
 const props = defineProps<{
-  group: Models.Group
+  group: Models.Group;
 }>();
 </script>
 

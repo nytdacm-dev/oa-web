@@ -11,35 +11,33 @@ import {
   type FormInst,
   useNotification,
   NRadio,
-  NInputNumber
+  NInputNumber,
 } from "naive-ui";
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import type { Models } from "@/models/models";
 
 const props = defineProps<{
-  groupId: number,
+  groupId: number;
 }>();
 
 const notification = useNotification();
 
 const formRef = ref<FormInst | null>(null);
 const rules = reactive<FormRules>({
-  name: [
-    { required: true, message: "请输入名称", trigger: "blur" }
-  ]
+  name: [{ required: true, message: "请输入名称", trigger: "blur" }],
 } as { [k in keyof GroupUpdateProps]: FormRules[k] });
 
 type GroupUpdateProps = {
-  name?: string,
-  displayName?: string,
-  showInHomepage?: boolean,
-  homepageOrder?: number,
-}
+  name?: string;
+  displayName?: string;
+  showInHomepage?: boolean;
+  homepageOrder?: number;
+};
 const group = ref<Models.Group | undefined>();
 onMounted(() => {
   http
-    .get<Models.Group>(`/admin/group/${ props.groupId }`)
-    .then(res => {
+    .get<Models.Group>(`/admin/group/${props.groupId}`)
+    .then((res) => {
       group.value = res.data.data;
       formValue.value.name = group.value?.name;
       formValue.value.displayName = group.value?.displayName;
@@ -49,7 +47,7 @@ onMounted(() => {
     .catch((e: AxiosError) => {
       notification.error({
         title: "获取失败",
-        content: e.message
+        content: e.message,
       });
     });
 });
@@ -79,18 +77,18 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
 
       http
-        .patch<AdminUser>(`/admin/group/${ props.groupId }`, params)
-        .then(res => {
+        .patch<AdminUser>(`/admin/group/${props.groupId}`, params)
+        .then((res) => {
           notification.success({
             title: res.data.message,
-            duration: 2000
+            duration: 2000,
           });
         })
         .catch((e: AxiosError<HttpResponse>) => {
           notification.error({
             title: "修改失败",
             content: e.response?.data.message,
-            duration: 2000
+            duration: 2000,
           });
         });
     }
@@ -115,20 +113,16 @@ const handleFormSubmit = (e: MouseEvent) => {
       <NInput v-model:value="formValue.displayName" placeholder="显示名称" />
     </NFormItem>
     <NFormItem label="首页显示" path="showInHomepage">
-      <NRadio :checked="formValue.showInHomepage" @change="() => formValue.showInHomepage = true">是</NRadio>
-      <NRadio :checked="!formValue.showInHomepage" @change="() => formValue.showInHomepage = false">否</NRadio>
+      <NRadio :checked="formValue.showInHomepage" @change="() => (formValue.showInHomepage = true)">是</NRadio>
+      <NRadio :checked="!formValue.showInHomepage" @change="() => (formValue.showInHomepage = false)">否</NRadio>
     </NFormItem>
     <NFormItem label="首页顺序" path="homepageOrder">
       <NInputNumber v-model:value="formValue.homepageOrder" placeholder="首页顺序（数字越小越靠前）" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
-      <NButton round type="primary" @click="handleFormSubmit">
-        修改
-      </NButton>
+      <NButton round type="primary" @click="handleFormSubmit"> 修改 </NButton>
     </div>
   </NForm>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

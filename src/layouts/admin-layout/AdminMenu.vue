@@ -4,16 +4,11 @@ import { RouterLink } from "vue-router";
 import type { Component } from "vue";
 import { NIcon, NMenu } from "naive-ui";
 import { h } from "vue";
-import {
-  User as UserIcon,
-  Table as TableIcon,
-} from "@vicons/fa";
-import {
-  GroupFilled as GroupIcon
-} from "@vicons/material";
+import { User as UserIcon, Table as TableIcon } from "@vicons/fa";
+import { GroupFilled as GroupIcon } from "@vicons/material";
 
 const props = defineProps<{
-  collapsed: boolean
+  collapsed: boolean;
 }>();
 
 function renderIcon(icon: Component) {
@@ -27,13 +22,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-user"
-          }
+            name: "admin-user",
+          },
         },
         { default: () => "用户管理" }
       ),
     key: "admin-user",
-    icon: renderIcon(UserIcon)
+    icon: renderIcon(UserIcon),
   },
   {
     label: () =>
@@ -41,13 +36,13 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-group"
-          }
+            name: "admin-group",
+          },
         },
         { default: () => "群组管理" }
       ),
     key: "admin-group",
-    icon: renderIcon(GroupIcon)
+    icon: renderIcon(GroupIcon),
   },
   {
     label: () =>
@@ -55,14 +50,14 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-submission"
-          }
+            name: "admin-submission",
+          },
         },
         { default: () => "提交记录" }
       ),
     key: "admin-submission",
-    icon: renderIcon(TableIcon)
-  }
+    icon: renderIcon(TableIcon),
+  },
 ];
 </script>
 
@@ -70,6 +65,4 @@ const menuOptions: MenuOption[] = [
   <NMenu :options="menuOptions" :collapsed="props.collapsed" :collapsed-width="64" />
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

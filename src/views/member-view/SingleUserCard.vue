@@ -6,10 +6,10 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const props = defineProps<{
-  user: Models.User
+  user: Models.User;
 }>();
 const goToUserProfile = () => {
-  router.push(`/user/${ props.user.username }`);
+  router.push(`/user/${props.user.username}`);
 };
 </script>
 

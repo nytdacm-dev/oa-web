@@ -11,7 +11,7 @@ export const setupUserInfoGuard = (router: Router) => {
     const userStore = useUserStore();
     if (to.name === "login") {
       userStore.logout();
-      next()
+      next();
     } else if (isLogin()) {
       if (!userStore.userId) {
         // 状态库没有用户信息，请求用户信息
@@ -21,13 +21,13 @@ export const setupUserInfoGuard = (router: Router) => {
             next();
           })
           .catch(() => {
-            next({ name: 'login' })
-          })
+            next({ name: "login" });
+          });
       } else {
-        next()
+        next();
       }
     } else {
-      next()
+      next();
     }
   });
 };

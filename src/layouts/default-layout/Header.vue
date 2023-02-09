@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Auth from './components/Auth.vue';
+import Auth from "./components/Auth.vue";
 import Link from "@/components/Link.vue";
 </script>
 
@@ -45,11 +45,11 @@ import Link from "@/components/Link.vue";
     }
   }
 
-  >.menu {
+  > .menu {
     margin-left: auto;
   }
 
-  >.auth {
+  > .auth {
     margin-left: 20px;
   }
 }

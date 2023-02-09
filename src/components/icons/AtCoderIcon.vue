@@ -1,9 +1,20 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" x="0px"
-       y="0px" width="280px" height="280px" viewBox="0 0 280 280"
-       xml:space="preserve">
-    <image id="image0" width="280" height="280" x="0" y="0"
-           href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAYAAACHjumMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="280px"
+    height="280px"
+    viewBox="0 0 280 280"
+    xml:space="preserve"
+  >
+    <image
+      id="image0"
+      width="280"
+      height="280"
+      x="0"
+      y="0"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAYAAACHjumMAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
 AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAACA
 AElEQVR42u19eXgUxbr+Wz3x+T3PEUjw3iuLmkmCgAtkEnBDIBMQUEEyiXqUzUzwuCAqCSiCCiTg
 uccNk4j7RsKiiBxJwBWRJKCyuJAJCIJAFmR1yUwIAb1H5vv90VOV6p6eZCYLCdJvnn4y09NdXV3L
@@ -609,6 +620,7 @@ mDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBh
 woQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhwoQJEyZMmDBhor3i
 /wNgJD4d7+9qoQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wMi0wMVQxNjozOToxOSswMzowMOuK
 odEAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDItMDFUMTY6Mzk6MTkrMDM6MDCa1xltAAAAAElF
-TkSuQmCC" />
-</svg>
+TkSuQmCC"
+    />
+  </svg>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { NLayoutSider, NLayoutContent, NLayout } from 'naive-ui'
+import { NLayoutSider, NLayoutContent, NLayout } from "naive-ui";
 import AdminMenu from "@/layouts/admin-layout/AdminMenu.vue";
 import { ref } from "vue";
 
-const collapsed = ref<boolean>(false)
+const collapsed = ref<boolean>(false);
 </script>
 
 <template>
@@ -16,7 +16,8 @@ const collapsed = ref<boolean>(false)
       :collapsed="collapsed"
       show-trigger
       @collapse="collapsed = true"
-      @expand="collapsed = false">
+      @expand="collapsed = false"
+    >
       <AdminMenu :collapsed="collapsed" class="menu" />
     </NLayoutSider>
     <NLayoutContent content-style="padding: 12px;">

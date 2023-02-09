@@ -17,34 +17,34 @@ export namespace Models {
       atCoder?: string;
       luogu?: string;
       nowcoder?: string;
-    }
-  }
+    };
+  };
 
   export type Group = {
-    groupId: number,
-    name: string,
-    displayName?: string,
-    showInHomepage?: boolean,
-    homepageOrder?: number,
-    users: User[],
-    createdAt: number,
-  }
+    groupId: number;
+    name: string;
+    displayName?: string;
+    showInHomepage?: boolean;
+    homepageOrder?: number;
+    users: User[];
+    createdAt: number;
+  };
 
   export type Submission = {
-    submissionId: number,
-    user: User,
-    oj: string,
-    remoteProblemId: string,
-    name: string,
-    remoteSubmissionId: string,
-    contestId: string,
-    language: string,
-    status: string,
-    submitTime: number,
-  }
+    submissionId: number;
+    user: User;
+    oj: string;
+    remoteProblemId: string;
+    name: string;
+    remoteSubmissionId: string;
+    contestId: string;
+    language: string;
+    status: string;
+    submitTime: number;
+  };
 }
 
 export type ListWrapper<T> = {
-  total?: number,
-  data?: T[],
-}
+  total?: number;
+  data?: T[];
+};

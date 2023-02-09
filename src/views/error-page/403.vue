@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NResult } from 'naive-ui'
+import { NResult } from "naive-ui";
 import ErrorPageFunc from "@/views/error-page/ErrorPageFunc.vue";
 </script>
 

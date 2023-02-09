@@ -2,15 +2,11 @@
 import { http } from "@/shared/Http";
 import type { AxiosError } from "axios";
 import { onMounted, ref } from "vue";
-import {
-  NButton,
-  useNotification,
-  type TransferOption
-} from "naive-ui";
+import { NButton, useNotification, type TransferOption } from "naive-ui";
 import type { ListWrapper, Models } from "@/models/models";
 
 const props = defineProps<{
-  userId: number,
+  userId: number;
 }>();
 
 const notification = useNotification();
@@ -20,47 +16,47 @@ const options = ref<TransferOption[]>([]);
 onMounted(() => {
   http
     .get<ListWrapper<Models.Group>>(`/admin/group`)
-    .then(res => {
+    .then((res) => {
       const data = res.data.data.data;
-      options.value = data?.map(group => ({
-        label: group.name + `${ group.displayName ? `（${ group.displayName }）` : "" }`,
-        value: group.groupId
-      })) ?? [];
+      options.value =
+        data?.map((group) => ({
+          label: group.name + `${group.displayName ? `（${group.displayName}）` : ""}`,
+          value: group.groupId,
+        })) ?? [];
     })
     .catch((e: AxiosError) => {
       notification.error({
         title: "获取失败",
-        content: e.message
+        content: e.message,
       });
     });
   http
-    .get<number[]>(`/admin/user/${ props.userId }/groups`)
-    .then(res => {
+    .get<number[]>(`/admin/user/${props.userId}/groups`)
+    .then((res) => {
       value.value = res.data.data;
     })
     .catch((e: AxiosError) => {
       notification.error({
         title: "获取失败",
-        content: e.message
+        content: e.message,
       });
     });
-})
-;
+});
 const handleClick = () => {
   http
-    .post(`/admin/user/${ props.userId }/groups`, { groups: value.value })
-    .then(res => {
+    .post(`/admin/user/${props.userId}/groups`, { groups: value.value })
+    .then((res) => {
       notification.success({
         title: "保存成功",
         content: res.data.message,
-        duration: 2000
+        duration: 2000,
       });
     })
     .catch((e: AxiosError) => {
       notification.error({
         title: "保存失败",
         content: e.message,
-        duration: 2000
+        duration: 2000,
       });
     });
 };
@@ -68,14 +64,8 @@ const handleClick = () => {
 
 <template>
   <div class="wrapper">
-    <NTransfer
-      ref="transfer"
-      v-model:value="value"
-      :options="options"
-      virtual-scroll />
-    <NButton class="btn" round size="small" type="primary" @click="handleClick">
-      保存
-    </NButton>
+    <NTransfer ref="transfer" v-model:value="value" :options="options" virtual-scroll />
+    <NButton class="btn" round size="small" type="primary" @click="handleClick"> 保存 </NButton>
   </div>
 </template>
 

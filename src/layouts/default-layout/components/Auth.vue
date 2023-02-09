@@ -1,50 +1,50 @@
 <script setup lang="ts">
-import { useUserStore } from '@/stores/userStore';
-import { useRouter } from 'vue-router';
-import DefaultAvatar from '@/assets/user-default-avatar.png'
-import { NDropdown, NAvatar, useNotification } from "naive-ui"
+import { useUserStore } from "@/stores/userStore";
+import { useRouter } from "vue-router";
+import DefaultAvatar from "@/assets/user-default-avatar.png";
+import { NDropdown, NAvatar, useNotification } from "naive-ui";
 import Link from "@/components/Link.vue";
 
-const userStore = useUserStore()
-const router = useRouter()
-const notification = useNotification()
+const userStore = useUserStore();
+const router = useRouter();
+const notification = useNotification();
 const logout = () => {
   notification.success({
-    title: '退出登录成功',
+    title: "退出登录成功",
     duration: 2000,
-  })
-  userStore.logout()
-  router.push({ name: 'login' })
-}
+  });
+  userStore.logout();
+  router.push({ name: "login" });
+};
 const options = [
   {
-    label: '个人中心',
-    key: 'user-detail-page',
+    label: "个人中心",
+    key: "user-detail-page",
   },
   {
-    type: 'divider',
+    type: "divider",
   },
   {
-    label: '管理后台',
-    key: 'admin',
+    label: "管理后台",
+    key: "admin",
   },
   {
-    type: 'divider',
+    type: "divider",
   },
   {
-    label: '退出登录',
-    key: 'logout',
+    label: "退出登录",
+    key: "logout",
   },
-]
+];
 const handleSelect = (key: string | number) => {
-  if (key === 'user-detail-page') {
-    router.push(`/user/${ userStore.username }`)
-  } else if (key === 'admin') {
-    router.push({ name: 'admin-user' })
-  } else if (key === 'logout') {
-    logout()
+  if (key === "user-detail-page") {
+    router.push(`/user/${userStore.username}`);
+  } else if (key === "admin") {
+    router.push({ name: "admin-user" });
+  } else if (key === "logout") {
+    logout();
   }
-}
+};
 </script>
 <template>
   <div class="wrapper">
@@ -54,6 +54,4 @@ const handleSelect = (key: string | number) => {
     </NDropdown>
   </div>
 </template>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
