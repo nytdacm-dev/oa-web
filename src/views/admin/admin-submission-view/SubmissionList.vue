@@ -56,6 +56,10 @@ const columns: DataTableColumns<Models.Submission> = [
           return <Link
             href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
             newWindow={ true }>{ row.name }</Link>;
+        case "codeforces_gym":
+          return <Link
+            href={ `https://codeforces.com/gym/${ row.contestId }/problem/${ row.remoteProblemId.replace(row.contestId, "") }` }
+            newWindow={ true }>{ row.name }</Link>;
         case "nowcoder":
           return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
                        newWindow={ true }>{ row.name }</Link>;
@@ -73,6 +77,10 @@ const columns: DataTableColumns<Models.Submission> = [
           return <Link
             href={ `https://codeforces.com/problemset/problem/${ row.contestId }/${ row.remoteProblemId.replace(row.contestId, "") }` }
             newWindow={ true }>{ row.remoteProblemId }</Link>;
+        case "codeforces_gym":
+          return <Link
+            href={ `https://codeforces.com/gym/${ row.contestId }/problem/${ row.remoteProblemId.replace(row.contestId, "") }` }
+            newWindow={ true }>{ row.remoteProblemId }</Link>;
         case "nowcoder":
           return <Link href={ `https://ac.nowcoder.com/acm/problem/${ row.remoteProblemId }` }
                        newWindow={ true }>{ row.remoteProblemId }</Link>;
@@ -88,6 +96,8 @@ const columns: DataTableColumns<Models.Submission> = [
       switch (row.oj) {
         case "codeforces":
           return <Link href="https://codeforces.com" newWindow={ true }>Codeforces</Link>;
+        case "codeforces_gym":
+          return <Link href="https://codeforces.com" newWindow={ true }>Codeforces Gym</Link>;
         case "nowcoder":
           return <Link href="https://ac.nowcoder.com" newWindow={ true }>牛客</Link>;
         default:
@@ -103,6 +113,10 @@ const columns: DataTableColumns<Models.Submission> = [
         case "codeforces":
           return <Link
             href={ `https://codeforces.com/contest/${ row.contestId }/submission/${ row.remoteSubmissionId }` }
+            newWindow={ true }>{ row.remoteSubmissionId }</Link>;
+        case "codeforces_gym":
+          return <Link
+            href={ `https://codeforces.com/gym/${ row.contestId }/submission/${ row.remoteSubmissionId }` }
             newWindow={ true }>{ row.remoteSubmissionId }</Link>;
         case "nowcoder":
           return <Link
