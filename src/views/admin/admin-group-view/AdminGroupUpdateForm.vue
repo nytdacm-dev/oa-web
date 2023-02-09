@@ -2,7 +2,17 @@
 import { http, type HttpResponse } from "@/shared/Http";
 import type { AxiosError } from "axios";
 import { onMounted, reactive, ref } from "vue";
-import { NForm, NFormItem, NInput, NButton, type FormRules, type FormInst, useNotification, NRadio } from "naive-ui";
+import {
+  NForm,
+  NFormItem,
+  NInput,
+  NButton,
+  type FormRules,
+  type FormInst,
+  useNotification,
+  NRadio,
+  NInputNumber
+} from "naive-ui";
 import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
 import type { Models } from "@/models/models";
 
@@ -23,6 +33,7 @@ type GroupUpdateProps = {
   name?: string,
   displayName?: string,
   showInHomepage?: boolean,
+  homepageOrder?: number,
 }
 const group = ref<Models.Group | undefined>();
 onMounted(() => {
@@ -33,6 +44,7 @@ onMounted(() => {
       formValue.value.name = group.value?.name;
       formValue.value.displayName = group.value?.displayName;
       formValue.value.showInHomepage = group.value?.showInHomepage;
+      formValue.value.homepageOrder = group.value?.homepageOrder;
     })
     .catch((e: AxiosError) => {
       notification.error({
@@ -45,7 +57,8 @@ onMounted(() => {
 const formValue = ref<GroupUpdateProps>({
   name: "",
   displayName: undefined,
-  showInHomepage: false
+  showInHomepage: false,
+  homepageOrder: 0,
 });
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault();
@@ -60,6 +73,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
       if (formValue.value.showInHomepage !== group.value?.showInHomepage) {
         params.showInHomepage = formValue.value.showInHomepage;
+      }
+      if (formValue.value.homepageOrder !== group.value?.homepageOrder) {
+        params.homepageOrder = formValue.value.homepageOrder;
       }
 
       http
@@ -101,6 +117,9 @@ const handleFormSubmit = (e: MouseEvent) => {
     <NFormItem label="首页显示" path="showInHomepage">
       <NRadio :checked="formValue.showInHomepage" @change="() => formValue.showInHomepage = true">是</NRadio>
       <NRadio :checked="!formValue.showInHomepage" @change="() => formValue.showInHomepage = false">否</NRadio>
+    </NFormItem>
+    <NFormItem label="首页顺序" path="homepageOrder">
+      <NInputNumber v-model:value="formValue.homepageOrder" placeholder="首页顺序（数字越小越靠前）" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
       <NButton round type="primary" @click="handleFormSubmit">

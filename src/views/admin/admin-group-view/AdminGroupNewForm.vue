@@ -18,12 +18,14 @@ type GroupNewProps = {
   name?: string,
   displayName?: string,
   showInHomepage?: boolean,
+  homepageOrder?: number,
 }
 
 const formValue = ref<GroupNewProps>({
   name: "",
   displayName: undefined,
-  showInHomepage: false
+  showInHomepage: false,
+  homepageOrder: 0,
 });
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault();
@@ -68,6 +70,9 @@ const handleFormSubmit = (e: MouseEvent) => {
     <NFormItem label="首页显示" path="showInHomepage">
       <NRadio :checked="formValue.showInHomepage" @change="() => formValue.showInHomepage = true">是</NRadio>
       <NRadio :checked="!formValue.showInHomepage" @change="() => formValue.showInHomepage = false">否</NRadio>
+    </NFormItem>
+    <NFormItem label="首页顺序" path="homepageOrder">
+      <NInputNumber v-model:value="formValue.homepageOrder" placeholder="首页顺序（数字越小越靠前）" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
       <NButton round type="primary" @click="handleFormSubmit">创建</NButton>

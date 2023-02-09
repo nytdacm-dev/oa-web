@@ -64,6 +64,10 @@ const columns: DataTableColumns<Models.Group> = [
     }
   },
   {
+    title: "首页顺序",
+    key: "homepageOrder"
+  },
+  {
     title: "创建时间",
     key: "registerTime",
     render(row) {

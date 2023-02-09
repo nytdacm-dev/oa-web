@@ -25,6 +25,7 @@ export namespace Models {
     name: string,
     displayName?: string,
     showInHomepage?: boolean,
+    homepageOrder?: number,
     users: User[],
     createdAt: number,
   }

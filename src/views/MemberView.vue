@@ -10,7 +10,7 @@ onMounted(() => {
     .get<Models.Group[]>("/group/homepage")
     .then(res => {
       groups.value = res.data.data;
-      groups.value.sort((a, b) => b.groupId - a.groupId);
+      groups.value.sort((a, b) => (a.homepageOrder ?? 0) - (b.homepageOrder ?? 0));
       groups.value.forEach(group => group.users.sort((a, b) => a.name.localeCompare(b.name, "zh")));
     });
 });
