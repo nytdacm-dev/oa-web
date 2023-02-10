@@ -5,6 +5,7 @@ export type AdminUser = {
   superAdmin?: boolean;
   admin?: boolean;
   active?: boolean;
+  lastActive?: number;
   socialAccount?: {
     codeforces?: string;
     codeforcesRating?: number;

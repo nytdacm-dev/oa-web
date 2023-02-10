@@ -95,10 +95,17 @@ const columns: DataTableColumns<AdminUser> = [
     },
   },
   {
+    title: "上次活动",
+    key: "lastActive",
+    render(row) {
+      return <span>{row.lastActive ? dayjs.unix(row.lastActive).format("YYYY-MM-DD HH:mm:ss") : "无"}</span>;
+    },
+  },
+  {
     title: "注册时间",
     key: "registerTime",
     render(row) {
-      return dayjs.unix(row.registerTime ?? 0).format("YYYY-MM-DD HH:mm:ss");
+      return <span>{dayjs.unix(row.registerTime ?? 0).format("YYYY-MM-DD HH:mm:ss")}</span>;
     },
   },
   {
