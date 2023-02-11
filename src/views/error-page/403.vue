@@ -1,11 +1,23 @@
 <script setup lang="ts">
 import { NResult } from "naive-ui";
 import ErrorPageFunc from "@/views/error-page/ErrorPageFunc.vue";
+import lcy01 from "@/assets/403/lcy-01.jpg";
+import lcy02 from "@/assets/403/lcy-02.jpg";
+import yxc01 from "@/assets/403/yxc-01.jpg";
+import { ref } from "vue";
+
+const pic = ref(Math.floor(Math.random() * 3) + 1);
+console.log(pic);
 </script>
 
 <template>
   <div class="main">
     <NResult status="403" title="403 禁止访问" description="这不是你该碰的东西">
+      <template #icon>
+        <NImage preview-disabled v-if="pic === 1" :src="lcy01" />
+        <NImage preview-disabled v-if="pic === 2" :src="lcy02" />
+        <NImage preview-disabled v-if="pic === 3" :src="yxc01" />
+      </template>
       <template #footer>
         <ErrorPageFunc />
       </template>
