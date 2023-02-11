@@ -7,7 +7,6 @@ import yxc01 from "@/assets/403/yxc-01.jpg";
 import { ref } from "vue";
 
 const pic = ref(Math.floor(Math.random() * 3) + 1);
-console.log(pic);
 </script>
 
 <template>
