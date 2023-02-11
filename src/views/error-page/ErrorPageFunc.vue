@@ -18,19 +18,23 @@ const home = () => {
 </script>
 
 <template>
-  <NSpace>
-    <NButton @click="study">找点乐子吧</NButton>
-    <NButton @click="play">干点正事吧</NButton>
-    <NButton @click="aha">AK World Final 秘籍</NButton>
-    <NButton @click="home">回到首页吧</NButton>
+  <NSpace vertical class="func">
+    <NSpace>
+      <NButton @click="study">找点乐子吧</NButton>
+      <NButton @click="play">干点正事吧</NButton>
+      <NButton @click="home">回到首页吧</NButton>
+    </NSpace>
+    <NSpace>
+      <NButton @click="aha">AK World Final 秘籍</NButton>
+    </NSpace>
   </NSpace>
 </template>
 
 <style lang="scss" scoped>
-.main {
-  height: 100vh;
+.func {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  display: flex;
 }
 </style>
