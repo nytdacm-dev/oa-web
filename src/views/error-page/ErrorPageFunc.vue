@@ -9,6 +9,9 @@ const play = () => {
 const study = () => {
   window.open("https://www.acwing.com/", "_blank");
 };
+const aha = () => {
+  window.open("https://www.bilibili.com/video/BV1GJ411x7h7", "_blank");
+};
 const home = () => {
   router.push("/");
 };
@@ -18,6 +21,7 @@ const home = () => {
   <NSpace>
     <NButton @click="study">找点乐子吧</NButton>
     <NButton @click="play">干点正事吧</NButton>
+    <NButton @click="aha">AK World Final 秘籍</NButton>
     <NButton @click="home">回到首页吧</NButton>
   </NSpace>
 </template>
