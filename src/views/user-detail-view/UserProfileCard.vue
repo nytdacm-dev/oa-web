@@ -14,6 +14,7 @@ import LuoguIcon from "@/components/icons/LuoguIcon.vue";
 import NowcoderIcon from "@/components/icons/NowcoderIcon.vue";
 import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui";
 import Link from "@/components/Link.vue";
+import PojIcon from "@/components/icons/PojIcon.vue";
 
 const userStore = useUserStore();
 const route = useRoute();
@@ -22,6 +23,7 @@ const user = ref<Models.User>();
 const modalVisible = ref(false);
 const cfLink = ref("https://codeforces.com/profile/");
 const atCoderLink = ref("https://atcoder.jp/users/");
+const pojLink = ref("http://poj.org/userstatus?user_id=");
 const luoguLink = ref("https://www.luogu.com.cn/user/");
 const nowcoderLink = ref("https://ac.nowcoder.com/acm/contest/profile/");
 const githubLink = ref("https://github.com/");
@@ -32,6 +34,7 @@ http
     user.value = res.data.data;
     cfLink.value = `https://codeforces.com/profile/${user.value?.socialAccount.codeforces}`;
     atCoderLink.value = `https://atcoder.jp/users/${user.value?.socialAccount.atCoder}`;
+    pojLink.value = `http://poj.org/userstatus?user_id=${user.value?.socialAccount.poj}`;
     luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`;
     nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`;
     githubLink.value = `https://github.com/${user.value?.socialAccount.github}`;
@@ -73,6 +76,13 @@ http
               <Link :href="atCoderLink" target="_blank" v-if="user.socialAccount.atCoder">
                 <NIcon :size="20">
                   <AtCoderIcon />
+                </NIcon>
+              </Link>
+            </div>
+            <div class="icon">
+              <Link :href="pojLink" target="_blank" v-if="user.socialAccount.poj">
+                <NIcon :size="20">
+                  <PojIcon />
                 </NIcon>
               </Link>
             </div>

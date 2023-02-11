@@ -37,12 +37,14 @@ type UserUpdateProps = {
   atCoder?: string;
   luogu?: string;
   nowcoder?: string;
+  poj?: string;
 };
 
 const formValue = ref<UserUpdateProps>({
   name: props.user.name,
   codeforces: props.user.socialAccount.codeforces,
   atCoder: props.user.socialAccount.atCoder,
+  poj: props.user.socialAccount.poj,
   luogu: props.user.socialAccount.luogu,
   nowcoder: props.user.socialAccount.nowcoder,
   github: props.user.socialAccount.github,
@@ -61,6 +63,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
       if (formValue.value.atCoder !== props.user.socialAccount.atCoder) {
         params.atCoder = formValue.value.atCoder;
+      }
+      if (formValue.value.poj !== props.user.socialAccount.poj) {
+        params.poj = formValue.value.poj;
       }
       if (formValue.value.luogu !== props.user.socialAccount.luogu) {
         params.luogu = formValue.value.luogu;
@@ -112,6 +117,9 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NFormItem>
     <NFormItem label="AtCoder" prop="atCoder">
       <NInput v-model:value="formValue.atCoder" placeholder="AtCoder 账号" />
+    </NFormItem>
+    <NFormItem label="POJ" prop="poj">
+      <NInput v-model:value="formValue.poj" placeholder="POJ 账号" />
     </NFormItem>
     <NFormItem label="洛谷" prop="luogu">
       <NInput v-model:value="formValue.luogu" placeholder="洛谷 ID（为数字，从个人主页的地址栏获取，如 644058）" />
