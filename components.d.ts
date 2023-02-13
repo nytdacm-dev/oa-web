@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     PojIcon: typeof import('./src/components/icons/PojIcon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VJudgeIcon: typeof import('./src/components/icons/VJudgeIcon.vue')['default']
     WebsiteIcon: typeof import('./src/components/icons/WebsiteIcon.vue')['default']
   }
 }

@@ -18,6 +18,7 @@ export namespace Models {
       luogu?: string;
       nowcoder?: string;
       poj?: string;
+      vjudge?: string;
     };
   };
 

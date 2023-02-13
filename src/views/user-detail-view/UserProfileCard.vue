@@ -15,6 +15,7 @@ import NowcoderIcon from "@/components/icons/NowcoderIcon.vue";
 import { NSkeleton, NAvatar, NButton, NModal, NIcon } from "naive-ui";
 import Link from "@/components/Link.vue";
 import PojIcon from "@/components/icons/PojIcon.vue";
+import VJudgeIcon from "@/components/icons/VJudgeIcon.vue";
 
 const userStore = useUserStore();
 const route = useRoute();
@@ -26,6 +27,7 @@ const atCoderLink = ref("https://atcoder.jp/users/");
 const pojLink = ref("http://poj.org/userstatus?user_id=");
 const luoguLink = ref("https://www.luogu.com.cn/user/");
 const nowcoderLink = ref("https://ac.nowcoder.com/acm/contest/profile/");
+const vjudgeLink = ref("https://vjudge.net/user/");
 const githubLink = ref("https://github.com/");
 const websiteLink = ref();
 http
@@ -37,6 +39,7 @@ http
     pojLink.value = `http://poj.org/userstatus?user_id=${user.value?.socialAccount.poj}`;
     luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`;
     nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`;
+    vjudgeLink.value = `https://vjudge.net/user/${user.value?.socialAccount.vjudge}`;
     githubLink.value = `https://github.com/${user.value?.socialAccount.github}`;
     websiteLink.value = user.value?.socialAccount.website;
   })
@@ -97,6 +100,13 @@ http
               <Link :href="nowcoderLink" target="_blank" v-if="user.socialAccount.nowcoder">
                 <NIcon :size="20">
                   <NowcoderIcon />
+                </NIcon>
+              </Link>
+            </div>
+            <div class="icon">
+              <Link :href="vjudgeLink" target="_blank" v-if="user.socialAccount.vjudge">
+                <NIcon :size="20">
+                  <VJudgeIcon />
                 </NIcon>
               </Link>
             </div>

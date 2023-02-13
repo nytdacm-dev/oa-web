@@ -38,6 +38,7 @@ type UserUpdateProps = {
   luogu?: string;
   nowcoder?: string;
   poj?: string;
+  vjudge?: string;
 };
 
 const formValue = ref<UserUpdateProps>({
@@ -49,6 +50,7 @@ const formValue = ref<UserUpdateProps>({
   nowcoder: props.user.socialAccount.nowcoder,
   github: props.user.socialAccount.github,
   website: props.user.socialAccount.website,
+  vjudge: props.user.socialAccount.vjudge,
 });
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault();
@@ -72,6 +74,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
       if (formValue.value.nowcoder !== props.user.socialAccount.nowcoder) {
         params.nowcoder = formValue.value.nowcoder;
+      }
+      if (formValue.value.vjudge !== props.user.socialAccount.vjudge) {
+        params.vjudge = formValue.value.vjudge;
       }
       if (formValue.value.github !== props.user.socialAccount.github) {
         params.github = formValue.value.github;
@@ -129,6 +134,9 @@ const handleFormSubmit = (e: MouseEvent) => {
         v-model:value="formValue.nowcoder"
         placeholder="牛客 ID（为数字，从个人主页的地址栏获取，如 444598457）"
       />
+    </NFormItem>
+    <NFormItem label="vjudge" prop="vjudge">
+      <NInput v-model:value="formValue.vjudge" placeholder="Virtual Judge 账号" />
     </NFormItem>
     <NFormItem label="GitHub" prop="github">
       <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />
