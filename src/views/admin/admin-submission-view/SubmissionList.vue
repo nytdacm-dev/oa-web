@@ -308,6 +308,10 @@ const ojOptions = ref<SelectMixedOption[]>([
     label: "POJ",
     value: "poj",
   },
+  {
+    label: "Virtual Judge",
+    value: "vjudge",
+  },
 ]);
 
 const requestData = () => {
