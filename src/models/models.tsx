@@ -12,8 +12,6 @@ export namespace Models {
       codeforcesRating?: number;
       codeforcesMaxRating?: number;
       codeforcesRank?: string;
-      github?: string;
-      website?: string;
       atCoder?: string;
       luogu?: string;
       nowcoder?: string;

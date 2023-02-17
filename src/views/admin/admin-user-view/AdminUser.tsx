@@ -11,8 +11,6 @@ export type AdminUser = {
     codeforcesRating?: number;
     codeforcesMaxRating?: number;
     codeforcesRank?: string;
-    github?: string;
-    website?: string;
   };
   registerTime?: number;
 };

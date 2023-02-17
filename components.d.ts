@@ -9,7 +9,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AtCoderIcon: typeof import('./src/components/icons/AtCoderIcon.vue')['default']
     CodeforcesIcon: typeof import('./src/components/icons/CodeforcesIcon.vue')['default']
-    GitHubIcon: typeof import('./src/components/icons/GitHubIcon.vue')['default']
     Link: typeof import('./src/components/Link.vue')['default']
     LuoguIcon: typeof import('./src/components/icons/LuoguIcon.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
@@ -21,6 +20,5 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VJudgeIcon: typeof import('./src/components/icons/VJudgeIcon.vue')['default']
-    WebsiteIcon: typeof import('./src/components/icons/WebsiteIcon.vue')['default']
   }
 }

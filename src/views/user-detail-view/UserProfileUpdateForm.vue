@@ -12,28 +12,16 @@ const props = defineProps<{
 const notification = useNotification();
 
 const formRef = ref<FormInst | null>(null);
-const validateWebsite = (rule: any, value: string, callback: any) => {
-  if (!value) {
-    callback();
-  } else if (value.startsWith("http://") || value.startsWith("https://")) {
-    callback();
-  } else {
-    callback(new Error("你输入的不是网址"));
-  }
-};
 const rules = reactive<FormRules>({
   name: [
     { required: true, message: "请输入姓名", trigger: "blur" },
     { max: 6, message: "姓名长度最多 6 位", trigger: "blur" },
   ],
-  website: [{ validator: validateWebsite, trigger: "blur" }],
 } as { [k in keyof UserUpdateProps]: FormRules[k] });
 
 type UserUpdateProps = {
   name?: string;
   codeforces?: string;
-  github?: string;
-  website?: string;
   atCoder?: string;
   luogu?: string;
   nowcoder?: string;
@@ -46,8 +34,6 @@ const formValue = ref<UserUpdateProps>({
   atCoder: props.user.socialAccount.atCoder,
   luogu: props.user.socialAccount.luogu,
   nowcoder: props.user.socialAccount.nowcoder,
-  github: props.user.socialAccount.github,
-  website: props.user.socialAccount.website,
   vjudge: props.user.socialAccount.vjudge,
 });
 const handleFormSubmit = (e: MouseEvent) => {
@@ -72,12 +58,6 @@ const handleFormSubmit = (e: MouseEvent) => {
       }
       if (formValue.value.vjudge !== props.user.socialAccount.vjudge) {
         params.vjudge = formValue.value.vjudge;
-      }
-      if (formValue.value.github !== props.user.socialAccount.github) {
-        params.github = formValue.value.github;
-      }
-      if (formValue.value.website !== props.user.socialAccount.website) {
-        params.website = formValue.value.website;
       }
       http
         .patch("/user", params)
@@ -129,12 +109,6 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NFormItem>
     <NFormItem label="vjudge" prop="vjudge">
       <NInput v-model:value="formValue.vjudge" placeholder="Virtual Judge 账号" />
-    </NFormItem>
-    <NFormItem label="GitHub" prop="github">
-      <NInput v-model:value="formValue.github" placeholder="GitHub 账号" />
-    </NFormItem>
-    <NFormItem label="个人网站" prop="website">
-      <NInput v-model:value="formValue.website" placeholder="个人网站链接" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
       <NButton round type="primary" @click="handleFormSubmit"> 修改 </NButton>

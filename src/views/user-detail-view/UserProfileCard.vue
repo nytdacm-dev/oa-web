@@ -7,8 +7,6 @@ import { useUserStore } from "@/stores/userStore";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import CodeforcesIcon from "@/components/icons/CodeforcesIcon.vue";
-import GitHubIcon from "@/components/icons/GitHubIcon.vue";
-import WebsiteIcon from "@/components/icons/WebsiteIcon.vue";
 import AtCoderIcon from "@/components/icons/AtCoderIcon.vue";
 import LuoguIcon from "@/components/icons/LuoguIcon.vue";
 import NowcoderIcon from "@/components/icons/NowcoderIcon.vue";
@@ -26,8 +24,6 @@ const atCoderLink = ref("https://atcoder.jp/users/");
 const luoguLink = ref("https://www.luogu.com.cn/user/");
 const nowcoderLink = ref("https://ac.nowcoder.com/acm/contest/profile/");
 const vjudgeLink = ref("https://vjudge.net/user/");
-const githubLink = ref("https://github.com/");
-const websiteLink = ref();
 http
   .get<Models.User>(`/user/${username}`)
   .then((res) => {
@@ -37,8 +33,6 @@ http
     luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`;
     nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`;
     vjudgeLink.value = `https://vjudge.net/user/${user.value?.socialAccount.vjudge}`;
-    githubLink.value = `https://github.com/${user.value?.socialAccount.github}`;
-    websiteLink.value = user.value?.socialAccount.website;
   })
   .catch((err) => {
     // TODO: Go to 404 page
@@ -97,20 +91,6 @@ http
               <Link :href="vjudgeLink" target="_blank" v-if="user.socialAccount.vjudge">
                 <NIcon :size="20">
                   <VJudgeIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div class="icon">
-              <Link :href="githubLink" target="_blank" v-if="user.socialAccount.github">
-                <NIcon :size="20">
-                  <GitHubIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div class="icon">
-              <Link :href="websiteLink" target="_blank" v-if="user.socialAccount.website">
-                <NIcon :size="20">
-                  <WebsiteIcon />
                 </NIcon>
               </Link>
             </div>
