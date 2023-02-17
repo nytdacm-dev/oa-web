@@ -81,12 +81,6 @@ const columns: DataTableColumns<Models.Submission> = [
               请进入题目内部查看！
             </Link>
           );
-        case "poj":
-          return (
-            <Link href={`http://poj.org/problem?id=${row.remoteProblemId}`} newWindow={true}>
-              请进入题目内部查看！
-            </Link>
-          );
         default:
           return <span>{row.name}</span>;
       }
@@ -133,12 +127,6 @@ const columns: DataTableColumns<Models.Submission> = [
               {row.remoteProblemId}
             </Link>
           );
-        case "poj":
-          return (
-            <Link href={`http://poj.org/problem?id=${row.remoteProblemId}`} newWindow={true}>
-              {row.remoteProblemId}
-            </Link>
-          );
         default:
           return <span>{row.remoteProblemId}</span>;
       }
@@ -171,12 +159,6 @@ const columns: DataTableColumns<Models.Submission> = [
           return (
             <Link href="https://atcoder.jp" newWindow={true}>
               AtCoder
-            </Link>
-          );
-        case "poj":
-          return (
-            <Link href="http://poj.org" newWindow={true}>
-              POJ
             </Link>
           );
         default:
@@ -225,8 +207,6 @@ const columns: DataTableColumns<Models.Submission> = [
               {row.remoteSubmissionId}
             </Link>
           );
-        case "poj":
-          return <span>{row.remoteSubmissionId}</span>;
         default:
           return <span>{row.remoteSubmissionId}</span>;
       }
@@ -303,10 +283,6 @@ const ojOptions = ref<SelectMixedOption[]>([
   {
     label: "AtCoder",
     value: "atcoder",
-  },
-  {
-    label: "POJ",
-    value: "poj",
   },
   {
     label: "Virtual Judge",
