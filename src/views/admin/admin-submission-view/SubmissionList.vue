@@ -11,10 +11,12 @@ import Link from "@/components/Link.vue";
 type FormValue = {
   oj?: string;
   group?: number;
+  user?: string;
 };
 const formValue = ref<FormValue>({
   oj: undefined,
   group: undefined,
+  user: undefined,
 });
 const pagination = reactive({
   page: 1,
@@ -346,8 +348,11 @@ const handleFormSubmit = () => {
         <NFormItem label="群组" path="group">
           <NSelect v-model:value="formValue.group" placeholder="群组" :options="groupOptions" style="width: 200px" />
         </NFormItem>
+        <NFormItem label="用户" path="user">
+          <NInput v-model:value="formValue.user" placeholder="用户名或姓名" />
+        </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit"> 查询 </NButton>
+          <NButton round type="primary" @click="handleFormSubmit"> 查询</NButton>
         </NFormItem>
       </NForm>
     </div>
