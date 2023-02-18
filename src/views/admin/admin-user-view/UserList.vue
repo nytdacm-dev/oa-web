@@ -263,7 +263,7 @@ const handleFormSubmit = () => {
     </NModal>
     <NModal
       :show="groupModalVisible"
-      title="成员列表"
+      title="群组列表"
       class="custom-card"
       preset="card"
       style="width: 80%"

@@ -18,11 +18,14 @@ import type { ListWrapper } from "@/models/models";
 import type { Models } from "@/models/models";
 import AdminGroupUpdateForm from "@/views/admin/admin-group-view/AdminGroupUpdateForm.vue";
 import AdminGroupNewForm from "@/views/admin/admin-group-view/AdminGroupNewForm.vue";
+import GroupMemberUpdateModal from "@/views/admin/admin-group-view/GroupMemberUpdateModal.vue";
 
 const notification = useNotification();
 const updateGroupModalVisible = ref(false);
 const newGroupModalVisible = ref(false);
 const updateGroupId = ref(0);
+const memberModalVisible = ref(false);
+const memberGroupId = ref(0);
 type FormValue = {
   name?: string;
   showInHomepage?: boolean;
@@ -89,7 +92,15 @@ const columns: DataTableColumns<Models.Group> = [
           >
             修改
           </NButton>
-          <NButton size="small">成员</NButton>
+          <NButton
+            size="small"
+            onClick={() => {
+              memberModalVisible.value = true;
+              memberGroupId.value = row.groupId ?? 0;
+            }}
+          >
+            成员
+          </NButton>
           <NPopconfirm onPositiveClick={() => deleteUser(row.groupId ?? 0)}>
             {{
               default: () => "确定删除吗？",
@@ -215,6 +226,16 @@ const handleFormSubmit = () => {
       @close="() => (updateGroupModalVisible = false)"
     >
       <AdminGroupUpdateForm :groupId="updateGroupId" />
+    </NModal>
+    <NModal
+      :show="memberModalVisible"
+      title="成员列表"
+      class="custom-card"
+      preset="card"
+      style="width: 80%"
+      @close="() => (memberModalVisible = false)"
+    >
+      <GroupMemberUpdateModal :groupId="memberGroupId" />
     </NModal>
   </div>
 </template>
