@@ -291,7 +291,22 @@ const ojOptions = ref<SelectMixedOption[]>([
     value: "vjudge",
   },
 ]);
-
+const download = () => {
+  downloadBtnDisabled.value = true;
+  http.get(
+    "/admin/submission/download",
+    {
+      ...formValue.value,
+    },
+    {
+      responseType: "blob",
+    }
+  );
+  setTimeout(() => {
+    downloadBtnDisabled.value = false;
+  }, 5000);
+};
+const downloadBtnDisabled = ref(false);
 const requestData = () => {
   http
     .get<ListWrapper<Models.Submission>>("/admin/submission", {
@@ -356,6 +371,10 @@ const handleFormSubmit = () => {
         </NFormItem>
       </NForm>
     </div>
+    <div class="operation">
+      <!-- 下载 -->
+      <NButton round size="small" type="primary" @click="download" :disabled="downloadBtnDisabled">下载</NButton>
+    </div>
     <NDataTable
       remote
       ref="table"
@@ -371,4 +390,10 @@ const handleFormSubmit = () => {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.operation {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+</style>

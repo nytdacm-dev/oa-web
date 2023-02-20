@@ -70,7 +70,19 @@ http.instance.interceptors.request.use((config) => {
   return config;
 });
 http.instance.interceptors.response.use(
-  (response: AxiosResponse<HttpResponse>) => {
+  (response: AxiosResponse<HttpResponse | Blob>) => {
+    if (response.data instanceof Blob) {
+      // download file
+      const url = window.URL.createObjectURL(response.data);
+      const link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", response.headers["content-disposition"].split(";")[1].split("=")[1]);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    }
     return response;
   },
   async (error) => {
