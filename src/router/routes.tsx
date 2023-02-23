@@ -107,6 +107,13 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/500",
+    component: () => import("../views/error-page/500.vue"),
+    meta: {
+      title: "500",
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: "/404",
   },

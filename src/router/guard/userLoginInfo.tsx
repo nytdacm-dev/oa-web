@@ -1,6 +1,7 @@
 import { getToken } from "@/shared/token";
 import { useUserStore } from "@/stores/userStore";
 import type { Router } from "vue-router";
+import type { AxiosError } from "axios";
 
 const isLogin = () => {
   return !!getToken();
@@ -20,8 +21,12 @@ export const setupUserInfoGuard = (router: Router) => {
           .then(() => {
             next();
           })
-          .catch(() => {
-            next({ name: "login" });
+          .catch((e: AxiosError) => {
+            if (e.response?.status === 500) {
+              next("/500");
+            } else {
+              next({ name: "login" });
+            }
           });
       } else {
         next();
