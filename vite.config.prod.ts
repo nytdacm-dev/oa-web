@@ -1,9 +1,9 @@
-import { mergeConfig, type UserConfigExport } from "vite";
-import baseConfig from "./vite.config.base";
+import { type UserConfigExport, mergeConfig } from 'vite'
+import baseConfig from './vite.config.base'
 
 export default mergeConfig(
   {
-    mode: "production",
+    mode: 'production',
   } as UserConfigExport,
-  baseConfig
-);
+  baseConfig,
+)

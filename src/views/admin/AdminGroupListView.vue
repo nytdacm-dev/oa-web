@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GroupList from "@/views/admin/admin-group-view/GroupList.vue";
+import GroupList from '@/views/admin/admin-group-view/GroupList.vue'
 </script>
 
 <template>

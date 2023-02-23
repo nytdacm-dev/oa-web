@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { NAvatar } from "naive-ui";
-import type { Models } from "@/models/models";
-import DefaultAvatar from "@/assets/user-default-avatar.png";
-import { useRouter } from "vue-router";
+import { NAvatar } from 'naive-ui'
+import { useRouter } from 'vue-router'
+import type { Models } from '@/models/models'
+import DefaultAvatar from '@/assets/user-default-avatar.png'
 
-const router = useRouter();
 const props = defineProps<{
-  user: Models.User;
-}>();
+  user: Models.User
+}>()
+const router = useRouter()
 const goToUserProfile = () => {
-  router.push(`/user/${props.user.username}`);
-};
+  router.push(`/user/${props.user.username}`)
+}
 </script>
 
 <template>

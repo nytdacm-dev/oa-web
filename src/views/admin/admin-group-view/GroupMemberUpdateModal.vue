@@ -1,71 +1,73 @@
 <script setup lang="ts">
-import { http } from "@/shared/Http";
-import type { AxiosError } from "axios";
-import { onMounted, ref } from "vue";
-import { NButton, useNotification, type TransferOption } from "naive-ui";
-import type { ListWrapper, Models } from "@/models/models";
+import type { AxiosError } from 'axios'
+import { onMounted, ref } from 'vue'
+import { NButton, type TransferOption, useNotification } from 'naive-ui'
+import { http } from '@/shared/Http'
+import type { ListWrapper, Models } from '@/models/models'
 
 const props = defineProps<{
-  groupId: number;
-}>();
+  groupId: number
+}>()
 
-const notification = useNotification();
+const notification = useNotification()
 
-const value = ref<number[]>([]);
-const options = ref<TransferOption[]>([]);
+const value = ref<number[]>([])
+const options = ref<TransferOption[]>([])
 onMounted(() => {
   http
-    .get<ListWrapper<Models.User>>(`/admin/user`)
+    .get<ListWrapper<Models.User>>('/admin/user')
     .then((res) => {
-      const data = res.data.data.data;
-      options.value =
-        data?.map((user) => ({
+      const data = res.data.data.data
+      options.value
+        = data?.map(user => ({
           label: `${user.name} - ${user.username}`,
           value: user.userId,
-        })) ?? [];
+        })) ?? []
     })
     .catch((e: AxiosError) => {
       notification.error({
-        title: "获取失败",
+        title: '获取失败',
         content: e.message,
-      });
-    });
+      })
+    })
   http
     .get<number[]>(`/admin/group/${props.groupId}/members`)
     .then((res) => {
-      value.value = res.data.data;
+      value.value = res.data.data
     })
     .catch((e: AxiosError) => {
       notification.error({
-        title: "获取失败",
+        title: '获取失败',
         content: e.message,
-      });
-    });
-});
+      })
+    })
+})
 const handleClick = () => {
   http
     .post(`/admin/group/${props.groupId}/members`, { members: value.value })
     .then((res) => {
       notification.success({
-        title: "保存成功",
+        title: '保存成功',
         content: res.data.message,
         duration: 2000,
-      });
+      })
     })
     .catch((e: AxiosError) => {
       notification.error({
-        title: "保存失败",
+        title: '保存失败',
         content: e.message,
         duration: 2000,
-      });
-    });
-};
+      })
+    })
+}
 </script>
 
 <template>
   <div class="wrapper">
     <NTransfer ref="transfer" v-model:value="value" :options="options" virtual-scroll />
-    <NButton class="btn" round size="small" type="primary" @click="handleClick">保存</NButton>
+    <NButton class="btn" round size="small" type="primary" @click="handleClick">
+      保存
+    </NButton>
   </div>
 </template>
 

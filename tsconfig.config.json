@@ -1,12 +1,9 @@
 {
   "extends": "@vue/tsconfig/tsconfig.node.json",
   "include": [
-    "vite.config.base.*",
-    "vite.config.def.*",
-    "vite.config.prod.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "playwright.config.*"
+    "vite.config.base.ts",
+    "vite.config.dev.ts",
+    "vite.config.prod.ts",
   ],
   "compilerOptions": {
     "composite": true,

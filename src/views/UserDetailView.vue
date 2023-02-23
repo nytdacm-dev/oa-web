@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UserProfileCard from "./user-detail-view/UserProfileCard.vue";
+import UserProfileCard from './user-detail-view/UserProfileCard.vue'
 </script>
 
 <template>

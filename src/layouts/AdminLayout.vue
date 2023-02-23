@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { NLayoutSider, NLayoutContent, NLayout } from "naive-ui";
-import AdminMenu from "@/layouts/admin-layout/AdminMenu.vue";
-import { ref } from "vue";
+import { NLayout, NLayoutContent, NLayoutSider } from 'naive-ui'
+import { ref } from 'vue'
+import AdminMenu from '@/layouts/admin-layout/AdminMenu.vue'
 
-const collapsed = ref<boolean>(false);
+const collapsed = ref<boolean>(false)
 </script>
 
 <template>

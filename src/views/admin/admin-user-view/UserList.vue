@@ -1,46 +1,46 @@
 <script setup lang="tsx">
-import { onMounted, reactive, ref } from "vue";
-import type { AdminUser } from "@/views/admin/admin-user-view/AdminUser";
-import { http } from "@/shared/Http";
+import { onMounted, reactive, ref } from 'vue'
 import {
+  type DataTableColumns,
+  NButton,
+  NDataTable,
   NForm,
   NFormItem,
   NInput,
-  NButton,
-  NDataTable,
-  useNotification,
-  type DataTableColumns,
-  NPopconfirm,
   NModal,
+  NPopconfirm,
   NSpace,
-} from "naive-ui";
-import dayjs from "dayjs";
-import { useUserStore } from "@/stores/userStore";
-import AdminUserUpdateForm from "@/views/admin/admin-user-view/AdminUserUpdateForm.vue";
-import type { ListWrapper } from "@/models/models";
-import UserGroupUpdateModal from "@/views/admin/admin-user-view/UserGroupUpdateModal.vue";
-import Link from "@/components/Link.vue";
+  useNotification,
+} from 'naive-ui'
+import dayjs from 'dayjs'
+import type { AdminUser } from '@/views/admin/admin-user-view/AdminUser'
+import { http } from '@/shared/Http'
+import { useUserStore } from '@/stores/userStore'
+import AdminUserUpdateForm from '@/views/admin/admin-user-view/AdminUserUpdateForm.vue'
+import type { ListWrapper } from '@/models/models'
+import UserGroupUpdateModal from '@/views/admin/admin-user-view/UserGroupUpdateModal.vue'
+import Link from '@/components/Link.vue'
 
-const userStore = useUserStore();
-const notification = useNotification();
-const modalVisible = ref(false);
-const updateUserId = ref(0);
-const groupModalVisible = ref(false);
-const groupUserId = ref(0);
-type FormValue = {
-  username?: string;
-  name?: string;
-  active?: boolean;
-  admin?: boolean;
-  superAdmin?: boolean;
-};
+const userStore = useUserStore()
+const notification = useNotification()
+const modalVisible = ref(false)
+const updateUserId = ref(0)
+const groupModalVisible = ref(false)
+const groupUserId = ref(0)
+interface FormValue {
+  username?: string
+  name?: string
+  active?: boolean
+  admin?: boolean
+  superAdmin?: boolean
+}
 const formValue = ref<FormValue>({
   username: undefined,
   name: undefined,
   active: undefined,
   admin: undefined,
   superAdmin: undefined,
-});
+})
 const pagination = reactive({
   page: 1,
   pageSize: 10,
@@ -48,82 +48,84 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [10, 20, 50, 100],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${itemCount} 条`;
+    return `总共有 ${itemCount} 条`
   },
-});
-const loading = ref<boolean>(true);
-const data = ref<AdminUser[]>([]);
+})
+const loading = ref<boolean>(true)
+const data = ref<AdminUser[]>([])
 const columns: DataTableColumns<AdminUser> = [
   {
-    title: "ID",
-    key: "userId",
+    title: 'ID',
+    key: 'userId',
   },
   {
-    title: "用户名",
-    key: "username",
+    title: '用户名',
+    key: 'username',
     render(row) {
       return (
         <Link href={`/user/${row.username}`} newWindow={true}>
           {row.username}
         </Link>
-      );
+      )
     },
   },
   {
-    title: "姓名",
-    key: "name",
+    title: '姓名',
+    key: 'name',
   },
   {
-    title: "已激活",
-    key: "active",
+    title: '已激活',
+    key: 'active',
     render(row) {
-      return row.active === true ? "是" : "否";
+      return row.active === true ? '是' : '否'
     },
   },
   {
-    title: "管理员",
-    key: "admin",
+    title: '管理员',
+    key: 'admin',
     render(row) {
-      return row.admin === true ? "是" : "否";
+      return row.admin === true ? '是' : '否'
     },
   },
   {
-    title: "超级管理员",
-    key: "superAdmin",
+    title: '超级管理员',
+    key: 'superAdmin',
     render(row) {
-      return row.superAdmin === true ? "是" : "否";
+      return row.superAdmin === true ? '是' : '否'
     },
   },
   {
-    title: "上次活动",
-    key: "lastActive",
+    title: '上次活动',
+    key: 'lastActive',
     render(row) {
-      return <span>{row.lastActive ? dayjs.unix(row.lastActive).format("YYYY-MM-DD HH:mm:ss") : "无"}</span>;
+      return <span>{row.lastActive ? dayjs.unix(row.lastActive).format('YYYY-MM-DD HH:mm:ss') : '无'}</span>
     },
   },
   {
-    title: "注册时间",
-    key: "registerTime",
+    title: '注册时间',
+    key: 'registerTime',
     render(row) {
-      return <span>{dayjs.unix(row.registerTime ?? 0).format("YYYY-MM-DD HH:mm:ss")}</span>;
+      return <span>{dayjs.unix(row.registerTime ?? 0).format('YYYY-MM-DD HH:mm:ss')}</span>
     },
   },
   {
-    title: "操作",
-    key: "actions",
+    title: '操作',
+    key: 'actions',
     render(row) {
       return (
         <NSpace>
-          {!row.active ? (
+          {!row.active
+            ? (
             <NButton size="small" onClick={() => activeUser(row.userId ?? 0)}>
               激活
             </NButton>
-          ) : null}
+              )
+            : null}
           <NButton
             size="small"
             onClick={() => {
-              modalVisible.value = true;
-              updateUserId.value = row.userId ?? 0;
+              modalVisible.value = true
+              updateUserId.value = row.userId ?? 0
             }}
           >
             修改
@@ -131,16 +133,18 @@ const columns: DataTableColumns<AdminUser> = [
           <NButton
             size="small"
             onClick={() => {
-              groupModalVisible.value = true;
-              groupUserId.value = row.userId ?? 0;
+              groupModalVisible.value = true
+              groupUserId.value = row.userId ?? 0
             }}
           >
             群组
           </NButton>
-          {row.superAdmin === true || row.userId === userStore.userId ? null : (
+          {(row.superAdmin === true || row.userId === userStore.userId)
+            ? null
+            : (
             <NPopconfirm onPositiveClick={() => deleteUser(row.userId ?? 0)}>
               {{
-                default: () => "确定删除吗？",
+                default: () => '确定删除吗？',
                 trigger: () => (
                   <NButton size="small" type="error">
                     删除
@@ -148,73 +152,73 @@ const columns: DataTableColumns<AdminUser> = [
                 ),
               }}
             </NPopconfirm>
-          )}
+              )}
         </NSpace>
-      );
+      )
     },
   },
-];
+]
 const rowKey = (rowData: AdminUser) => {
-  return rowData.userId ?? 0;
-};
+  return rowData.userId ?? 0
+}
 const deleteUser = (userId: number) => {
   http.delete<void>(`/admin/user/${userId}`).then((res) => {
     notification.success({
       title: res.data.message,
       duration: 2000,
-    });
-  });
-  handleFormSubmit();
-};
+    })
+  })
+  handleFormSubmit()
+}
 onMounted(() => {
-  handleFormSubmit();
-});
+  handleFormSubmit()
+})
 const activeUser = (userId: number) => {
   http.patch<AdminUser>(`/admin/user/${userId}`, { active: true }).then((res) => {
     notification.success({
       title: res.data.message,
       duration: 2000,
-    });
-  });
-  handleFormSubmit();
-};
+    })
+  })
+  handleFormSubmit()
+}
 const requestData = () => {
   http
-    .get<ListWrapper<AdminUser>>("/admin/user", {
+    .get<ListWrapper<AdminUser>>('/admin/user', {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
       size: pagination.pageSize,
     })
     .then((res) => {
-      const resData = res.data.data;
-      data.value = resData.data ?? [];
-      pagination.itemCount = resData.total ?? 0;
-    });
-};
+      const resData = res.data.data
+      data.value = resData.data ?? []
+      pagination.itemCount = resData.total ?? 0
+    })
+}
 const handlePageSizeChange = (pageSize: number) => {
   if (!loading.value) {
-    pagination.page = 1;
-    pagination.pageSize = pageSize;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = 1
+    pagination.pageSize = pageSize
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 const handlePageChange = (currentPage: number) => {
   if (!loading.value) {
-    pagination.page = currentPage;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = currentPage
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 
 const handleFormSubmit = () => {
-  pagination.page = 1;
-  loading.value = true;
-  requestData();
-  loading.value = false;
-};
+  pagination.page = 1
+  loading.value = true
+  requestData()
+  loading.value = false
+}
 </script>
 
 <template>
@@ -235,13 +239,15 @@ const handleFormSubmit = () => {
           <NInput v-model:value="formValue.name" placeholder="姓名" />
         </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit"> 查询 </NButton>
+          <NButton round type="primary" @click="handleFormSubmit">
+            查询
+          </NButton>
         </NFormItem>
       </NForm>
     </div>
     <NDataTable
-      remote
       ref="table"
+      remote
       :row-key="rowKey"
       :loading="loading"
       :bordered="false"
@@ -259,7 +265,7 @@ const handleFormSubmit = () => {
       style="width: 80%"
       @close="() => (modalVisible = false)"
     >
-      <AdminUserUpdateForm :userId="updateUserId" />
+      <AdminUserUpdateForm :user-id="updateUserId" />
     </NModal>
     <NModal
       :show="groupModalVisible"
@@ -269,7 +275,7 @@ const handleFormSubmit = () => {
       style="width: 80%"
       @close="() => (groupModalVisible = false)"
     >
-      <UserGroupUpdateModal :userId="groupUserId" />
+      <UserGroupUpdateModal :user-id="groupUserId" />
     </NModal>
   </div>
 </template>

@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import type { MenuOption } from "naive-ui";
-import { RouterLink } from "vue-router";
-import type { Component } from "vue";
-import { NIcon, NMenu } from "naive-ui";
-import { h } from "vue";
-import { User as UserIcon, Table as TableIcon, List as ListIcon } from "@vicons/fa";
-import { GroupFilled as GroupIcon } from "@vicons/material";
+import type { MenuOption } from 'naive-ui'
+import { RouterLink } from 'vue-router'
+import type { Component } from 'vue'
+import { NIcon, NMenu } from 'naive-ui'
+import { h } from 'vue'
+import { List as ListIcon, Table as TableIcon, User as UserIcon } from '@vicons/fa'
+import { GroupFilled as GroupIcon } from '@vicons/material'
 
 const props = defineProps<{
-  collapsed: boolean;
-}>();
+  collapsed: boolean
+}>()
 
 function renderIcon(icon: Component) {
-  return () => h(NIcon, null, { default: () => h(icon) });
+  return () => h(NIcon, null, { default: () => h(icon) })
 }
 
 const menuOptions: MenuOption[] = [
@@ -22,12 +22,12 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-user",
+            name: 'admin-user',
           },
         },
-        { default: () => "用户管理" }
+        { default: () => '用户管理' },
       ),
-    key: "admin-user",
+    key: 'admin-user',
     icon: renderIcon(UserIcon),
   },
   {
@@ -36,12 +36,12 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-group",
+            name: 'admin-group',
           },
         },
-        { default: () => "群组管理" }
+        { default: () => '群组管理' },
       ),
-    key: "admin-group",
+    key: 'admin-group',
     icon: renderIcon(GroupIcon),
   },
   {
@@ -50,12 +50,12 @@ const menuOptions: MenuOption[] = [
         RouterLink,
         {
           to: {
-            name: "admin-submission",
+            name: 'admin-submission',
           },
         },
-        { default: () => "提交记录" }
+        { default: () => '提交记录' },
       ),
-    key: "admin-submission",
+    key: 'admin-submission',
     icon: renderIcon(TableIcon),
   },
   {
@@ -67,13 +67,13 @@ const menuOptions: MenuOption[] = [
             // name: "admin-problem-list",
           },
         },
-        { default: () => "题单管理" }
+        { default: () => '题单管理' },
       ),
-    key: "admin-submission",
+    key: 'admin-submission',
     icon: renderIcon(ListIcon),
     disabled: true,
   },
-];
+]
 </script>
 
 <template>

@@ -1,9 +1,9 @@
-import { defineComponent } from "vue";
-import { RouterView } from "vue-router";
-import Header from "./default-layout/Header.vue";
-import Footer from "./default-layout/Footer.vue";
-import style from "./DefaultLayout.module.scss";
-import { NLayout, NLayoutContent, NLayoutFooter, NLayoutHeader } from "naive-ui";
+import { defineComponent } from 'vue'
+import { RouterView } from 'vue-router'
+import { NLayout, NLayoutContent, NLayoutFooter, NLayoutHeader } from 'naive-ui'
+import Header from './default-layout/Header.vue'
+import Footer from './default-layout/Footer.vue'
+import style from './DefaultLayout.module.scss'
 
 export const DefaultLayout = defineComponent({
   setup() {
@@ -13,7 +13,7 @@ export const DefaultLayout = defineComponent({
           <NLayoutHeader>
             <Header />
           </NLayoutHeader>
-          <NLayoutContent contentStyle={"padding:0 24px; "} class={style.main}>
+          <NLayoutContent contentStyle={'padding:0 24px; '} class={style.main}>
             <RouterView />
           </NLayoutContent>
           <NLayoutFooter class={style.footer}>
@@ -21,8 +21,8 @@ export const DefaultLayout = defineComponent({
           </NLayoutFooter>
         </NLayout>
       </>
-    );
+    )
   },
-});
+})
 
-export default DefaultLayout;
+export default DefaultLayout

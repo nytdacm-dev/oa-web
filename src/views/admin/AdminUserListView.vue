@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MemberList from "@/views/admin/admin-user-view/UserList.vue";
+import MemberList from '@/views/admin/admin-user-view/UserList.vue'
 </script>
 
 <template>

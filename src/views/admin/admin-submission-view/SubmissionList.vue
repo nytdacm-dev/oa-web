@@ -1,23 +1,22 @@
 <script setup lang="tsx">
-import { onMounted, reactive, ref } from "vue";
-import { http } from "@/shared/Http";
-import { NForm, NFormItem, NSelect, NButton, NDataTable, type DataTableColumns } from "naive-ui";
-import dayjs from "dayjs";
-import type { ListWrapper } from "@/models/models";
-import type { Models } from "@/models/models";
-import type { SelectMixedOption } from "naive-ui/es/select/src/interface";
-import Link from "@/components/Link.vue";
+import { onMounted, reactive, ref } from 'vue'
+import { type DataTableColumns, NButton, NDataTable, NForm, NFormItem, NSelect } from 'naive-ui'
+import dayjs from 'dayjs'
+import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
+import { http } from '@/shared/Http'
+import type { ListWrapper, Models } from '@/models/models'
+import Link from '@/components/Link.vue'
 
-type FormValue = {
-  oj?: string;
-  group?: number;
-  user?: string;
-};
+interface FormValue {
+  oj?: string
+  group?: number
+  user?: string
+}
 const formValue = ref<FormValue>({
   oj: undefined,
   group: undefined,
   user: undefined,
-});
+})
 const pagination = reactive({
   page: 1,
   pageSize: 20,
@@ -25,155 +24,155 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [20, 50, 100, 200],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${itemCount} 条`;
+    return `总共有 ${itemCount} 条`
   },
-});
-const loading = ref<boolean>(true);
-const data = ref<Models.Submission[]>([]);
+})
+const loading = ref<boolean>(true)
+const data = ref<Models.Submission[]>([])
 const columns: DataTableColumns<Models.Submission> = [
   {
-    title: "提交人",
-    key: "user",
+    title: '提交人',
+    key: 'user',
     render(row) {
       return (
         <Link href={`/user/${row.user?.username}`} newWindow={true}>
           {row.user?.name}
         </Link>
-      );
+      )
     },
   },
   {
-    title: "题目名称",
-    key: "name",
+    title: '题目名称',
+    key: 'name',
     render(row) {
       switch (row.oj) {
-        case "codeforces":
+        case 'codeforces':
           return (
             <Link
               href={`https://codeforces.com/problemset/problem/${row.contestId}/${row.remoteProblemId.replace(
                 row.contestId,
-                ""
+                '',
               )}`}
               newWindow={true}
             >
               {row.name}
             </Link>
-          );
-        case "codeforces_gym":
+          )
+        case 'codeforces_gym':
           return (
             <Link
               href={`https://codeforces.com/gym/${row.contestId}/problem/${row.remoteProblemId.replace(
                 row.contestId,
-                ""
+                '',
               )}`}
               newWindow={true}
             >
               {row.name}
             </Link>
-          );
-        case "nowcoder":
+          )
+        case 'nowcoder':
           return (
             <Link href={`https://ac.nowcoder.com/acm/problem/${row.remoteProblemId}`} newWindow={true}>
               {row.name}
             </Link>
-          );
-        case "atcoder":
+          )
+        case 'atcoder':
           return (
             <Link href={`https://atcoder.jp/contests/${row.contestId}/tasks/${row.remoteProblemId}`} newWindow={true}>
               请进入题目内部查看！
             </Link>
-          );
+          )
         default:
-          return <span>{row.name}</span>;
+          return <span>{row.name}</span>
       }
     },
   },
   {
-    title: "题目编号",
-    key: "remoteProblemId",
+    title: '题目编号',
+    key: 'remoteProblemId',
     render(row) {
       switch (row.oj) {
-        case "codeforces":
+        case 'codeforces':
           return (
             <Link
               href={`https://codeforces.com/problemset/problem/${row.contestId}/${row.remoteProblemId.replace(
                 row.contestId,
-                ""
+                '',
               )}`}
               newWindow={true}
             >
               {row.remoteProblemId}
             </Link>
-          );
-        case "codeforces_gym":
+          )
+        case 'codeforces_gym':
           return (
             <Link
               href={`https://codeforces.com/gym/${row.contestId}/problem/${row.remoteProblemId.replace(
                 row.contestId,
-                ""
+                '',
               )}`}
               newWindow={true}
             >
               {row.remoteProblemId}
             </Link>
-          );
-        case "nowcoder":
+          )
+        case 'nowcoder':
           return (
             <Link href={`https://ac.nowcoder.com/acm/problem/${row.remoteProblemId}`} newWindow={true}>
               {row.remoteProblemId}
             </Link>
-          );
-        case "atcoder":
+          )
+        case 'atcoder':
           return (
             <Link href={`https://atcoder.jp/contests/${row.contestId}/tasks/${row.remoteProblemId}`} newWindow={true}>
               {row.remoteProblemId}
             </Link>
-          );
+          )
         default:
-          return <span>{row.remoteProblemId}</span>;
+          return <span>{row.remoteProblemId}</span>
       }
     },
   },
   {
-    title: "OJ",
-    key: "oj",
+    title: 'OJ',
+    key: 'oj',
     render(row) {
       switch (row.oj) {
-        case "codeforces":
+        case 'codeforces':
           return (
             <Link href="https://codeforces.com" newWindow={true}>
               Codeforces
             </Link>
-          );
-        case "codeforces_gym":
+          )
+        case 'codeforces_gym':
           return (
             <Link href="https://codeforces.com" newWindow={true}>
               Codeforces Gym
             </Link>
-          );
-        case "nowcoder":
+          )
+        case 'nowcoder':
           return (
             <Link href="https://ac.nowcoder.com" newWindow={true}>
               牛客
             </Link>
-          );
-        case "atcoder":
+          )
+        case 'atcoder':
           return (
             <Link href="https://atcoder.jp" newWindow={true}>
               AtCoder
             </Link>
-          );
+          )
         default:
-          return <span>{row.oj}</span>;
+          return <span>{row.oj}</span>
       }
     },
   },
   {
-    title: "提交 ID",
-    key: "remoteSubmissionId",
+    title: '提交 ID',
+    key: 'remoteSubmissionId',
     render(row) {
       switch (row.oj) {
-        case "codeforces":
+        case 'codeforces':
           return (
             <Link
               href={`https://codeforces.com/contest/${row.contestId}/submission/${row.remoteSubmissionId}`}
@@ -181,8 +180,8 @@ const columns: DataTableColumns<Models.Submission> = [
             >
               {row.remoteSubmissionId}
             </Link>
-          );
-        case "codeforces_gym":
+          )
+        case 'codeforces_gym':
           return (
             <Link
               href={`https://codeforces.com/gym/${row.contestId}/submission/${row.remoteSubmissionId}`}
@@ -190,8 +189,8 @@ const columns: DataTableColumns<Models.Submission> = [
             >
               {row.remoteSubmissionId}
             </Link>
-          );
-        case "nowcoder":
+          )
+        case 'nowcoder':
           return (
             <Link
               href={`https://ac.nowcoder.com/acm/contest/view-submission?submissionId=${row.remoteSubmissionId}`}
@@ -199,8 +198,8 @@ const columns: DataTableColumns<Models.Submission> = [
             >
               {row.remoteSubmissionId}
             </Link>
-          );
-        case "atcoder":
+          )
+        case 'atcoder':
           return (
             <Link
               href={`https://atcoder.jp/contests/${row.contestId}/submissions/${row.remoteSubmissionId}`}
@@ -208,142 +207,142 @@ const columns: DataTableColumns<Models.Submission> = [
             >
               {row.remoteSubmissionId}
             </Link>
-          );
+          )
         default:
-          return <span>{row.remoteSubmissionId}</span>;
+          return <span>{row.remoteSubmissionId}</span>
       }
     },
   },
   {
-    title: "状态",
-    key: "status",
+    title: '状态',
+    key: 'status',
     render(row) {
-      const status = row.status;
+      const status = row.status
       switch (status) {
-        case "OK":
-          return <span style="color: #64c3a8">通过</span>;
-        case "WRONG_ANSWER":
-          return <span style="color: red">答案错误</span>;
-        case "COMPILATION_ERROR":
-          return <span style="color: red">编译错误</span>;
-        case "TIME_LIMIT_EXCEEDED":
-          return <span>运行超时</span>;
-        case "MEMORY_LIMIT_EXCEEDED":
-          return <span>内存超限</span>;
+        case 'OK':
+          return <span style="color: #64c3a8">通过</span>
+        case 'WRONG_ANSWER':
+          return <span style="color: red">答案错误</span>
+        case 'COMPILATION_ERROR':
+          return <span style="color: red">编译错误</span>
+        case 'TIME_LIMIT_EXCEEDED':
+          return <span>运行超时</span>
+        case 'MEMORY_LIMIT_EXCEEDED':
+          return <span>内存超限</span>
         default:
-          return <span>运行时错误</span>;
+          return <span>运行时错误</span>
       }
     },
   },
   {
-    title: "编程语言",
-    key: "language",
+    title: '编程语言',
+    key: 'language',
   },
   {
-    title: "提交时间",
-    key: "submitTime",
+    title: '提交时间',
+    key: 'submitTime',
     render(row) {
-      return dayjs.unix(row.submitTime ?? 0).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs.unix(row.submitTime ?? 0).format('YYYY-MM-DD HH:mm:ss')
     },
   },
-];
+]
 const rowKey = (rowData: Models.Submission) => {
-  return rowData.submissionId;
-};
+  return rowData.submissionId
+}
 onMounted(() => {
-  handleFormSubmit();
-  http.get<ListWrapper<Models.Group>>("/admin/group").then((res) => {
-    const resData = res.data.data;
+  handleFormSubmit()
+  http.get<ListWrapper<Models.Group>>('/admin/group').then((res) => {
+    const resData = res.data.data
     groupOptions.value = [
       {
-        label: "全部",
+        label: '全部',
         value: undefined,
       },
-    ];
+    ]
     groupOptions.value.push(
-      ...(resData.data?.map((item) => ({
-        label: item.name + `${item.displayName ? `（${item.displayName}）` : ""}`,
+      ...(resData.data?.map(item => ({
+        label: `${item.name}${item.displayName ? `（${item.displayName}）` : ''}`,
         value: item.groupId,
-      })) ?? [])
-    );
-  });
-});
-const groupOptions = ref<SelectMixedOption[]>([]);
+      })) ?? []),
+    )
+  })
+})
+const groupOptions = ref<SelectMixedOption[]>([])
 const ojOptions = ref<SelectMixedOption[]>([
   {
-    label: "全部",
+    label: '全部',
     value: undefined,
   },
   {
-    label: "Codeforces",
-    value: "codeforces",
+    label: 'Codeforces',
+    value: 'codeforces',
   },
   {
-    label: "牛客",
-    value: "nowcoder",
+    label: '牛客',
+    value: 'nowcoder',
   },
   {
-    label: "AtCoder",
-    value: "atcoder",
+    label: 'AtCoder',
+    value: 'atcoder',
   },
   {
-    label: "Virtual Judge",
-    value: "vjudge",
+    label: 'Virtual Judge',
+    value: 'vjudge',
   },
-]);
+])
 const download = () => {
-  downloadBtnDisabled.value = true;
+  downloadBtnDisabled.value = true
   http.get(
-    "/admin/submission/download",
+    '/admin/submission/download',
     {
       ...formValue.value,
     },
     {
-      responseType: "blob",
-    }
-  );
+      responseType: 'blob',
+    },
+  )
   setTimeout(() => {
-    downloadBtnDisabled.value = false;
-  }, 5000);
-};
-const downloadBtnDisabled = ref(false);
+    downloadBtnDisabled.value = false
+  }, 5000)
+}
+const downloadBtnDisabled = ref(false)
 const requestData = () => {
   http
-    .get<ListWrapper<Models.Submission>>("/admin/submission", {
+    .get<ListWrapper<Models.Submission>>('/admin/submission', {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
       size: pagination.pageSize,
     })
     .then((res) => {
-      const resData = res.data.data;
-      data.value = resData.data ?? [];
-      pagination.itemCount = resData.total ?? 0;
-    });
-};
+      const resData = res.data.data
+      data.value = resData.data ?? []
+      pagination.itemCount = resData.total ?? 0
+    })
+}
 const handlePageSizeChange = (pageSize: number) => {
   if (!loading.value) {
-    pagination.page = 1;
-    pagination.pageSize = pageSize;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = 1
+    pagination.pageSize = pageSize
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 const handlePageChange = (currentPage: number) => {
   if (!loading.value) {
-    pagination.page = currentPage;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = currentPage
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 
 const handleFormSubmit = () => {
-  pagination.page = 1;
-  loading.value = true;
-  requestData();
-  loading.value = false;
-};
+  pagination.page = 1
+  loading.value = true
+  requestData()
+  loading.value = false
+}
 </script>
 
 <template>
@@ -367,17 +366,21 @@ const handleFormSubmit = () => {
           <NInput v-model:value="formValue.user" placeholder="用户名或姓名" />
         </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit"> 查询</NButton>
+          <NButton round type="primary" @click="handleFormSubmit">
+            查询
+          </NButton>
         </NFormItem>
       </NForm>
     </div>
     <div class="operation">
       <!-- 下载 -->
-      <NButton round size="small" type="primary" @click="download" :disabled="downloadBtnDisabled">下载</NButton>
+      <NButton round size="small" type="primary" :disabled="downloadBtnDisabled" @click="download">
+        下载
+      </NButton>
     </div>
     <NDataTable
-      remote
       ref="table"
+      remote
       :row-key="rowKey"
       :loading="loading"
       :bordered="false"

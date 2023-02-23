@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SubmissionList from "@/views/admin/admin-submission-view/SubmissionList.vue";
+import SubmissionList from '@/views/admin/admin-submission-view/SubmissionList.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import LoginForm from "./login-view/LoginForm.vue";
-import SignupForm from "./login-view/SignupForm.vue";
-import { NCard, NTabs, NTabPane } from "naive-ui";
+import { NCard, NTabPane, NTabs } from 'naive-ui'
+import LoginForm from './login-view/LoginForm.vue'
+import SignupForm from './login-view/SignupForm.vue'
 </script>
 
 <template>

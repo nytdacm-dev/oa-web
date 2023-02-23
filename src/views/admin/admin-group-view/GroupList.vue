@@ -1,39 +1,38 @@
 <script setup lang="tsx">
-import { onMounted, reactive, ref } from "vue";
-import { http } from "@/shared/Http";
+import { onMounted, reactive, ref } from 'vue'
 import {
+  type DataTableColumns,
+  NButton,
+  NDataTable,
   NForm,
   NFormItem,
   NInput,
-  NButton,
-  NDataTable,
-  useNotification,
-  type DataTableColumns,
-  NPopconfirm,
   NModal,
+  NPopconfirm,
   NSpace,
-} from "naive-ui";
-import dayjs from "dayjs";
-import type { ListWrapper } from "@/models/models";
-import type { Models } from "@/models/models";
-import AdminGroupUpdateForm from "@/views/admin/admin-group-view/AdminGroupUpdateForm.vue";
-import AdminGroupNewForm from "@/views/admin/admin-group-view/AdminGroupNewForm.vue";
-import GroupMemberUpdateModal from "@/views/admin/admin-group-view/GroupMemberUpdateModal.vue";
+  useNotification,
+} from 'naive-ui'
+import dayjs from 'dayjs'
+import { http } from '@/shared/Http'
+import type { ListWrapper, Models } from '@/models/models'
+import AdminGroupUpdateForm from '@/views/admin/admin-group-view/AdminGroupUpdateForm.vue'
+import AdminGroupNewForm from '@/views/admin/admin-group-view/AdminGroupNewForm.vue'
+import GroupMemberUpdateModal from '@/views/admin/admin-group-view/GroupMemberUpdateModal.vue'
 
-const notification = useNotification();
-const updateGroupModalVisible = ref(false);
-const newGroupModalVisible = ref(false);
-const updateGroupId = ref(0);
-const memberModalVisible = ref(false);
-const memberGroupId = ref(0);
-type FormValue = {
-  name?: string;
-  showInHomepage?: boolean;
-};
+const notification = useNotification()
+const updateGroupModalVisible = ref(false)
+const newGroupModalVisible = ref(false)
+const updateGroupId = ref(0)
+const memberModalVisible = ref(false)
+const memberGroupId = ref(0)
+interface FormValue {
+  name?: string
+  showInHomepage?: boolean
+}
 const formValue = ref<FormValue>({
   name: undefined,
   showInHomepage: undefined,
-});
+})
 const pagination = reactive({
   page: 1,
   pageSize: 10,
@@ -41,53 +40,53 @@ const pagination = reactive({
   showSizePicker: true,
   pageSizes: [10, 20, 50, 100],
   prefix({ itemCount }: { itemCount?: number }) {
-    return `总共有 ${itemCount} 条`;
+    return `总共有 ${itemCount} 条`
   },
-});
-const loading = ref<boolean>(true);
-const data = ref<Models.Group[]>([]);
+})
+const loading = ref<boolean>(true)
+const data = ref<Models.Group[]>([])
 const columns: DataTableColumns<Models.Group> = [
   {
-    title: "ID",
-    key: "groupId",
+    title: 'ID',
+    key: 'groupId',
   },
   {
-    title: "名称",
-    key: "name",
+    title: '名称',
+    key: 'name',
   },
   {
-    title: "显示名称",
-    key: "displayName",
+    title: '显示名称',
+    key: 'displayName',
   },
   {
-    title: "首页显示",
-    key: "showInHomepage",
+    title: '首页显示',
+    key: 'showInHomepage',
     render(row) {
-      return row.showInHomepage === true ? "是" : "否";
+      return row.showInHomepage === true ? '是' : '否'
     },
   },
   {
-    title: "首页顺序",
-    key: "homepageOrder",
+    title: '首页顺序',
+    key: 'homepageOrder',
   },
   {
-    title: "创建时间",
-    key: "registerTime",
+    title: '创建时间',
+    key: 'registerTime',
     render(row) {
-      return dayjs.unix(row.createdAt ?? 0).format("YYYY-MM-DD HH:mm:ss");
+      return dayjs.unix(row.createdAt ?? 0).format('YYYY-MM-DD HH:mm:ss')
     },
   },
   {
-    title: "操作",
-    key: "actions",
+    title: '操作',
+    key: 'actions',
     render(row) {
       return (
         <NSpace>
           <NButton
             size="small"
             onClick={() => {
-              updateGroupModalVisible.value = true;
-              updateGroupId.value = row.groupId ?? 0;
+              updateGroupModalVisible.value = true
+              updateGroupId.value = row.groupId ?? 0
             }}
           >
             修改
@@ -95,15 +94,15 @@ const columns: DataTableColumns<Models.Group> = [
           <NButton
             size="small"
             onClick={() => {
-              memberModalVisible.value = true;
-              memberGroupId.value = row.groupId ?? 0;
+              memberModalVisible.value = true
+              memberGroupId.value = row.groupId ?? 0
             }}
           >
             成员
           </NButton>
           <NPopconfirm onPositiveClick={() => deleteUser(row.groupId ?? 0)}>
             {{
-              default: () => "确定删除吗？",
+              default: () => '确定删除吗？',
               trigger: () => (
                 <NButton size="small" type="error">
                   删除
@@ -112,63 +111,63 @@ const columns: DataTableColumns<Models.Group> = [
             }}
           </NPopconfirm>
         </NSpace>
-      );
+      )
     },
   },
-];
+]
 const rowKey = (rowData: Models.Group) => {
-  return rowData.groupId;
-};
+  return rowData.groupId
+}
 const deleteUser = (userId: number) => {
   http.delete<void>(`/admin/group/${userId}`).then((res) => {
     notification.success({
       title: res.data.message,
       duration: 2000,
-    });
-  });
-  handleFormSubmit();
-};
+    })
+  })
+  handleFormSubmit()
+}
 onMounted(() => {
-  handleFormSubmit();
-});
+  handleFormSubmit()
+})
 
 const requestData = () => {
   http
-    .get<ListWrapper<Models.Group>>("/admin/group", {
+    .get<ListWrapper<Models.Group>>('/admin/group', {
       ...formValue.value,
       page: pagination.page ? pagination.page - 1 : 0,
       size: pagination.pageSize,
     })
     .then((res) => {
-      const resData = res.data.data;
-      data.value = resData.data ?? [];
-      pagination.itemCount = resData.total ?? 0;
-    });
-};
+      const resData = res.data.data
+      data.value = resData.data ?? []
+      pagination.itemCount = resData.total ?? 0
+    })
+}
 const handlePageSizeChange = (pageSize: number) => {
   if (!loading.value) {
-    pagination.page = 1;
-    pagination.pageSize = pageSize;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = 1
+    pagination.pageSize = pageSize
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 const handlePageChange = (currentPage: number) => {
   if (!loading.value) {
-    pagination.page = currentPage;
-    loading.value = true;
-    requestData();
-    loading.value = false;
+    pagination.page = currentPage
+    loading.value = true
+    requestData()
+    loading.value = false
   }
-};
+}
 
 const handleFormSubmit = () => {
-  pagination.page = 1;
-  loading.value = true;
-  requestData();
-  loading.value = false;
-};
+  pagination.page = 1
+  loading.value = true
+  requestData()
+  loading.value = false
+}
 </script>
 
 <template>
@@ -186,13 +185,17 @@ const handleFormSubmit = () => {
           <NInput v-model:value="formValue.name" placeholder="名称" />
         </NFormItem>
         <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit"> 查询 </NButton>
+          <NButton round type="primary" @click="handleFormSubmit">
+            查询
+          </NButton>
         </NFormItem>
       </NForm>
     </div>
     <div class="operation">
       <div class="right">
-        <NButton round size="small" type="primary" @click="() => (newGroupModalVisible = true)"> 新建 </NButton>
+        <NButton round size="small" type="primary" @click="() => (newGroupModalVisible = true)">
+          新建
+        </NButton>
         <NModal
           :show="newGroupModalVisible"
           title="创建群组"
@@ -206,8 +209,8 @@ const handleFormSubmit = () => {
       </div>
     </div>
     <NDataTable
-      remote
       ref="table"
+      remote
       :row-key="rowKey"
       :loading="loading"
       :bordered="false"
@@ -225,7 +228,7 @@ const handleFormSubmit = () => {
       style="width: 80%"
       @close="() => (updateGroupModalVisible = false)"
     >
-      <AdminGroupUpdateForm :groupId="updateGroupId" />
+      <AdminGroupUpdateForm :group-id="updateGroupId" />
     </NModal>
     <NModal
       :show="memberModalVisible"
@@ -235,7 +238,7 @@ const handleFormSubmit = () => {
       style="width: 80%"
       @close="() => (memberModalVisible = false)"
     >
-      <GroupMemberUpdateModal :groupId="memberGroupId" />
+      <GroupMemberUpdateModal :group-id="memberGroupId" />
     </NModal>
   </div>
 </template>

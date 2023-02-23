@@ -1,18 +1,17 @@
 <script setup lang="tsx">
-import { useRouter } from "vue-router";
-import { onMounted, ref } from "vue";
+import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
-const router = useRouter();
 const props = defineProps<{
-  href: string;
-  newWindow?: boolean;
-}>();
-const href = ref(props.href);
+  href: string
+  newWindow?: boolean
+}>()
+const router = useRouter()
+const href = ref(props.href)
 onMounted(() => {
-  if (!props.href.startsWith("http://") && !props.href.startsWith("https://")) {
-    href.value = router.resolve(props.href).href;
-  }
-});
+  if (!props.href.startsWith('http://') && !props.href.startsWith('https://'))
+    href.value = router.resolve(props.href).href
+})
 </script>
 
 <template>

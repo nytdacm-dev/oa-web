@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-import { NNotificationProvider } from "naive-ui";
+import { RouterView } from 'vue-router'
+import { NNotificationProvider } from 'naive-ui'
 </script>
 
 <template>

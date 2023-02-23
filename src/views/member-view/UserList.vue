@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { NGrid, NGi } from "naive-ui";
-import type { Models } from "@/models/models";
-import SingleUserCard from "@/views/member-view/SingleUserCard.vue";
+import { NGi, NGrid } from 'naive-ui'
+import type { Models } from '@/models/models'
+import SingleUserCard from '@/views/member-view/SingleUserCard.vue'
 
 defineProps<{
-  users: Models.User[];
-}>();
+  users: Models.User[]
+}>()
 </script>
 
 <template>
   <NGrid cols="2 720:4 1440:6">
-    <NGi :key="user.userId" v-for="user in users">
+    <NGi v-for="user in users" :key="user.userId">
       <SingleUserCard :user="user" />
     </NGi>
   </NGrid>

@@ -1,23 +1,23 @@
-import type { Models } from "@/models/models";
-import { http } from "@/shared/Http";
-import type { AxiosError } from "axios";
-import { defineStore } from "pinia";
-import { clearToken, setToken } from "../shared/token";
+import type { AxiosError } from 'axios'
+import { defineStore } from 'pinia'
+import { clearToken, setToken } from '@/shared/token'
+import { http } from '@/shared/Http'
+import type { Models } from '@/models/models'
 
-export type UserState = {
-  userId?: number;
-  username?: string;
-  name?: string;
-  superAdmin?: boolean;
-  admin?: boolean;
-};
+export interface UserState {
+  userId?: number
+  username?: string
+  name?: string
+  superAdmin?: boolean
+  admin?: boolean
+}
 
-export type LoginParams = {
-  username: string;
-  password: string;
-};
+export interface LoginParams {
+  username: string
+  password: string
+}
 
-export const useUserStore = defineStore("user", {
+export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     userId: undefined,
     username: undefined,
@@ -27,46 +27,46 @@ export const useUserStore = defineStore("user", {
   }),
   getters: {
     userInfo(state: UserState): UserState {
-      return { ...state };
+      return { ...state }
     },
   },
   actions: {
     setInfo(partial: Partial<UserState>) {
-      this.$patch(partial);
+      this.$patch(partial)
     },
     resetInfo() {
-      this.$reset();
+      this.$reset()
     },
     logoutCallBack() {
-      this.resetInfo();
-      clearToken();
+      this.resetInfo()
+      clearToken()
     },
     logout() {
-      this.logoutCallBack();
+      this.logoutCallBack()
     },
     async login(username: string, password: string) {
       await http
-        .get<string>("/auth/login", { username, password })
-        .then(async (res) => {
-          const token = res.data.data;
-          setToken(token);
+        .get<string>('/auth/login', { username, password })
+        .then((res) => {
+          const token = res.data.data
+          setToken(token)
         })
         .catch((err: AxiosError) => {
-          clearToken();
-          throw err;
-        });
+          clearToken()
+          throw err
+        })
     },
     async current() {
       await http
-        .get<Models.User>("/auth/current")
+        .get<Models.User>('/auth/current')
         .then((res) => {
-          const data = res.data.data;
-          this.setInfo(data);
+          const data = res.data.data
+          this.setInfo(data)
         })
         .catch((err) => {
-          clearToken();
-          throw err;
-        });
+          clearToken()
+          throw err
+        })
     },
   },
-});
+})
