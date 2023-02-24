@@ -11,12 +11,6 @@ export interface UserState {
   superAdmin?: boolean
   admin?: boolean
 }
-
-export interface LoginParams {
-  username: string
-  password: string
-}
-
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     userId: undefined,
