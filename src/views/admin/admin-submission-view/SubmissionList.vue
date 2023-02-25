@@ -22,7 +22,7 @@ const pagination = reactive({
   pageSize: 20,
   itemCount: 0,
   showSizePicker: true,
-  pageSizes: [20, 50, 100, 200],
+  pageSizes: [20, 50, 100, 200, 500, 1000, 2000],
   prefix({ itemCount }: { itemCount?: number }) {
     return `总共有 ${itemCount} 条`
   },
