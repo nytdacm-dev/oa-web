@@ -2,7 +2,7 @@
 import type { AxiosError } from 'axios'
 import { onMounted, reactive, ref } from 'vue'
 import { type FormInst, type FormRules, NButton, NForm, NFormItem, NInput, NRadio, useNotification } from 'naive-ui'
-import { type HttpResponse, http } from '@/shared/Http'
+import { type HttpResponse, type JSONValue, http } from '@/shared/Http'
 import type { AdminUser } from '@/views/admin/admin-user-view/AdminUser'
 
 const props = defineProps<{
@@ -75,7 +75,7 @@ const handleFormSubmit = (e: MouseEvent) => {
         params.superAdmin = formValue.value.superAdmin
 
       http
-        .patch<AdminUser>(`/admin/user/${props.userId}`, params)
+        .patch<AdminUser>(`/admin/user/${props.userId}`, params as Record<string, JSONValue>)
         .then((res) => {
           notification.success({
             title: res.data.message,

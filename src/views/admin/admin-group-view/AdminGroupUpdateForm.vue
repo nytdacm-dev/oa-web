@@ -12,7 +12,7 @@ import {
   NRadio,
   useNotification,
 } from 'naive-ui'
-import { type HttpResponse, http } from '@/shared/Http'
+import { type HttpResponse, type JSONValue, http } from '@/shared/Http'
 import type { AdminUser } from '@/views/admin/admin-user-view/AdminUser'
 import type { Models } from '@/models/models'
 
@@ -76,7 +76,7 @@ const handleFormSubmit = (e: MouseEvent) => {
         params.homepageOrder = formValue.value.homepageOrder
 
       http
-        .patch<AdminUser>(`/admin/group/${props.groupId}`, params)
+        .patch<AdminUser>(`/admin/group/${props.groupId}`, params as Record<string, JSONValue>)
         .then((res) => {
           notification.success({
             title: res.data.message,

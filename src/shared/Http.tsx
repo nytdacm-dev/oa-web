@@ -14,7 +14,7 @@ export interface HttpResponse<T = unknown> {
   data: T
 }
 
-type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue }
+export type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue }
 
 export class Http {
   instance: AxiosInstance

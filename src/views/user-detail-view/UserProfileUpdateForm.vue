@@ -2,7 +2,7 @@
 import type { AxiosError } from 'axios'
 import { reactive, ref } from 'vue'
 import { type FormInst, type FormRules, NButton, NForm, NFormItem, NInput, useNotification } from 'naive-ui'
-import { type HttpResponse, http } from '@/shared/Http'
+import { type HttpResponse, type JSONValue, http } from '@/shared/Http'
 import type { Models } from '@/models/models'
 
 const props = defineProps<{
@@ -60,7 +60,7 @@ const handleFormSubmit = (e: MouseEvent) => {
         params.vjudge = formValue.value.vjudge
 
       http
-        .patch('/user', params)
+        .patch('/user', params as Record<string, JSONValue>)
         .then(() => {
           notification.success({
             title: '修改成功',
