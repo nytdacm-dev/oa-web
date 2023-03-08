@@ -13,14 +13,9 @@ const notification = useNotification()
 
 const formRef = ref<FormInst | null>(null)
 const rules = reactive<FormRules>({
-  name: [
-    { required: true, message: '请输入姓名', trigger: 'blur' },
-    { max: 6, message: '姓名长度最多 6 位', trigger: 'blur' },
-  ],
 } as { [k in keyof UserUpdateProps]: FormRules[k] })
 
 interface UserUpdateProps {
-  name?: string
   codeforces?: string
   atCoder?: string
   luogu?: string
@@ -29,7 +24,6 @@ interface UserUpdateProps {
 }
 
 const formValue = ref<UserUpdateProps>({
-  name: props.user.name,
   codeforces: props.user.socialAccount.codeforces,
   atCoder: props.user.socialAccount.atCoder,
   luogu: props.user.socialAccount.luogu,
@@ -41,9 +35,6 @@ const handleFormSubmit = (e: MouseEvent) => {
   formRef.value?.validate((errors) => {
     if (!errors) {
       const params: UserUpdateProps = {}
-      if (formValue.value.name !== props.user.name)
-        params.name = formValue.value.name
-
       if (formValue.value.codeforces !== props.user.socialAccount.codeforces)
         params.codeforces = formValue.value.codeforces
 
@@ -89,9 +80,6 @@ const handleFormSubmit = (e: MouseEvent) => {
     require-mark-placement="right-hanging"
     size="medium"
   >
-    <NFormItem label="姓名" path="name">
-      <NInput v-model:value="formValue.name" placeholder="姓名" />
-    </NFormItem>
     <NFormItem label="Codeforces" prop="codeforces">
       <NInput v-model:value="formValue.codeforces" placeholder="Codeforces 账号" />
     </NFormItem>
