@@ -71,8 +71,16 @@ import Link from '@/components/Link.vue'
       </ul>
     </div>
     <div>
-      <NH2>学点课吧</NH2>
+      <NH2>学会习吧</NH2>
       <ul>
+        <li>
+          <Link
+            href="https://oi-wiki.org/lang/helloworld/"
+            :new-window="true"
+          >
+            OI Wiki 上的 C++ 语法入门教程
+          </Link>
+        </li>
         <li>
           <Link
             href="https://www.nowcoder.com/courses/cover/live/724?coupon=A6t6JmF"
@@ -91,6 +99,19 @@ import Link from '@/components/Link.vue'
             </Link>
             邀请码：WYHHY
           </span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <NH2>神一样的网站</NH2>
+      <ul>
+        <li>
+          <Link
+            href="https://oi-wiki.org/"
+            :new-window="true"
+          >
+            OI Wiki
+          </Link>
         </li>
       </ul>
     </div>
