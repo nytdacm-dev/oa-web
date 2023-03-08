@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import type { Component } from 'vue'
 import { NIcon, NMenu } from 'naive-ui'
 import { h } from 'vue'
-import { List as ListIcon, Table as TableIcon, User as UserIcon } from '@vicons/fa'
+import { Table as TableIcon, User as UserIcon } from '@vicons/fa'
 import { GroupFilled as GroupIcon } from '@vicons/material'
 
 const props = defineProps<{
@@ -57,21 +57,6 @@ const menuOptions: MenuOption[] = [
       ),
     key: 'admin-submission',
     icon: renderIcon(TableIcon),
-  },
-  {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            // name: "admin-problem-list",
-          },
-        },
-        { default: () => '题单管理' },
-      ),
-    key: 'admin-submission',
-    icon: renderIcon(ListIcon),
-    disabled: true,
   },
 ]
 </script>
