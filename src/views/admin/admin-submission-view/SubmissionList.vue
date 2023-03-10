@@ -286,7 +286,7 @@ const ojOptions = ref<SelectMixedOption[]>([
     value: 'atcoder',
   },
   {
-    label: 'Virtual Judge',
+    label: 'Vjudge',
     value: 'vjudge',
   },
 ])

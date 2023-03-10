@@ -96,7 +96,7 @@ const handleFormSubmit = (e: MouseEvent) => {
       />
     </NFormItem>
     <NFormItem label="vjudge" prop="vjudge">
-      <NInput v-model:value="formValue.vjudge" placeholder="Virtual Judge 账号" />
+      <NInput v-model:value="formValue.vjudge" placeholder="Vjudge 账号" />
     </NFormItem>
     <div style="display: flex; justify-content: center">
       <NButton round type="primary" @click="handleFormSubmit">
