@@ -41,6 +41,13 @@ export namespace Models {
     status: string
     submitTime: number
   }
+
+  export interface Article {
+    articleId: number
+    title: string
+    content: string
+    author: Models.User
+  }
 }
 
 export interface ListWrapper<T> {
