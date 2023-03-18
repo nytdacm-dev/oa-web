@@ -24,6 +24,14 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
+        path: '/article',
+        name: 'article',
+        component: () => import('../views/ArticleListView.vue'),
+        meta: {
+          title: '文章列表',
+        },
+      },
+      {
         path: '/user',
         name: 'user',
         children: [

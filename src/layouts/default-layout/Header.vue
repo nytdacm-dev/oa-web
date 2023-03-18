@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import Auth from './components/Auth.vue'
 import Link from '@/components/Link.vue'
+import { useUserStore } from '@/stores/userStore'
+
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -21,6 +24,11 @@ import Link from '@/components/Link.vue'
         <Link href="/member">
           <NButton quaternary>
             队员
+          </NButton>
+        </Link>
+        <Link v-if="userStore.userId" href="/article">
+          <NButton quaternary>
+            文章
           </NButton>
         </Link>
       </NSpace>
