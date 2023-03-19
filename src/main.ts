@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import 'vfonts/Lato.css'
 import 'vfonts/FiraCode.css'
+import 'bytemd/dist/index.css'
 
 import App from './App.vue'
 import router from './router'

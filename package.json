@@ -12,7 +12,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "1.20.2",
+    "@bytemd/vue-next": "1.20.2",
     "axios": "1.3.2",
+    "bytemd": "1.20.2",
     "dayjs": "1.11.7",
     "markdown-it": "13.0.1",
     "nprogress": "0.2.0",
