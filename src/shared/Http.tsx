@@ -35,7 +35,7 @@ export class Http {
 
   post<R = unknown>(
     url: string,
-    data?: Record<string, JSONValue>,
+    data?: Record<string, JSONValue> | FormData,
     config?: Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>,
   ) {
     return this.instance.request<HttpResponse<R>>({ url, data, method: 'POST', ...config })

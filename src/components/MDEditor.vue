@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import gfm from '@bytemd/plugin-gfm'
 import { Editor } from '@bytemd/vue-next'
+import { http } from '@/shared/Http'
 
 defineProps<{
   data: string
@@ -16,10 +17,44 @@ const plugins = [
 const handleChange = (v: string) => {
   emits('update:data', v)
 }
+const upload = async (file: File) => {
+  const formData = new FormData()
+  formData.append('file', file)
+  const res = await http.post<{
+    filename: string
+    url: string
+  }>('/file', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  if (res.data.code === 200)
+    return res.data.data
+  else
+    return null
+}
+const uploadImages = async (files: File[]) => {
+  const result: {
+    alt?: string
+    title?: string
+    url: string
+  }[] = []
+  for (const file of files) {
+    const res = await upload(file)
+    if (!res)
+      continue
+    const url = res?.url
+    const img = {
+      url,
+    }
+    result.push(img)
+  }
+  return result
+}
 </script>
 
 <template>
-  <Editor :value="data" :plugins="plugins" @change="handleChange" />
+  <Editor :value="data" :plugins="plugins" :upload-images="uploadImages" @change="handleChange" />
 </template>
 
 <style lang="scss" scoped>

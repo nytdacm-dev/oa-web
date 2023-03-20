@@ -10,6 +10,10 @@ export default mergeConfig(
         strict: true,
       },
       proxy: {
+        '/file': {
+          target: 'http://localhost:8080/',
+          changeOrigin: true,
+        },
         '/api': {
           target: 'http://localhost:8080',
           changeOrigin: true,
