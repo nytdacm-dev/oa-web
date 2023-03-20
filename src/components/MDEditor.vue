@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import gfm from '@bytemd/plugin-gfm'
-import { type Editor } from '@bytemd/vue-next'
+import { Editor } from '@bytemd/vue-next'
 
 defineProps<{
   data: string

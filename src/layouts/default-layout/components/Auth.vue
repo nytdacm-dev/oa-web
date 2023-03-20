@@ -22,6 +22,10 @@ const options = [
     key: 'user-detail-page',
   },
   {
+    label: '写文章',
+    key: 'write-article',
+  },
+  {
     type: 'divider',
   },
   {
@@ -39,6 +43,8 @@ const options = [
 const handleSelect = (key: string | number) => {
   if (key === 'user-detail-page')
     router.push(`/user/${userStore.username}`)
+  else if (key === 'write-article')
+    router.push({ name: 'write-article' })
   else if (key === 'admin')
     router.push({ name: 'admin-user' })
   else if (key === 'logout')
