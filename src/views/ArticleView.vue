@@ -24,8 +24,14 @@ onMounted(() => {
 <template>
   <div>
     <NH1>{{ dataRef?.title }}</NH1>
-    <div v-html="contentRef" />
+    <div class="article-content" v-html="contentRef" />
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.article-content {
+  * {
+    width: 100%;
+  }
+}
+</style>
