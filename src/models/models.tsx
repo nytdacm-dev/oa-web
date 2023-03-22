@@ -47,6 +47,7 @@ export namespace Models {
     title: string
     content: string
     author: Models.User
+    published: boolean
   }
 }
 

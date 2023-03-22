@@ -58,6 +58,20 @@ const menuOptions: MenuOption[] = [
     key: 'admin-submission',
     icon: renderIcon(TableIcon),
   },
+  {
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: 'admin-article',
+          },
+        },
+        { default: () => '文章列表' },
+      ),
+    key: 'admin-article',
+    icon: renderIcon(TableIcon),
+  },
 ]
 </script>
 

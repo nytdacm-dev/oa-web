@@ -109,6 +109,14 @@ export const routes: RouteRecordRaw[] = [
               title: '提交记录',
             },
           },
+          {
+            path: 'article',
+            name: 'admin-article',
+            component: () => import('../views/admin/AdminArticleListView.vue'),
+            meta: {
+              title: '文章列表',
+            },
+          },
         ],
       },
       {
