@@ -12,7 +12,6 @@ import {
   NSpace,
   useNotification,
 } from 'naive-ui'
-import dayjs from 'dayjs'
 import type { AdminUser } from '@/views/admin/admin-user-view/AdminUser'
 import { http } from '@/shared/Http'
 import { useUserStore } from '@/stores/userStore'
@@ -20,6 +19,7 @@ import AdminUserUpdateForm from '@/views/admin/admin-user-view/AdminUserUpdateFo
 import type { ListWrapper } from '@/models/models'
 import UserGroupUpdateModal from '@/views/admin/admin-user-view/UserGroupUpdateModal.vue'
 import Link from '@/components/Link.vue'
+import { timestampToDateString } from '@/shared/utils'
 
 const userStore = useUserStore()
 const notification = useNotification()
@@ -63,7 +63,7 @@ const columns: DataTableColumns<AdminUser> = [
     key: 'username',
     render(row) {
       return (
-        <Link href={`/user/${row.username}`} newWindow={true}>
+        <Link href={`/user/${row.username}`}>
           {row.username}
         </Link>
       )
@@ -98,14 +98,14 @@ const columns: DataTableColumns<AdminUser> = [
     title: '上次活动',
     key: 'lastActive',
     render(row) {
-      return <span>{row.lastActive ? dayjs.unix(row.lastActive).format('YYYY-MM-DD HH:mm:ss') : '无'}</span>
+      return <span>{row.lastActive ? timestampToDateString(row.lastActive) : '无'}</span>
     },
   },
   {
     title: '注册时间',
     key: 'registerTime',
     render(row) {
-      return <span>{dayjs.unix(row.registerTime ?? 0).format('YYYY-MM-DD HH:mm:ss')}</span>
+      return <span>{timestampToDateString(row.registerTime ?? 0)}</span>
     },
   },
   {

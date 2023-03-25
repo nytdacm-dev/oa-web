@@ -15,7 +15,6 @@ declare module '@vue/runtime-core' {
     LuoguIcon: typeof import('./src/components/icons/LuoguIcon.vue')['default']
     MDEditor: typeof import('./src/components/MDEditor.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
-    NH1: typeof import('naive-ui')['NH1']
     NImage: typeof import('naive-ui')['NImage']
     NInput: typeof import('naive-ui')['NInput']
     NInputNumber: typeof import('naive-ui')['NInputNumber']

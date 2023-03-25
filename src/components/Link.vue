@@ -1,23 +1,13 @@
 <script setup lang="tsx">
-import { useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   href: string
-  newWindow?: boolean
 }>()
-const router = useRouter()
-const href = ref(props.href)
-onMounted(() => {
-  if (!props.href.startsWith('http://') && !props.href.startsWith('https://'))
-    href.value = router.resolve(props.href).href
-})
 </script>
 
 <template>
-  <a :href="href" :target="newWindow ? '_blank' : '_self'" rel="noopener noreferrer" class="link">
+  <RouterLink :to="href" class="link">
     <slot />
-  </a>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>

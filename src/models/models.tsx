@@ -48,6 +48,8 @@ export namespace Models {
     content: string
     author: Models.User
     published: boolean
+    createdAt: number
+    updatedAt?: number
   }
 }
 

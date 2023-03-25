@@ -12,12 +12,12 @@ import {
   NSpace,
   useNotification,
 } from 'naive-ui'
-import dayjs from 'dayjs'
 import { http } from '@/shared/Http'
 import type { ListWrapper, Models } from '@/models/models'
 import AdminGroupUpdateForm from '@/views/admin/admin-group-view/AdminGroupUpdateForm.vue'
 import AdminGroupNewForm from '@/views/admin/admin-group-view/AdminGroupNewForm.vue'
 import GroupMemberUpdateModal from '@/views/admin/admin-group-view/GroupMemberUpdateModal.vue'
+import { timestampToDateString } from '@/shared/utils'
 
 const notification = useNotification()
 const updateGroupModalVisible = ref(false)
@@ -73,7 +73,7 @@ const columns: DataTableColumns<Models.Group> = [
     title: '创建时间',
     key: 'registerTime',
     render(row) {
-      return dayjs.unix(row.createdAt ?? 0).format('YYYY-MM-DD HH:mm:ss')
+      return timestampToDateString(row.createdAt ?? 0)
     },
   },
   {
