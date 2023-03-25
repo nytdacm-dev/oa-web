@@ -27,4 +27,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 750,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          bytemd: ['bytemd'],
+          vue: ['vue', 'vue-router', 'pinia'],
+        },
+      },
+    },
+  },
 })
