@@ -87,8 +87,11 @@ http.instance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     if (error.response) {
+      if (error.response?.status === 403)
+        await router.push({ name: '403' })
+
       if (error.response?.status === 404) {
-        await router.push({ name: 'not-found' })
+        await router.push({ name: '404' })
       }
       else if (error.response?.status === 429) {
         // TODO: 请求过于频繁

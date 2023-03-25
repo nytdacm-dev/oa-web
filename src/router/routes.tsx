@@ -131,6 +131,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/403',
+    name: '403',
     component: () => import('../views/error-page/403.vue'),
     meta: {
       title: '403',
@@ -138,6 +139,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/404',
+    name: '404',
     component: () => import('../views/error-page/404.vue'),
     meta: {
       title: '404',
