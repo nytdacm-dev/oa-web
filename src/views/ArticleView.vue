@@ -31,7 +31,16 @@ onMounted(() => {
 <style lang="scss">
 .article-content {
   * {
-    width: 100%;
+    max-width: 100%;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      color: #1890ff;
+    }
   }
 }
 </style>
