@@ -30,6 +30,8 @@ onMounted(() => {
 
 <style lang="scss">
 .article-content {
+  background-color: white;
+
   * {
     max-width: 100%;
   }
