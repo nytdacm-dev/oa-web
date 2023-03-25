@@ -22,16 +22,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <NH1>{{ dataRef?.title }}</NH1>
-    <div class="article-content" v-html="contentRef" />
+  <div class="wrapper">
+    <article>
+      <NH1>{{ dataRef?.title }}</NH1>
+      <div class="article-content" v-html="contentRef" />
+    </article>
   </div>
 </template>
 
-<style lang="scss">
-.article-content {
+<style lang="scss" scoped>
+.wrapper {
   background-color: white;
 
+  article {
+    padding: 2rem;
+  }
+}
+</style>
+
+<style lang="scss">
+.article-content {
   * {
     max-width: 100%;
   }
