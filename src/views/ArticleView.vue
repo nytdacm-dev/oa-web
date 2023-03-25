@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import MarkdownIt from 'markdown-it'
 import { NAvatar, NH1 } from 'naive-ui'
 import { timestampToDateString } from '@/shared/utils'
 import type { Models } from '@/models/models'
 import { http } from '@/shared/Http'
 import DefaultAvatar from '@/assets/user-default-avatar.png'
 import Link from '@/components/Link.vue'
+import { mdit } from '@/shared/markdown-it'
 
 const route = useRoute()
 const articleId = route.params.articleId
@@ -16,12 +16,11 @@ const contentRef = ref<string>('')
 const authorHomepageRef = ref<string>('/user/')
 
 onMounted(() => {
-  const md = MarkdownIt()
   http
     .get<Models.Article>(`/article/${articleId}`)
     .then((response) => {
       dataRef.value = response.data.data
-      contentRef.value = md.render(dataRef.value.content ?? '')
+      contentRef.value = mdit.render(dataRef.value.content)
       authorHomepageRef.value = `/user/${dataRef?.value?.author.username}`
     })
 })

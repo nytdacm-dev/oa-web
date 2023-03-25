@@ -1,7 +1,9 @@
 <script setup lang="tsx">
 import gfm from '@bytemd/plugin-gfm'
 import { Editor } from '@bytemd/vue-next'
+import math from '@bytemd/plugin-math'
 import { http } from '@/shared/Http'
+import 'katex/dist/katex.css'
 
 defineProps<{
   data: string
@@ -12,6 +14,7 @@ const emits = defineEmits<{
 
 const plugins = [
   gfm(),
+  math(),
 ]
 
 const handleChange = (v: string) => {
