@@ -1,11 +1,17 @@
 <script setup lang="tsx">
-defineProps<{
+import { ref } from 'vue'
+
+const props = defineProps<{
   href: string
 }>()
+const external = ref(props.href.startsWith('http'))
 </script>
 
 <template>
-  <RouterLink :to="href" class="link">
+  <a v-if="external" :href="href" target="_blank" class="link">
+    <slot />
+  </a>
+  <RouterLink v-else :to="href" class="link">
     <slot />
   </RouterLink>
 </template>
