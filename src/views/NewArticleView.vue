@@ -13,6 +13,14 @@ const router = useRouter()
 const titleRef = ref<string>('')
 const contentRef = ref<string>('')
 const publishAction = () => {
+  if (titleRef.value === '' || contentRef.value === '') {
+    notification.error({
+      title: '发布失败',
+      content: '标题和内容不能为空',
+      duration: 2000,
+    })
+    return
+  }
   http.post<Models.Article>('/article', {
     title: titleRef.value,
     content: contentRef.value,
