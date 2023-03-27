@@ -33,7 +33,21 @@ const pagination = reactive({
   },
 })
 const publishArticle = (id: number) => {
-
+  http
+    .patch<Models.Article>(`/admin/article/${id}`, { published: true })
+    .then((res) => {
+      notification.success({
+        title: res.data.message,
+        duration: 2000,
+      })
+    })
+    .catch((err) => {
+      notification.error({
+        title: '发布失败',
+        content: err.response?.data.message,
+        duration: 2000,
+      })
+    })
 }
 const deleteArticle = (id: number) => {
   http
@@ -41,6 +55,13 @@ const deleteArticle = (id: number) => {
     .then((res) => {
       notification.success({
         title: res.data.message,
+        duration: 2000,
+      })
+    })
+    .catch((err) => {
+      notification.error({
+        title: '删除失败',
+        content: err.response?.data.message,
         duration: 2000,
       })
     })
