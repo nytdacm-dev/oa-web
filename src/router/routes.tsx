@@ -45,11 +45,24 @@ export const routes: RouteRecordRaw[] = [
           },
           {
             path: ':articleId',
-            name: 'article-detail',
-            component: () => import('../views/ArticleView.vue'),
-            meta: {
-              title: '文章详情',
-            },
+            children: [
+              {
+                path: '',
+                name: 'article-detail',
+                component: () => import('../views/ArticleView.vue'),
+                meta: {
+                  title: '文章详情',
+                },
+              },
+              {
+                path: 'edit',
+                name: 'article-edit',
+                component: () => import('../views/NewArticleView.vue'),
+                meta: {
+                  title: '文章修改',
+                },
+              },
+            ],
           },
         ],
       },

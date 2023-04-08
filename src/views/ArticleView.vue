@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { NAvatar, NH1 } from 'naive-ui'
+import { NAvatar, NH1, NSpace } from 'naive-ui'
 import { timestampToDateString } from '@/shared/utils'
 import type { Models } from '@/models/models'
 import { http } from '@/shared/Http'
 import DefaultAvatar from '@/assets/user-default-avatar.png'
 import Link from '@/components/Link.vue'
 import { mdit } from '@/shared/markdown-it'
+import { useUserStore } from '@/stores/userStore'
 
 const route = useRoute()
 const articleId = route.params.articleId
@@ -15,6 +16,7 @@ const dataRef = ref<Models.Article>()
 const contentRef = ref<string>('')
 const authorHomepageRef = ref<string>('/user/')
 
+const userStore = useUserStore()
 onMounted(() => {
   http
     .get<Models.Article>(`/article/${articleId}`)
@@ -41,9 +43,16 @@ onMounted(() => {
             </Link>
           </div>
           <div class="meta">
-            <div class="time">
-              <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
-            </div>
+            <NSpace>
+              <div class="time">
+                <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
+              </div>
+              <div v-if="dataRef?.author.userId === userStore.userId" class="update">
+                <Link :href="`/article/${articleId}/edit`">
+                  编辑
+                </Link>
+              </div>
+            </NSpace>
           </div>
         </div>
       </div>
@@ -67,6 +76,11 @@ onMounted(() => {
 
         .name {
           font-size: 1rem;
+        }
+
+        .meta {
+          display: flex;
+          flex-direction: row;
         }
       }
     }
