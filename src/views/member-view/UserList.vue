@@ -17,9 +17,4 @@ defineProps<{
 </template>
 
 <style lang="scss" scoped>
-.wrapper {
-  .title {
-    font-size: 24px;
-  }
-}
 </style>

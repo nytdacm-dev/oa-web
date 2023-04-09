@@ -20,7 +20,7 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .wrapper {
   .title {
-    font-size: 28px;
+    font-size: 2rem;
   }
 }
 </style>

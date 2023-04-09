@@ -144,11 +144,11 @@ http
 
       > .left {
         > .name {
-          font-size: 20px;
+          font-size: 1.2rem;
         }
 
         > .username {
-          font-size: 14px;
+          font-size: 1rem;
         }
       }
 
@@ -169,7 +169,7 @@ http
 
       .left {
         > .cf {
-          font-size: 16px;
+          font-size: 1rem;
 
           .cf-rating,
           .cf-rank {
