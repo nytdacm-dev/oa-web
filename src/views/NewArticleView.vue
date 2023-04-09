@@ -102,5 +102,11 @@ const updateAction = () => {
 <style lang="scss">
 .bytemd {
   height: calc(100vh - 300px);
+
+  &-preview {
+    * {
+      max-width: 100%;
+    }
+  }
 }
 </style>
