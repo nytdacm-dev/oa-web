@@ -34,6 +34,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '提交人',
     key: 'user',
+    minWidth: 80,
     render(row) {
       return (
         <Link href={`/user/${row.user?.username}`}>
@@ -45,6 +46,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '题目名称',
     key: 'name',
+    minWidth: 150,
     render(row) {
       switch (row.oj) {
         case 'codeforces':
@@ -89,6 +91,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '题目编号',
     key: 'remoteProblemId',
+    minWidth: 100,
     render(row) {
       switch (row.oj) {
         case 'codeforces':
@@ -133,6 +136,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: 'OJ',
     key: 'oj',
+    minWidth: 100,
     render(row) {
       switch (row.oj) {
         case 'codeforces':
@@ -167,6 +171,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '提交 ID',
     key: 'remoteSubmissionId',
+    minWidth: 100,
     render(row) {
       switch (row.oj) {
         case 'codeforces':
@@ -213,6 +218,7 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '状态',
     key: 'status',
+    minWidth: 100,
     render(row) {
       const status = row.status
       switch (status) {
@@ -234,10 +240,12 @@ const columns: DataTableColumns<Models.Submission> = [
   {
     title: '编程语言',
     key: 'language',
+    minWidth: 200,
   },
   {
     title: '提交时间',
     key: 'submitTime',
+    minWidth: 200,
     render(row) {
       return timestampToDateString(row.submitTime ?? 0)
     },

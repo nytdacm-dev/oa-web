@@ -57,10 +57,12 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: 'ID',
     key: 'userId',
+    minWidth: 100,
   },
   {
     title: '用户名',
     key: 'username',
+    minWidth: 100,
     render(row) {
       return (
         <Link href={`/user/${row.username}`}>
@@ -72,10 +74,12 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '姓名',
     key: 'name',
+    minWidth: 100,
   },
   {
     title: '已激活',
     key: 'active',
+    minWidth: 80,
     render(row) {
       return row.active === true ? '是' : '否'
     },
@@ -83,6 +87,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '管理员',
     key: 'admin',
+    minWidth: 80,
     render(row) {
       return row.admin === true ? '是' : '否'
     },
@@ -90,6 +95,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '超级管理员',
     key: 'superAdmin',
+    minWidth: 100,
     render(row) {
       return row.superAdmin === true ? '是' : '否'
     },
@@ -97,6 +103,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '上次活动',
     key: 'lastActive',
+    minWidth: 200,
     render(row) {
       return <span>{row.lastActive ? timestampToDateString(row.lastActive) : '无'}</span>
     },
@@ -104,6 +111,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '注册时间',
     key: 'registerTime',
+    minWidth: 200,
     render(row) {
       return <span>{timestampToDateString(row.registerTime ?? 0)}</span>
     },
@@ -111,6 +119,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: '操作',
     key: 'actions',
+    minWidth: 200,
     render(row) {
       return (
         <NSpace>
