@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import 'katex/dist/katex.css'
-import { onUpdated, ref } from 'vue'
+import { onMounted, onUpdated, ref } from 'vue'
 import { mdit } from '@/shared/markdown-it'
 
 const props = defineProps<{
@@ -8,8 +8,14 @@ const props = defineProps<{
 }>()
 const contentRef = ref()
 onUpdated(() => {
-  contentRef.value = mdit.render(props.data)
+  update()
 })
+onMounted(() => {
+  update()
+})
+const update = () => {
+  contentRef.value = mdit.render(props.data)
+}
 </script>
 
 <template>
