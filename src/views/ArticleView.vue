@@ -7,8 +7,8 @@ import type { Models } from '@/models/models'
 import { http } from '@/shared/Http'
 import DefaultAvatar from '@/assets/user-default-avatar.png'
 import Link from '@/components/Link.vue'
-import { mdit } from '@/shared/markdown-it'
 import { useUserStore } from '@/stores/userStore'
+import MDArticle from '@/components/MDArticle.vue'
 
 const route = useRoute()
 const articleId = route.params.articleId
@@ -22,7 +22,7 @@ onMounted(() => {
     .get<Models.Article>(`/article/${articleId}`)
     .then((response) => {
       dataRef.value = response.data.data
-      contentRef.value = mdit.render(dataRef.value.content)
+      contentRef.value = dataRef.value.content
       authorHomepageRef.value = `/user/${dataRef?.value?.author.username}`
     })
 })
@@ -30,76 +30,59 @@ onMounted(() => {
 
 <template>
   <div class="wrapper">
-    <article>
-      <NH1>{{ dataRef?.title }}</NH1>
-      <div class="author-info">
-        <Link :href="authorHomepageRef">
-          <NAvatar round :size="48" :src="DefaultAvatar" />
-        </Link>
-        <div class="author">
-          <div class="name">
-            <Link :href="authorHomepageRef">
-              {{ dataRef?.author.name }}
-            </Link>
-          </div>
-          <div class="meta">
-            <NSpace>
-              <div class="time">
-                <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
-              </div>
-              <div v-if="dataRef?.author.userId === userStore.userId" class="update">
-                <Link :href="`/article/${articleId}/edit`">
-                  编辑
-                </Link>
-              </div>
-            </NSpace>
-          </div>
+    <NH1 class="title">
+      {{ dataRef?.title }}
+    </NH1>
+    <div class="author-info">
+      <Link :href="authorHomepageRef">
+        <NAvatar round :size="48" :src="DefaultAvatar" />
+      </Link>
+      <div class="author">
+        <div class="name">
+          <Link :href="authorHomepageRef">
+            {{ dataRef?.author.name }}
+          </Link>
+        </div>
+        <div class="meta">
+          <NSpace>
+            <div class="time">
+              <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
+            </div>
+            <div v-if="dataRef?.author.userId === userStore.userId" class="update">
+              <Link :href="`/article/${articleId}/edit`">
+                编辑
+              </Link>
+            </div>
+          </NSpace>
         </div>
       </div>
-      <div class="article-content" v-html="contentRef" />
-    </article>
+    </div>
+    <div>
+      <MDArticle :data="contentRef" />
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wrapper {
+  padding: 2rem;
   background-color: white;
+  min-height: calc(100vh - 2 * var(--header-height) - 150px);
 
-  article {
-    padding: 2rem;
+  .author-info {
+    display: flex;
 
-    .author-info {
-      display: flex;
+    > .author {
+      padding-left: 1rem;
 
-      > .author {
-        padding-left: 1rem;
-
-        .name {
-          font-size: 1rem;
-        }
-
-        .meta {
-          display: flex;
-          flex-direction: row;
-        }
+      .name {
+        font-size: 1rem;
       }
-    }
-  }
-}
-</style>
 
-<style lang="scss">
-.article-content {
-  * {
-    max-width: 100%;
-  }
-
-  a {
-    color: black;
-    text-decoration: none;
-
-    &:hover {
-      color: #1890ff;
+      .meta {
+        display: flex;
+        flex-direction: row;
+      }
     }
   }
 }

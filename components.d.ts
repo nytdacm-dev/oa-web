@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     CodeforcesIcon: typeof import('./src/components/icons/CodeforcesIcon.vue')['default']
     Link: typeof import('./src/components/Link.vue')['default']
     LuoguIcon: typeof import('./src/components/icons/LuoguIcon.vue')['default']
+    MDArticle: typeof import('./src/components/MDArticle.vue')['default']
     MDEditor: typeof import('./src/components/MDEditor.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NImage: typeof import('naive-ui')['NImage']
