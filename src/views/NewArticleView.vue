@@ -101,6 +101,6 @@ const updateAction = () => {
 
 <style lang="scss">
 .bytemd {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 300px);
 }
 </style>

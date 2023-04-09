@@ -1,5 +1,5 @@
 .main {
-  min-height: 100vh;
+  min-height: calc(100vh - 2 * var(--header-height) - 40px);
   height: auto;
   padding: 20px 0;
   background-color: #f4f5f5;
