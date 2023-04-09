@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { NAvatar, NButton, NIcon, NModal, NSkeleton } from 'naive-ui'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { NAvatar, NButton, NIcon, NModal, NSkeleton, NSpace } from 'naive-ui'
 import UserProfileUpdateForm from './UserProfileUpdateForm.vue'
 import DefaultAvatar from '@/assets/user-default-avatar.png'
 import type { Models } from '@/models/models'
@@ -16,6 +16,7 @@ import VJudgeIcon from '@/components/icons/VJudgeIcon.vue'
 
 const userStore = useUserStore()
 const route = useRoute()
+const router = useRouter()
 const username = route.params.username
 const user = ref<Models.User>()
 const modalVisible = ref(false)
@@ -24,19 +25,21 @@ const atCoderLink = ref('https://atcoder.jp/users/')
 const luoguLink = ref('https://www.luogu.com.cn/user/')
 const nowcoderLink = ref('https://ac.nowcoder.com/acm/contest/profile/')
 const vjudgeLink = ref('https://vjudge.net/user/')
-http
-  .get<Models.User>(`/user/${username}`)
-  .then((res) => {
-    user.value = res.data.data
-    cfLink.value = `https://codeforces.com/profile/${user.value?.socialAccount.codeforces}`
-    atCoderLink.value = `https://atcoder.jp/users/${user.value?.socialAccount.atCoder}`
-    luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`
-    nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`
-    vjudgeLink.value = `https://vjudge.net/user/${user.value?.socialAccount.vjudge}`
-  })
-  .catch(() => {
-    // TODO: Go to 404 page
-  })
+onMounted(() => {
+  http
+    .get<Models.User>(`/user/${username}`)
+    .then((res) => {
+      user.value = res.data.data
+      cfLink.value = `https://codeforces.com/profile/${user.value?.socialAccount.codeforces}`
+      atCoderLink.value = `https://atcoder.jp/users/${user.value?.socialAccount.atCoder}`
+      luoguLink.value = `https://www.luogu.com.cn/user/${user.value?.socialAccount.luogu}`
+      nowcoderLink.value = `https://ac.nowcoder.com/acm/contest/profile/${user.value?.socialAccount.nowcoder}`
+      vjudgeLink.value = `https://vjudge.net/user/${user.value?.socialAccount.vjudge}`
+    })
+    .catch(() => {
+      router.push('/404')
+    })
+})
 </script>
 
 <template>
@@ -57,43 +60,43 @@ http
           <span class="username"> @{{ user?.username }} </span>
         </div>
         <div class="right">
-          <div class="social">
-            <div class="icon">
-              <Link v-if="user.socialAccount.codeforces" :href="cfLink" :new-window="true">
+          <NSpace class="social">
+            <div v-if="user.socialAccount.codeforces">
+              <Link :href="cfLink" :new-window="true">
                 <NIcon :size="20">
                   <CodeforcesIcon />
                 </NIcon>
               </Link>
             </div>
-            <div class="icon">
-              <Link v-if="user.socialAccount.atCoder" :href="atCoderLink" target="_blank">
+            <div v-if="user.socialAccount.atCoder">
+              <Link :href="atCoderLink" target="_blank">
                 <NIcon :size="20">
                   <AtCoderIcon />
                 </NIcon>
               </Link>
             </div>
-            <div class="icon">
-              <Link v-if="user.socialAccount.luogu" :href="luoguLink" target="_blank">
+            <div v-if="user.socialAccount.luogu">
+              <Link :href="luoguLink" target="_blank">
                 <NIcon :size="20">
                   <LuoguIcon />
                 </NIcon>
               </Link>
             </div>
-            <div class="icon">
-              <Link v-if="user.socialAccount.nowcoder" :href="nowcoderLink" target="_blank">
+            <div v-if="user.socialAccount.nowcoder">
+              <Link :href="nowcoderLink" target="_blank">
                 <NIcon :size="20">
                   <NowcoderIcon />
                 </NIcon>
               </Link>
             </div>
-            <div class="icon">
-              <Link v-if="user.socialAccount.vjudge" :href="vjudgeLink" target="_blank">
+            <div v-if="user.socialAccount.vjudge">
+              <Link :href="vjudgeLink" target="_blank">
                 <NIcon :size="20">
                   <VJudgeIcon />
                 </NIcon>
               </Link>
             </div>
-          </div>
+          </NSpace>
         </div>
       </div>
       <div class="bottom">
@@ -148,17 +151,7 @@ http
         }
 
         > .username {
-          font-size: 1rem;
-        }
-      }
-
-      > .right {
-        .social {
-          display: flex;
-
-          > .icon {
-            margin-left: 5px;
-          }
+          font-size: 0.9rem;
         }
       }
     }
