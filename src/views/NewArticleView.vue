@@ -98,3 +98,9 @@ const updateAction = () => {
     </NSpace>
   </div>
 </template>
+
+<style lang="scss">
+.bytemd {
+  height: calc(100vh - 200px);
+}
+</style>
