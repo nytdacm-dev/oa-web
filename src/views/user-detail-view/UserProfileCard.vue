@@ -117,7 +117,7 @@ onMounted(() => {
             修改个人信息
           </NButton>
           <NModal v-model:show="modalVisible" title="修改个人信息" class="custom-card" preset="card" style="width: 80%">
-            <UserProfileUpdateForm v-if="modalVisible" :user="user" />
+            <UserProfileUpdateForm :user="user" />
           </NModal>
         </div>
       </div>
