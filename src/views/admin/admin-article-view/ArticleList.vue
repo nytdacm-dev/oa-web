@@ -70,7 +70,7 @@ const loading = ref<boolean>(true)
 const data = ref<Models.Article[]>([])
 const columns: DataTableColumns<Models.Article> = [
   {
-    title: '文章 ID',
+    title: 'ID',
     key: 'articleId',
     minWidth: 50,
   },
@@ -107,7 +107,7 @@ const columns: DataTableColumns<Models.Article> = [
   {
     title: '操作',
     key: 'actions',
-    minWidth: 100,
+    minWidth: 150,
     render(row) {
       return (
         <NSpace>
