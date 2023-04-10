@@ -21,7 +21,7 @@ import SignupForm from './login-view/SignupForm.vue'
 
 <style lang="scss" scoped>
 .main {
-  height: calc(100vh - 2 * var(--header-height));
+  min-height: calc(100vh - 2 * var(--header-height) - 150px);
   display: flex;
   align-items: center;
   justify-content: center;
