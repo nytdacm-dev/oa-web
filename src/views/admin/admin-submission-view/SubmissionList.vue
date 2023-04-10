@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { onMounted, reactive, ref } from 'vue'
-import { type DataTableColumns, NButton, NDataTable, NForm, NFormItem, NSelect } from 'naive-ui'
+import { type DataTableColumns, NButton, NDataTable, NForm, NFormItem, NSelect, NSpace } from 'naive-ui'
 import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import { http } from '@/shared/Http'
 import type { ListWrapper, Models } from '@/models/models'
@@ -361,20 +361,22 @@ const handleFormSubmit = () => {
         size="small"
         inline
       >
-        <NFormItem label="OJ" path="oj">
-          <NSelect v-model:value="formValue.oj" placeholder="OJ 平台" :options="ojOptions" style="width: 120px" />
-        </NFormItem>
-        <NFormItem label="群组" path="group">
-          <NSelect v-model:value="formValue.group" placeholder="群组" :options="groupOptions" style="width: 200px" />
-        </NFormItem>
-        <NFormItem label="用户" path="user">
-          <NInput v-model:value="formValue.user" placeholder="用户名或姓名" />
-        </NFormItem>
-        <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit">
-            查询
-          </NButton>
-        </NFormItem>
+        <NSpace>
+          <NFormItem label="OJ" path="oj">
+            <NSelect v-model:value="formValue.oj" placeholder="OJ 平台" :options="ojOptions" style="width: 120px" />
+          </NFormItem>
+          <NFormItem label="群组" path="group">
+            <NSelect v-model:value="formValue.group" placeholder="群组" :options="groupOptions" style="width: 200px" />
+          </NFormItem>
+          <NFormItem label="用户" path="user">
+            <NInput v-model:value="formValue.user" placeholder="用户名或姓名" />
+          </NFormItem>
+          <NFormItem>
+            <NButton round type="primary" @click="handleFormSubmit">
+              查询
+            </NButton>
+          </NFormItem>
+        </NSpace>
       </NForm>
     </div>
     <div class="operation">

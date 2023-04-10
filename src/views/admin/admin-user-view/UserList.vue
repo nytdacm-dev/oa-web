@@ -241,17 +241,19 @@ const handleFormSubmit = () => {
         size="small"
         inline
       >
-        <NFormItem label="用户名" path="username">
-          <NInput v-model:value="formValue.username" placeholder="用户名" />
-        </NFormItem>
-        <NFormItem label="姓名" path="name">
-          <NInput v-model:value="formValue.name" placeholder="姓名" />
-        </NFormItem>
-        <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit">
-            查询
-          </NButton>
-        </NFormItem>
+        <NSpace>
+          <NFormItem label="用户名" path="username">
+            <NInput v-model:value="formValue.username" placeholder="用户名" />
+          </NFormItem>
+          <NFormItem label="姓名" path="name">
+            <NInput v-model:value="formValue.name" placeholder="姓名" />
+          </NFormItem>
+          <NFormItem>
+            <NButton round type="primary" @click="handleFormSubmit">
+              查询
+            </NButton>
+          </NFormItem>
+        </NSpace>
       </NForm>
     </div>
     <NDataTable

@@ -188,14 +188,16 @@ const handleFormSubmit = () => {
         size="small"
         inline
       >
-        <NFormItem label="标题" path="title">
-          <NInput v-model:value="formValue.title" placeholder="标题" />
-        </NFormItem>
-        <NFormItem>
-          <NButton round type="primary" @click="handleFormSubmit">
-            查询
-          </NButton>
-        </NFormItem>
+        <NSpace>
+          <NFormItem label="标题" path="title">
+            <NInput v-model:value="formValue.title" placeholder="标题" />
+          </NFormItem>
+          <NFormItem>
+            <NButton round type="primary" @click="handleFormSubmit">
+              查询
+            </NButton>
+          </NFormItem>
+        </NSpace>
       </NForm>
     </div>
     <NDataTable
