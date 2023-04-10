@@ -82,6 +82,12 @@ onMounted(() => {
       .meta {
         display: flex;
         flex-direction: row;
+
+        @media(max-width: 480px) {
+          .update {
+            display: none;
+          }
+        }
       }
     }
   }

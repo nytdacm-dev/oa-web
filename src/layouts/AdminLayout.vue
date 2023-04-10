@@ -28,6 +28,6 @@ const collapsed = ref<boolean>(false)
 
 <style lang="scss" scoped>
 .menu {
-  min-height: 100vh;
+  min-height: calc(100vh - 200px);
 }
 </style>

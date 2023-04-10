@@ -57,7 +57,7 @@ const columns: DataTableColumns<AdminUser> = [
   {
     title: 'ID',
     key: 'userId',
-    minWidth: 100,
+    minWidth: 60,
   },
   {
     title: '用户名',
