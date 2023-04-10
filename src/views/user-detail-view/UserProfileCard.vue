@@ -103,10 +103,11 @@ onMounted(() => {
         <div class="left">
           <div v-if="user?.socialAccount?.codeforcesRating" class="cf">
             <span>Codeforces: </span>
-            <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}
-            </span>
-            <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
-              (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
+            <span>
+              <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
+              <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
+                (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
+              </span>
             </span>
             <span v-if="user.socialAccount?.codeforcesRank">
               Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
