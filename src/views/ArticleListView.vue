@@ -17,9 +17,29 @@ onMounted(() => {
 
 <template>
   <div class="main">
-    这是页面文章列表
-    <ul>
+    <div class="article-list">
       <ArticleItem v-for="item in refData" :key="item.articleId" :article="item" />
-    </ul>
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .article-list {
+    width: 100%;
+    max-width: 720px;
+    background-color: white;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+</style>

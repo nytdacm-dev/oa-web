@@ -19,7 +19,7 @@ const external = ref(props.href.startsWith('http'))
 <style lang="scss" scoped>
 .link {
   cursor: pointer;
-  color: black;
+  color: #525766;
   text-decoration: none;
 
   &:hover {
