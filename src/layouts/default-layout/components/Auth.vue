@@ -26,9 +26,6 @@ const options = [
     key: 'write-article',
   },
   {
-    type: 'divider',
-  },
-  {
     label: '管理后台',
     key: 'admin',
   },
@@ -40,6 +37,11 @@ const options = [
     key: 'logout',
   },
 ]
+if (!userStore.admin && !userStore.superAdmin) {
+  // 删除后台管理选项
+  options.splice(2, 1)
+}
+
 const handleSelect = (key: string | number) => {
   if (key === 'user-detail-page')
     router.push(`/user/${userStore.username}`)
