@@ -21,6 +21,7 @@
   height: var(--header-height);
   justify-content: center;
   color: #808080;
+  background-color: white;
 
   > .copyright {
     display: flex;
