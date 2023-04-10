@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue'
 import { type FormInst, type FormRules, NButton, NForm, NFormItem, NInput, useNotification } from 'naive-ui'
 import { type HttpResponse, type JSONValue, http } from '@/shared/Http'
 import type { Models } from '@/models/models'
+import Link from '@/components/Link.vue'
 
 const props = defineProps<{
   user: Models.User
@@ -71,6 +72,12 @@ const handleFormSubmit = (e: MouseEvent) => {
 </script>
 
 <template>
+  <!--  居中 -->
+  <p style="display: flex; align-items: center; justify-content: center;">
+    <Link href="/article/3">
+      账号绑定方式
+    </Link>
+  </p>
   <NForm
     ref="formRef"
     :model="formValue"
