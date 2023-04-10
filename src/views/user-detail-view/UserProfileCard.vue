@@ -101,16 +101,17 @@ onMounted(() => {
       </div>
       <div class="bottom">
         <div class="left">
-          <p class="cf">
-            Codeforces:
-            <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
+          <div v-if="user?.socialAccount?.codeforcesRating" class="cf">
+            <span>Codeforces: </span>
+            <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}
+            </span>
             <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
               (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
             </span>
             <span v-if="user.socialAccount?.codeforcesRank">
               Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
             </span>
-          </p>
+          </div>
         </div>
         <div class="right">
           <NButton v-if="userStore.username === username" @click="modalVisible = true">
@@ -159,6 +160,7 @@ onMounted(() => {
     > .bottom {
       display: flex;
       justify-content: space-between;
+      height: calc(100% - 2.5rem);
 
       .left {
         > .cf {
@@ -178,6 +180,52 @@ onMounted(() => {
       > .right {
         display: flex;
         align-items: flex-end;
+      }
+    }
+  }
+}
+
+@media(max-width: 680px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+
+    > .avatar {
+      margin-right: 0;
+    }
+
+    > .profile,
+    .profile-skeleton {
+      width: 100%;
+      max-width: 500px;
+
+      > .top {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        > .left {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      > .bottom {
+        flex-direction: column;
+        align-items: center;
+
+        > .left {
+          margin-bottom: 0.5rem;
+
+          > .cf {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+
+        > .right {
+          align-items: center;
+        }
       }
     }
   }
