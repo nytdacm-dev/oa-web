@@ -58,7 +58,7 @@ const handleSelect = (key: string | number) => {
       登录 | 注册
     </Link>
     <NDropdown v-else trigger="hover" :options="options" @select="handleSelect">
-      <NAvatar round :size="40" :src="DefaultAvatar" />
+      <NAvatar round :size="40" :src="DefaultAvatar" style="display: block;" />
     </NDropdown>
   </div>
 </template>

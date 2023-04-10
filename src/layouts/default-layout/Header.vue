@@ -60,6 +60,7 @@ const userStore = useUserStore()
 
     .img {
       margin-right: 5px;
+      display: block;
     }
   }
 
