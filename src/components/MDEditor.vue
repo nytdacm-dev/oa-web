@@ -2,6 +2,9 @@
 import gfm from '@bytemd/plugin-gfm'
 import { Editor } from '@bytemd/vue-next'
 import math from '@bytemd/plugin-math'
+import bytemdLocale from 'bytemd/locales/zh_Hans.json'
+import gfmLocale from '@bytemd/plugin-gfm/locales/zh_Hans.json'
+import mathLocale from '@bytemd/plugin-math/locales/zh_Hans.json'
 import { http } from '@/shared/Http'
 import 'katex/dist/katex.css'
 
@@ -13,9 +16,17 @@ const emits = defineEmits<{
 }>()
 
 const plugins = [
-  gfm(),
-  math(),
+  gfm({
+    locale: gfmLocale,
+  }),
+  math({
+    locale: mathLocale,
+  }),
 ]
+
+const locale = {
+  ...bytemdLocale,
+}
 
 const handleChange = (v: string) => {
   emits('update:data', v)
@@ -57,7 +68,13 @@ const uploadImages = async (files: File[]) => {
 </script>
 
 <template>
-  <Editor :value="data" :plugins="plugins" :upload-images="uploadImages" @change="handleChange" />
+  <Editor
+    :value="data"
+    :locale="locale"
+    :plugins="plugins"
+    :upload-images="uploadImages"
+    @change="handleChange"
+  />
 </template>
 
 <style lang="scss" scoped>
