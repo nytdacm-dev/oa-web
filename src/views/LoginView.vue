@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NCard, NTabPane, NTabs } from 'naive-ui'
 import LoginForm from './login-view/LoginForm.vue'
-import SignupForm from './login-view/SignupForm.vue'
 </script>
 
 <template>
@@ -12,7 +11,8 @@ import SignupForm from './login-view/SignupForm.vue'
           <LoginForm />
         </NTabPane>
         <NTabPane name="注册" tab="注册">
-          <SignupForm />
+          暂停注册
+          <!-- <SignupForm /> -->
         </NTabPane>
       </NTabs>
     </NCard>
