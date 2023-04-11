@@ -12,7 +12,7 @@ const userStore = useUserStore()
       <Link href="/">
         <img alt="nytdacm logo" class="img" src="@/assets/nytdacm-logo.png" width="40" height="40">
       </Link>
-      <span class="website-title">南邮通达程序设计校队</span>
+      <!-- <span class="website-title">南邮通达程序设计校队</span> -->
     </div>
     <div class="menu">
       <NSpace>
