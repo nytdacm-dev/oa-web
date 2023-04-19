@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const play = () => {
-  window.open('https://www.4399.com/', '_blank')
+  window.open('https://bytelegend.com/', '_blank')
 }
 const study = () => {
   window.open('https://www.nowcoder.com/courses/cover/live/724?coupon=A6t6JmF', '_blank')
