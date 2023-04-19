@@ -87,6 +87,9 @@ http.instance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     if (error.response) {
+      if (error.response?.status === 401)
+        await router.push({ name: 'login' })
+
       if (error.response?.status === 403)
         await router.push({ name: '403' })
 
