@@ -9,7 +9,7 @@ export const setupTitleChange = (router: Router) => {
     }
     else {
       // document.title = ' 南邮通达程序设计校队'
-      document.title = 'Untitled'
+      document.title = '首页'
     }
   })
 }
