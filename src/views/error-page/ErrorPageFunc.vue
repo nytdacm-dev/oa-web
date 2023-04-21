@@ -10,7 +10,7 @@ const study = () => {
   window.open('https://www.nowcoder.com/courses/cover/live/724?coupon=A6t6JmF', '_blank')
 }
 const aha = () => {
-  window.open('https://www.bilibili.com/video/BV1GJ411x7h7', '_blank')
+  window.open('https://www.bilibili.com/video/BV1E34y1E7cw', '_blank')
 }
 const home = () => {
   router.push('/')
