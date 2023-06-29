@@ -1,11 +1,19 @@
+import { createLocalStorage } from '@/shared/utils'
+
+const LOCALSTORAGE_NAME = 'token'
+interface Token {
+  token: string
+}
+const store = createLocalStorage<Token>(LOCALSTORAGE_NAME)
+
 export const getToken = () => {
-  return localStorage.getItem('token')
+  return store.get()?.token
 }
 
 export const setToken = (token: string) => {
-  localStorage.setItem('token', token)
+  store.set({ ...store.get(), token })
 }
 
 export const clearToken = () => {
-  localStorage.removeItem('token')
+  store.remove()
 }
