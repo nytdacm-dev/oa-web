@@ -11,7 +11,9 @@
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "vue/no-unused-refs": "off",
-    "antfu/top-level-function": "off"
+    "antfu/top-level-function": "off",
+    "curly": "off",
+    "@typescript-eslint/brace-style": "off"
   },
   "parserOptions": {
     "ecmaVersion": "latest"
