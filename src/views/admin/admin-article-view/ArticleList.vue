@@ -5,7 +5,7 @@ import {
   NButton,
   NDataTable,
   NForm,
-  NFormItem,
+  NFormItem, NInput,
   NPopconfirm,
   NSpace,
   useNotification,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NButton, NSpace } from 'naive-ui'
 import Auth from './components/Auth.vue'
 import Link from '@/components/Link.vue'
 </script>

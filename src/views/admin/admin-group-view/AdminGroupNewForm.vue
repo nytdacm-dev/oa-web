@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import type { AxiosError } from 'axios'
 import { reactive, ref } from 'vue'
-import { type FormInst, type FormRules, NButton, NForm, NFormItem, NInput, NRadio, useNotification } from 'naive-ui'
+import {
+  type FormInst,
+  type FormRules,
+  NButton,
+  NForm,
+  NFormItem,
+  NInput,
+  NInputNumber,
+  NRadio,
+  useNotification,
+} from 'naive-ui'
 import { type HttpResponse, http } from '@/shared/Http'
 import type { AdminUser } from '@/views/admin/admin-user-view/AdminUser'
 

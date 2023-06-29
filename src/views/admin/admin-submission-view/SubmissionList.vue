@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { onMounted, reactive, ref } from 'vue'
-import { type DataTableColumns, NButton, NDataTable, NForm, NFormItem, NSelect, NSpace } from 'naive-ui'
+import { type DataTableColumns, NButton, NDataTable, NForm, NFormItem, NInput, NSelect, NSpace } from 'naive-ui'
 import type { SelectMixedOption } from 'naive-ui/es/select/src/interface'
 import { http } from '@/shared/Http'
 import type { ListWrapper, Models } from '@/models/models'

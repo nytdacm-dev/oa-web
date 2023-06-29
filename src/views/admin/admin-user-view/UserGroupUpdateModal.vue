@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { AxiosError } from 'axios'
 import { onMounted, ref } from 'vue'
-import { NButton, type TransferOption, useNotification } from 'naive-ui'
+import { NButton, NTransfer, type TransferOption, useNotification } from 'naive-ui'
 import { http } from '@/shared/Http'
 import type { ListWrapper, Models } from '@/models/models'
 
