@@ -13,8 +13,7 @@
     "vue/no-unused-refs": "off",
     "antfu/top-level-function": "off",
     "curly": "off",
-    "@typescript-eslint/brace-style": "off",
-    "@typescript-eslint/no-namespace": "off"
+    "@typescript-eslint/brace-style": "off"
   },
   "parserOptions": {
     "ecmaVersion": "latest"
