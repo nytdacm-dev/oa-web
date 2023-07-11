@@ -13,7 +13,9 @@ import LuoguIcon from '@/components/icons/LuoguIcon.vue'
 import NowcoderIcon from '@/components/icons/NowcoderIcon.vue'
 import Link from '@/components/Link.vue'
 import VJudgeIcon from '@/components/icons/VJudgeIcon.vue'
+import { useBasicLayout } from '@/hooks/useBasicLayout'
 
+const { isMobile } = useBasicLayout()
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
@@ -43,82 +45,74 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main">
-    <div class="avatar">
-      <NSkeleton v-if="!user" circle size="medium" :height="90" :width="90" />
-      <NAvatar v-else round :size="90" :src="DefaultAvatar" />
+  <div class="flex bg-white p-6" :class="isMobile ? 'flex-col items-center' : ''">
+    <div :class="isMobile ? '' : 'mr-8'">
+      <NSkeleton v-if="!user" circle size="medium" :height="64" :width="64" />
+      <NAvatar v-else round :size="64" :src="DefaultAvatar" />
     </div>
-    <div v-if="!user" class="profile-skeleton">
+    <div v-if="!user">
       <NSkeleton text :repeat="4" />
     </div>
-    <div v-else class="profile">
-      <div class="top">
-        <div class="left">
-          <span class="name">
+    <div v-else class="grow">
+      <div class="mb-8px flex items-center justify-between" :class="isMobile ? 'flex-col items-center mb-4' : ''">
+        <div class="mb-2">
+          <span class="text-lg">
             {{ user?.name }}
           </span>
-          <span class="username"> @{{ user?.username }} </span>
+          <span> @{{ user?.username }} </span>
         </div>
-        <div class="right">
-          <NSpace class="social">
-            <div v-if="user.socialAccount.codeforces">
-              <Link :href="cfLink" :new-window="true">
-                <NIcon :size="20">
-                  <CodeforcesIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div v-if="user.socialAccount.atCoder">
-              <Link :href="atCoderLink" target="_blank">
-                <NIcon :size="20">
-                  <AtCoderIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div v-if="user.socialAccount.luogu">
-              <Link :href="luoguLink" target="_blank">
-                <NIcon :size="20">
-                  <LuoguIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div v-if="user.socialAccount.nowcoder">
-              <Link :href="nowcoderLink" target="_blank">
-                <NIcon :size="20">
-                  <NowcoderIcon />
-                </NIcon>
-              </Link>
-            </div>
-            <div v-if="user.socialAccount.vjudge">
-              <Link :href="vjudgeLink" target="_blank">
-                <NIcon :size="20">
-                  <VJudgeIcon />
-                </NIcon>
-              </Link>
-            </div>
-          </NSpace>
-        </div>
+        <NSpace>
+          <div v-if="user.socialAccount.codeforces">
+            <Link :href="cfLink" :new-window="true">
+              <NIcon :size="20">
+                <CodeforcesIcon />
+              </NIcon>
+            </Link>
+          </div>
+          <div v-if="user.socialAccount.atCoder">
+            <Link :href="atCoderLink" target="_blank">
+              <NIcon :size="20">
+                <AtCoderIcon />
+              </NIcon>
+            </Link>
+          </div>
+          <div v-if="user.socialAccount.luogu">
+            <Link :href="luoguLink" target="_blank">
+              <NIcon :size="20">
+                <LuoguIcon />
+              </NIcon>
+            </Link>
+          </div>
+          <div v-if="user.socialAccount.nowcoder">
+            <Link :href="nowcoderLink" target="_blank">
+              <NIcon :size="20">
+                <NowcoderIcon />
+              </NIcon>
+            </Link>
+          </div>
+          <div v-if="user.socialAccount.vjudge">
+            <Link :href="vjudgeLink" target="_blank">
+              <NIcon :size="20">
+                <VJudgeIcon />
+              </NIcon>
+            </Link>
+          </div>
+        </NSpace>
       </div>
-      <div class="bottom">
-        <div class="left">
-          <div v-if="user?.socialAccount?.codeforcesRating" class="cf">
-            <span>Codeforces: </span>
-            <span>
-              <span class="cf-rating">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span>
-              <span v-if="user.socialAccount?.codeforcesMaxRating !== user.socialAccount?.codeforcesRating">
-                (Max: <span class="cf-max-rating">{{ user.socialAccount?.codeforcesMaxRating ?? 0 }}</span>)
-              </span>
-            </span>
+      <div class="flex justify-between" :class="isMobile ? 'flex-col items-center' : ''">
+        <div :class="isMobile ? 'mb-2' : ''">
+          <div v-if="user?.socialAccount?.codeforcesRating" class="text-4" :class="isMobile ? 'flex flex-col items-center' : ''">
+            <span>Codeforces: <span class="text-[#f50]">{{ user.socialAccount?.codeforcesRating ?? 0 }}</span></span>
             <span v-if="user.socialAccount?.codeforcesRank">
-              Rank: <span class="cf-rank"> {{ user.socialAccount?.codeforcesRank }} </span>
+              Rank: <span class="text-[#f50]"> {{ user.socialAccount?.codeforcesRank }} </span>
             </span>
           </div>
         </div>
-        <div class="right">
-          <NButton v-if="userStore.username === username" @click="modalVisible = true">
+        <div>
+          <NButton v-if="userStore.username === username" size="small" @click="modalVisible = true">
             修改个人信息
           </NButton>
-          <NModal v-model:show="modalVisible" title="修改个人信息" class="custom-card" preset="card" style="width: 80%">
+          <NModal v-model:show="modalVisible" title="修改个人信息" preset="card" style="width: 80%">
             <UserProfileUpdateForm :user="user" />
           </NModal>
         </div>
@@ -126,109 +120,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.main {
-  display: flex;
-  background-color: #fff;
-  padding: 2.5rem;
-
-  > .avatar {
-    margin-right: 2rem;
-  }
-
-  > .profile,
-  .profile-skeleton {
-    flex: 1 1 auto;
-
-    > .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-
-      > .left {
-        > .name {
-          font-size: 1.2rem;
-        }
-
-        > .username {
-          font-size: 0.9rem;
-        }
-      }
-    }
-
-    > .bottom {
-      display: flex;
-      justify-content: space-between;
-      height: calc(100% - 2.5rem);
-
-      .left {
-        > .cf {
-          font-size: 1rem;
-
-          .cf-rating,
-          .cf-rank {
-            color: #f50;
-          }
-
-          .cf-max-rating {
-            color: #2db7f5;
-          }
-        }
-      }
-
-      > .right {
-        display: flex;
-        align-items: flex-end;
-      }
-    }
-  }
-}
-
-@media(max-width: 680px) {
-  .main {
-    flex-direction: column;
-    align-items: center;
-
-    > .avatar {
-      margin-right: 0;
-    }
-
-    > .profile,
-    .profile-skeleton {
-      width: 100%;
-      max-width: 500px;
-
-      > .top {
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        > .left {
-          margin-bottom: 0.5rem;
-        }
-      }
-
-      > .bottom {
-        flex-direction: column;
-        align-items: center;
-
-        > .left {
-          margin-bottom: 0.5rem;
-
-          > .cf {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-        }
-
-        > .right {
-          align-items: center;
-        }
-      }
-    }
-  }
-}
-</style>
