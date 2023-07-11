@@ -15,6 +15,3 @@ defineProps<{
     </NGi>
   </NGrid>
 </template>
-
-<style lang="scss" scoped>
-</style>

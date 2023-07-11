@@ -214,11 +214,3 @@ const handleFormSubmit = () => {
     />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.operation {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-</style>

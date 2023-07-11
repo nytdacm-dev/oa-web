@@ -9,18 +9,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="wrapper">
+  <div>
     <NDivider>
-      <span class="title">{{ group.displayName ? group.displayName : group.name }}</span>
+      <span class="text-8">{{ group.displayName ? group.displayName : group.name }}</span>
     </NDivider>
     <UserList :users="props.group.users" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  .title {
-    font-size: 2rem;
-  }
-}
-</style>

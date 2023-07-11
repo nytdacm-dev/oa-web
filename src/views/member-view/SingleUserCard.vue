@@ -14,34 +14,12 @@ const goToUserProfile = () => {
 </script>
 
 <template>
-  <div class="wrapper" @click="goToUserProfile">
-    <NAvatar class="avatar" round :size="80" :src="DefaultAvatar" />
+  <div class="m-10px flex flex-col cursor-pointer items-center justify-center b-rd-2 bg-white p-10px hover:shadow-lg" @click="goToUserProfile">
+    <NAvatar class="m-5px" round :size="80" :src="DefaultAvatar" />
     <div>
-      <span class="name">
+      <span class="text-6">
         {{ props.user.name }}
       </span>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 12px;
-  background-color: white;
-  cursor: pointer;
-
-  .avatar {
-    margin: 5px;
-  }
-
-  .name {
-    font-size: 1.5rem;
-  }
-}
-</style>

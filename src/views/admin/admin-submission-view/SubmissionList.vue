@@ -372,16 +372,16 @@ const handleFormSubmit = () => {
             <NInput v-model:value="formValue.user" placeholder="用户名或姓名" />
           </NFormItem>
           <NFormItem>
-            <NButton round type="primary" @click="handleFormSubmit">
+            <NButton type="primary" @click="handleFormSubmit">
               查询
             </NButton>
           </NFormItem>
         </NSpace>
       </NForm>
     </div>
-    <div class="operation">
+    <div class="mb-10px flex justify-end">
       <!-- 下载 -->
-      <NButton round size="small" type="primary" :disabled="downloadBtnDisabled" @click="download">
+      <NButton size="small" type="primary" :disabled="downloadBtnDisabled" @click="download">
         下载
       </NButton>
     </div>
@@ -399,11 +399,3 @@ const handleFormSubmit = () => {
     />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.operation {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-</style>

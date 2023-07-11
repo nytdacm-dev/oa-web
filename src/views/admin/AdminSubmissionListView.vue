@@ -3,14 +3,8 @@ import SubmissionList from '@/views/admin/admin-submission-view/SubmissionList.v
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="px-2">
     <h2>提交记录查看</h2>
     <SubmissionList />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  padding: 0 20px;
-}
-</style>

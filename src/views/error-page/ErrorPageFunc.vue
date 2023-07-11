@@ -18,7 +18,7 @@ const home = () => {
 </script>
 
 <template>
-  <NSpace vertical class="func">
+  <NSpace vertical class="flex flex-col items-center justify-center">
     <NSpace>
       <NButton @click="study">
         找点乐子吧
@@ -37,12 +37,3 @@ const home = () => {
     </NSpace>
   </NSpace>
 </template>
-
-<style lang="scss" scoped>
-.func {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-</style>

@@ -63,23 +63,10 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="flex flex-col items-center justify-center">
     <NTransfer ref="transfer" v-model:value="value" :options="options" virtual-scroll />
-    <NButton class="btn" round size="small" type="primary" @click="handleClick">
+    <NButton class="mt-10px" size="small" type="primary" @click="handleClick">
       保存
     </NButton>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  .btn {
-    margin-top: 10px;
-  }
-}
-</style>

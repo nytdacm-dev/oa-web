@@ -11,5 +11,3 @@ useRecaptchaProvider()
     <RouterView :key="$route.path + Math.random()" />
   </NaiveProvider>
 </template>
-
-<style lang="scss" scoped></style>

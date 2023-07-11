@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { NLayout, NLayoutContent, NLayoutSider } from 'naive-ui'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import AdminMenu from '@/layouts/admin-layout/AdminMenu.vue'
+import { useBasicLayout } from '@/hooks/useBasicLayout'
 
+const { isMobile } = useBasicLayout()
 const collapsed = ref<boolean>(false)
+watch(isMobile, (value) => {
+  collapsed.value = value
+})
 </script>
 
 <template>

@@ -200,9 +200,9 @@ const handleFormSubmit = () => {
         </NSpace>
       </NForm>
     </div>
-    <div class="operation">
+    <div class="mb-10px flex justify-end">
       <div class="right">
-        <NButton round size="small" type="primary" @click="() => (newGroupModalVisible = true)">
+        <NButton size="small" type="primary" @click="() => (newGroupModalVisible = true)">
           新建
         </NButton>
         <NModal
@@ -251,11 +251,3 @@ const handleFormSubmit = () => {
     </NModal>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.operation {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-</style>
