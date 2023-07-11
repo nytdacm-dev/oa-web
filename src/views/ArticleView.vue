@@ -33,22 +33,22 @@ onMounted(() => {
     <NH1>
       {{ dataRef?.title }}
     </NH1>
-    <div class="author-info">
+    <div class="flex">
       <Link :href="authorHomepageRef">
         <NAvatar round :size="48" :src="DefaultAvatar" />
       </Link>
-      <div class="author">
+      <div class="pl-4">
         <div class="text-base">
           <Link :href="authorHomepageRef">
             {{ dataRef?.author.name }}
           </Link>
         </div>
-        <div class="meta">
+        <div class="flex">
           <NSpace>
             <div>
-              <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
+              {{ timestampToDateString(dataRef?.createdAt ?? 0) }}
             </div>
-            <div v-if="dataRef?.author.userId === userStore.userId" class="update">
+            <div v-if="dataRef?.author.userId === userStore.userId">
               <Link :href="`/article/${articleId}/edit`">
                 编辑
               </Link>
@@ -62,24 +62,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-  .author-info {
-    display: flex;
-
-    .author {
-      padding-left: 1rem;
-
-      .meta {
-        display: flex;
-        flex-direction: row;
-
-        @media(max-width: 480px) {
-          .update {
-            display: none;
-          }
-        }
-      }
-    }
-}
-</style>

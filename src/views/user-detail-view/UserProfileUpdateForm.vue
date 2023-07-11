@@ -112,5 +112,3 @@ const handleFormSubmit = (e: MouseEvent) => {
     </div>
   </NForm>
 </template>
-
-<style lang="scss" scoped></style>
