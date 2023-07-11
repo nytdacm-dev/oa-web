@@ -77,6 +77,3 @@ const uploadImages = async (files: File[]) => {
     @change="handleChange"
   />
 </template>
-
-<style lang="scss" scoped>
-</style>

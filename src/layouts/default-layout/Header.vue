@@ -5,14 +5,14 @@ import Link from '@/components/Link.vue'
 </script>
 
 <template>
-  <div class="header">
-    <div class="logo">
+  <div class="h-[var(--header-height)] flex items-center px-12px">
+    <div class="flex items-center justify-center text-lg">
       <Link href="/">
-        <img alt="nytdacm logo" class="img" src="@/assets/nytdacm-logo.png" width="40" height="40">
+        <img alt="nytdacm logo" class="mr-5px block" src="@/assets/nytdacm-logo.png" width="40" height="40">
       </Link>
-      <!-- <span class="website-title">南邮通达程序设计校队</span> -->
+      <span>NYTD ACM</span>
     </div>
-    <div class="menu">
+    <div class="ml-auto">
       <NSpace>
         <Link href="/">
           <NButton quaternary>
@@ -31,43 +31,8 @@ import Link from '@/components/Link.vue'
         </Link>
       </NSpace>
     </div>
-    <div class="auth">
+    <div class="ml-20px">
       <Auth />
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.header {
-  display: flex;
-  align-items: center;
-  height: var(--header-height);
-  padding: 0 12px;
-
-  @media (max-width: 540px) {
-    .website-title {
-      display: none;
-    }
-  }
-
-  > .logo {
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    font-size: large;
-
-    .img {
-      margin-right: 5px;
-      display: block;
-    }
-  }
-
-  > .menu {
-    margin-left: auto;
-  }
-
-  > .auth {
-    margin-left: 20px;
-  }
-}
-</style>

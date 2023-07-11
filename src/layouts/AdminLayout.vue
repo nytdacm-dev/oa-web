@@ -18,16 +18,10 @@ const collapsed = ref<boolean>(false)
       @collapse="collapsed = true"
       @expand="collapsed = false"
     >
-      <AdminMenu :collapsed="collapsed" class="menu" />
+      <AdminMenu :collapsed="collapsed" class="min-h-[calc(100vh-200px)]" />
     </NLayoutSider>
     <NLayoutContent content-style="padding: 12px;">
       <RouterView />
     </NLayoutContent>
   </NLayout>
 </template>
-
-<style lang="scss" scoped>
-.menu {
-  min-height: calc(100vh - 200px);
-}
-</style>

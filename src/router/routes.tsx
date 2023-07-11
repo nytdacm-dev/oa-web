@@ -5,7 +5,7 @@ import { getToken } from '@/shared/token'
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('../layouts/DefaultLayout'),
+    component: () => import('../layouts/DefaultLayout.vue'),
     children: [
       {
         path: '/',
