@@ -12,13 +12,11 @@ import {
   NInput,
   useNotification,
 } from 'naive-ui'
-import { useUserStore } from '@/stores/userStore'
 import { type HttpResponse, http } from '@/shared/Http'
 import type { Models } from '@/models/models'
 
 const notification = useNotification()
 const router = useRouter()
-const userStore = useUserStore()
 const formRef = ref<FormInst | null>(null)
 const validatePasswordSame = (rule: FormItemRule, value: string) => {
   return value === formValue.value.password
@@ -64,8 +62,6 @@ const handleFormSubmit = (e: MouseEvent) => {
           name: formValue.value.name,
         })
         .then(async () => {
-          await userStore.login(formValue.value.username, formValue.value.password)
-          await userStore.current()
           await router.push('/')
           notification.success({
             title: '注册成功',
@@ -73,7 +69,7 @@ const handleFormSubmit = (e: MouseEvent) => {
           })
         })
         .catch((e: AxiosError<HttpResponse>) => {
-          notification.success({
+          notification.error({
             title: '注册失败',
             content: e.response?.data.message,
             duration: 2000,

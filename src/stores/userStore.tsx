@@ -38,9 +38,9 @@ export const useUserStore = defineStore('user', {
     logout() {
       this.logoutCallBack()
     },
-    async login(username: string, password: string) {
+    async login(username: string, password: string, code: string) {
       await http
-        .get<string>('/auth/login', { username, password })
+        .get<string>('/auth/login', { username, password, code })
         .then((res) => {
           const token = res.data.data
           setToken(token)

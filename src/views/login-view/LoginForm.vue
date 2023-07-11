@@ -3,6 +3,7 @@ import type { AxiosError } from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { type FormInst, type FormRules, NButton, NForm, NFormItem, NInput, useNotification } from 'naive-ui'
+import { Checkbox } from 'vue-recaptcha'
 import { useUserStore } from '@/stores/userStore'
 import type { HttpResponse } from '@/shared/Http'
 
@@ -21,18 +22,20 @@ const rules: FormRules = {
 interface UserLoginProps {
   username: string
   password: string
+  code: string
 }
 
 const formValue = ref<UserLoginProps>({
   username: '',
   password: '',
+  code: '',
 })
 const handleFormSubmit = (e: MouseEvent) => {
   e.preventDefault()
   formRef.value?.validate((errors) => {
-    if (!errors) {
+    if (!errors && !!formValue.value.code) {
       userStore
-        .login(formValue.value.username, formValue.value.password)
+        .login(formValue.value.username, formValue.value.password, formValue.value.code)
         .then(() => {
           router.push('/')
           notification.success({
@@ -68,6 +71,9 @@ const handleFormSubmit = (e: MouseEvent) => {
       </NFormItem>
       <NFormItem label="密码" path="password">
         <NInput v-model:value="formValue.password" placeholder="密码" type="password" />
+      </NFormItem>
+      <NFormItem>
+        <Checkbox v-model="formValue.code" />
       </NFormItem>
       <div style="display: flex; justify-content: center">
         <NButton round type="primary" @click="handleFormSubmit">
