@@ -78,5 +78,3 @@ const menuOptions: MenuOption[] = [
 <template>
   <NMenu :options="menuOptions" :collapsed="props.collapsed" :collapsed-width="64" />
 </template>
-
-<style lang="scss" scoped></style>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { NCard, NTabPane, NTabs } from 'naive-ui'
+import { NTabPane, NTabs } from 'naive-ui'
 import LoginForm from './login-view/LoginForm.vue'
 import SignupForm from '@/views/login-view/SignupForm.vue'
 </script>
 
 <template>
-  <div class="main">
-    <NCard class="box-card">
+  <div class="w-full flex items-center justify-center">
+    <div class="b-rd-4 bg-white p-10 shadow-lg">
       <NTabs type="line" animated>
         <NTabPane name="登录" tab="登录">
           <LoginForm />
@@ -15,20 +15,6 @@ import SignupForm from '@/views/login-view/SignupForm.vue'
           <SignupForm />
         </NTabPane>
       </NTabs>
-    </NCard>
+    </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.main {
-  min-height: calc(100vh - 2 * var(--header-height) - 150px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > .box-card {
-    width: 100%;
-    max-width: 800px;
-  }
-}
-</style>

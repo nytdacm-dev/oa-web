@@ -55,7 +55,7 @@ const handleSelect = (key: string | number) => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div>
     <Link v-if="!userStore.userId" href="/login">
       登录 | 注册
     </Link>
@@ -64,5 +64,3 @@ const handleSelect = (key: string | number) => {
     </NDropdown>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

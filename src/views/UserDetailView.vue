@@ -3,9 +3,7 @@ import UserProfileCard from './user-detail-view/UserProfileCard.vue'
 </script>
 
 <template>
-  <div>
+  <div class="w-full">
     <UserProfileCard />
   </div>
 </template>
-
-<style lang="scss" scoped></style>

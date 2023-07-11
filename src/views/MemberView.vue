@@ -15,11 +15,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main">
+  <div class="w-full">
     <div v-for="group in groups" :key="group.groupId">
       <MemberGroup :group="group" />
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

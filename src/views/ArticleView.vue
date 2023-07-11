@@ -29,7 +29,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="grow bg-white p-8">
     <NH1>
       {{ dataRef?.title }}
     </NH1>
@@ -64,15 +64,10 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.wrapper {
-  padding: 2rem;
-  background-color: white;
-  min-height: calc(100vh - 2 * var(--header-height) - 150px);
-
   .author-info {
     display: flex;
 
-    > .author {
+    .author {
       padding-left: 1rem;
 
       .meta {
@@ -86,6 +81,5 @@ onMounted(() => {
         }
       }
     }
-  }
 }
 </style>

@@ -16,30 +16,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main">
-    <div class="article-list">
+  <div class="w-full flex justify-center">
+    <div class="w-full items-center justify-center bg-white">
       <ArticleItem v-for="item in refData" :key="item.articleId" :article="item" />
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-
-  .article-list {
-    width: 100%;
-    max-width: 720px;
-    background-color: white;
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  }
-}
-</style>

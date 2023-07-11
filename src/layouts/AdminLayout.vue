@@ -7,7 +7,7 @@ const collapsed = ref<boolean>(false)
 </script>
 
 <template>
-  <NLayout has-sider class="wrapper">
+  <NLayout has-sider>
     <NLayoutSider
       bordered
       collapse-mode="width"

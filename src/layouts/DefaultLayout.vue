@@ -10,7 +10,7 @@ import Footer from '@/layouts/default-layout/Footer.vue'
     <NLayoutHeader>
       <Header />
     </NLayoutHeader>
-    <div class="min-h-[calc(100vh-var(--header-height)-var(--footer-height)-16px)] grow bg-[#f4f5f5] p-8px">
+    <div class="min-h-[calc(100vh-var(--header-height)-var(--footer-height)-16px)] flex grow bg-[#f4f5f5] p-8px">
       <RouterView />
     </div>
     <NLayoutFooter>

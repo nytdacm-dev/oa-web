@@ -10,7 +10,7 @@ const pic = ref(Math.floor(Math.random() * 3) + 1)
 </script>
 
 <template>
-  <div class="main">
+  <div class="h-screen flex items-center justify-center">
     <NResult status="403" title="403 禁止访问" description="这不是你该碰的东西">
       <template #icon>
         <NImage v-if="pic === 1" preview-disabled :src="lcy01" />
@@ -23,12 +23,3 @@ const pic = ref(Math.floor(Math.random() * 3) + 1)
     </NResult>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.main {
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-</style>

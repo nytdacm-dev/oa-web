@@ -85,7 +85,7 @@ const updateAction = () => {
 </script>
 
 <template>
-  <div class="main">
+  <div class="w-full">
     <NSpace vertical>
       <NInput v-model:value="titleRef" type="text" />
       <MDEditor v-model:data="contentRef" />

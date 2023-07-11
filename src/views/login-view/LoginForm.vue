@@ -56,7 +56,7 @@ const handleFormSubmit = (e: MouseEvent) => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="flex items-center justify-center">
     <NForm
       ref="formRef"
       :model="formValue"
@@ -83,11 +83,3 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NForm>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>

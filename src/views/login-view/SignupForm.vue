@@ -81,7 +81,7 @@ const handleFormSubmit = (e: MouseEvent) => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="flex items-center justify-center">
     <NForm
       ref="formRef"
       :model="formValue"
@@ -103,10 +103,10 @@ const handleFormSubmit = (e: MouseEvent) => {
       <NFormItem label="姓名" path="name">
         <NInput v-model:value="formValue.name" placeholder="姓名" />
       </NFormItem>
-      <p style="color: red">
+      <p class="text-red">
         注意：用户名请使用自己的学号，否则不予通过
       </p>
-      <div style="display: flex; justify-content: center">
+      <div class="flex justify-center">
         <NButton round type="primary" @click="handleFormSubmit">
           注册
         </NButton>
@@ -114,11 +114,3 @@ const handleFormSubmit = (e: MouseEvent) => {
     </NForm>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
