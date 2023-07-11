@@ -3,7 +3,7 @@ import SubmissionList from '@/views/admin/admin-submission-view/SubmissionList.v
 </script>
 
 <template>
-  <div class="px-2">
+  <div class="w-full px-2">
     <h2>提交记录查看</h2>
     <SubmissionList />
   </div>

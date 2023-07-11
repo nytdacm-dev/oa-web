@@ -2,6 +2,9 @@
 import { NButton, NSpace } from 'naive-ui'
 import Auth from './components/Auth.vue'
 import Link from '@/components/Link.vue'
+import { useBasicLayout } from '@/hooks/useBasicLayout'
+
+const { isMobile } = useBasicLayout()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import Link from '@/components/Link.vue'
       <Link href="/">
         <img alt="nytdacm logo" class="mr-5px block" src="@/assets/nytdacm-logo.png" width="40" height="40">
       </Link>
-      <span>NYTD ACM</span>
+      <span v-if="!isMobile">NYTD ACM</span>
     </div>
     <div class="ml-auto">
       <NSpace>

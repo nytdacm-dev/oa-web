@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NLayout, NLayoutContent, NLayoutSider } from 'naive-ui'
+import { NLayout, NLayoutSider } from 'naive-ui'
 import { ref, watch } from 'vue'
 import AdminMenu from '@/layouts/admin-layout/AdminMenu.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
@@ -25,8 +25,8 @@ watch(isMobile, (value) => {
     >
       <AdminMenu :collapsed="collapsed" class="min-h-[calc(100vh-200px)]" />
     </NLayoutSider>
-    <NLayoutContent content-style="padding: 12px;">
+    <div class="flex grow">
       <RouterView />
-    </NLayoutContent>
+    </div>
   </NLayout>
 </template>
