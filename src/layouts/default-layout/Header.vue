@@ -8,7 +8,7 @@ const { isMobile } = useBasicLayout()
 </script>
 
 <template>
-  <div class="h-[var(--header-height)] flex items-center px-12px">
+  <div class="h-[calc(var(--header-height)-1px)] flex items-center px-12px">
     <div class="flex items-center justify-center text-lg">
       <Link href="/">
         <img alt="nytdacm logo" class="mr-5px block" src="@/assets/nytdacm-logo.png" width="40" height="40">

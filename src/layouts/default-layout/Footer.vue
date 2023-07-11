@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="h-[var(--footer-height)] flex items-center justify-center text-[#808080]">
+  <div class="h-[calc(var(--footer-height)-1px)] flex items-center justify-center text-[#808080]">
     <div class="flex flex-col items-center justify-center text-sm">
       <div class="items-center justify-center">
         Copyright &copy; 2023 nytdacm

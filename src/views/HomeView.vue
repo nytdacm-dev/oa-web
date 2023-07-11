@@ -26,7 +26,7 @@ const article = `## 做点题吧
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full px-2">
     <MDArticle :data="article" />
   </div>
 </template>
