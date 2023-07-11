@@ -30,7 +30,7 @@ onMounted(() => {
 
 <template>
   <div class="wrapper">
-    <NH1 class="title">
+    <NH1>
       {{ dataRef?.title }}
     </NH1>
     <div class="author-info">
@@ -38,14 +38,14 @@ onMounted(() => {
         <NAvatar round :size="48" :src="DefaultAvatar" />
       </Link>
       <div class="author">
-        <div class="name">
+        <div class="text-base">
           <Link :href="authorHomepageRef">
             {{ dataRef?.author.name }}
           </Link>
         </div>
         <div class="meta">
           <NSpace>
-            <div class="time">
+            <div>
               <span>发表于：{{ timestampToDateString(dataRef?.createdAt ?? 0) }}</span>
             </div>
             <div v-if="dataRef?.author.userId === userStore.userId" class="update">
@@ -74,10 +74,6 @@ onMounted(() => {
 
     > .author {
       padding-left: 1rem;
-
-      .name {
-        font-size: 1rem;
-      }
 
       .meta {
         display: flex;

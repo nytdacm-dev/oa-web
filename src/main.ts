@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import 'vfonts/Lato.css'
 import 'vfonts/FiraCode.css'
 import 'bytemd/dist/index.css'
+import 'virtual:uno.css'
 import VueGtag from 'vue-gtag'
 
 import { VueRecaptchaPlugin } from 'vue-recaptcha'

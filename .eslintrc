@@ -4,7 +4,8 @@
     "plugin:vue/vue3-essential",
     "eslint:recommended",
     "@vue/eslint-config-typescript",
-    "@antfu"
+    "@antfu",
+    "@unocss"
   ],
   "rules": {
     "vue/multi-word-component-names": "off",
