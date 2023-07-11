@@ -1,80 +1,53 @@
 <script lang="ts" setup>
 import type { MenuOption } from 'naive-ui'
-import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router'
 import type { Component } from 'vue'
 import { NIcon, NMenu } from 'naive-ui'
-import { h } from 'vue'
+import { computed, h } from 'vue'
 import { Table as TableIcon, User as UserIcon } from '@vicons/fa'
 import { GroupFilled as GroupIcon } from '@vicons/material'
+import { renderMenuLabel } from '@/layouts/utils'
 
 const props = defineProps<{
   collapsed: boolean
 }>()
 
+const route = useRoute()
+
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) })
 }
 
+const menuValue = computed(() => route.name as string)
+
 const menuOptions: MenuOption[] = [
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: 'admin-user',
-          },
-        },
-        { default: () => '用户管理' },
-      ),
+    label: '用户管理',
     key: 'admin-user',
+    path: '/admin/user',
     icon: renderIcon(UserIcon),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: 'admin-group',
-          },
-        },
-        { default: () => '群组管理' },
-      ),
+    label: '群组管理',
     key: 'admin-group',
+    path: '/admin/group',
     icon: renderIcon(GroupIcon),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: 'admin-submission',
-          },
-        },
-        { default: () => '提交记录' },
-      ),
+    label: '提交记录',
     key: 'admin-submission',
+    path: '/admin/submission',
     icon: renderIcon(TableIcon),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: 'admin-article',
-          },
-        },
-        { default: () => '文章列表' },
-      ),
+    label: '文章列表',
     key: 'admin-article',
+    path: '/admin/article',
     icon: renderIcon(TableIcon),
   },
 ]
 </script>
 
 <template>
-  <NMenu :options="menuOptions" :collapsed="props.collapsed" :collapsed-width="64" />
+  <NMenu :value="menuValue" :options="menuOptions" :render-label="renderMenuLabel" :collapsed="props.collapsed" :collapsed-width="64" />
 </template>

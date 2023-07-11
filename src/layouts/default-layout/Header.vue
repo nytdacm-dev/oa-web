@@ -1,10 +1,44 @@
 <script setup lang="ts">
-import { NButton, NSpace } from 'naive-ui'
+import { NMenu } from 'naive-ui'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import Auth from './components/Auth.vue'
 import Link from '@/components/Link.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
+import { renderMenuLabel } from '@/layouts/utils'
 
 const { isMobile } = useBasicLayout()
+const route = useRoute()
+
+const menuOptions = computed(() => {
+  return [
+    {
+      key: 'home',
+      label: '主页',
+      path: '/',
+    },
+    {
+      key: 'member',
+      label: '队员',
+      path: '/member',
+    },
+    {
+      key: 'article',
+      label: '文章',
+      path: '/article',
+    },
+  ]
+})
+
+const menuValue = computed(() => {
+  if (route.name === 'member')
+    return 'member'
+  if ((route.name as string).startsWith('article'))
+    return 'article'
+  else if (route.name === 'home')
+    return 'home'
+  return null
+})
 </script>
 
 <template>
@@ -16,23 +50,12 @@ const { isMobile } = useBasicLayout()
       <span v-if="!isMobile">NYTD ACM</span>
     </div>
     <div class="ml-auto">
-      <NSpace>
-        <Link href="/">
-          <NButton quaternary>
-            主页
-          </NButton>
-        </Link>
-        <Link href="/member">
-          <NButton quaternary>
-            队员
-          </NButton>
-        </Link>
-        <Link href="/article">
-          <NButton quaternary>
-            文章
-          </NButton>
-        </Link>
-      </NSpace>
+      <NMenu
+        mode="horizontal"
+        :value="menuValue"
+        :options="menuOptions"
+        :render-label="renderMenuLabel"
+      />
     </div>
     <div class="ml-20px">
       <Auth />
