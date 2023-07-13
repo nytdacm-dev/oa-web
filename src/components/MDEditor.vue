@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import gfm from '@bytemd/plugin-gfm'
+
 // @ts-expect-error
 import { Editor } from '@bytemd/vue-next'
 import math from '@bytemd/plugin-math'

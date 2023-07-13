@@ -6,6 +6,21 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    fs: {
+      strict: true,
+    },
+    proxy: {
+      '/file': {
+        target: 'http://localhost:8080/',
+        changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
+  },
   plugins: [
     vue(),
     vueJsx({
@@ -17,17 +32,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-  build: {
-    chunkSizeWarningLimit: 750,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          bytemd: ['bytemd'],
-          vue: ['vue', 'vue-router', 'pinia'],
-        },
-      },
     },
   },
 })
