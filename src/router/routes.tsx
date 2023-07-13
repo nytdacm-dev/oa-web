@@ -81,63 +81,63 @@ export const routes: RouteRecordRaw[] = [
         ],
       },
       {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('../layouts/AdminLayout.vue'),
-        beforeEnter: () => {
-          const userStore = useUserStore()
-          if (!getToken())
-            return '/login'
-
-          if (!userStore.admin && !userStore.superAdmin)
-            return '/403'
-        },
-        children: [
-          {
-            path: '',
-            name: 'admin-home',
-            redirect: '/admin/user',
-          },
-          {
-            path: 'user',
-            name: 'admin-user',
-            component: () => import('../views/admin/AdminUserListView.vue'),
-            meta: {
-              title: '用户管理',
-            },
-          },
-          {
-            path: 'group',
-            name: 'admin-group',
-            component: () => import('../views/admin/AdminGroupListView.vue'),
-            meta: {
-              title: '群组管理',
-            },
-          },
-          {
-            path: 'submission',
-            name: 'admin-submission',
-            component: () => import('../views/admin/AdminSubmissionListView.vue'),
-            meta: {
-              title: '提交记录',
-            },
-          },
-          {
-            path: 'article',
-            name: 'admin-article',
-            component: () => import('../views/admin/AdminArticleListView.vue'),
-            meta: {
-              title: '文章列表',
-            },
-          },
-        ],
-      },
-      {
         path: '/login',
         name: 'login',
         component: () => import('../views/LoginView.vue'),
         meta: {
           title: '用户登录',
+        },
+      },
+    ],
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../layouts/AdminLayout.vue'),
+    beforeEnter: () => {
+      const userStore = useUserStore()
+      if (!getToken())
+        return '/login'
+
+      if (!userStore.admin && !userStore.superAdmin)
+        return '/403'
+    },
+    children: [
+      {
+        path: '',
+        name: 'admin-home',
+        redirect: '/admin/user',
+      },
+      {
+        path: 'user',
+        name: 'admin-user',
+        component: () => import('../views/admin/AdminUserListView.vue'),
+        meta: {
+          title: '用户管理',
+        },
+      },
+      {
+        path: 'group',
+        name: 'admin-group',
+        component: () => import('../views/admin/AdminGroupListView.vue'),
+        meta: {
+          title: '群组管理',
+        },
+      },
+      {
+        path: 'submission',
+        name: 'admin-submission',
+        component: () => import('../views/admin/AdminSubmissionListView.vue'),
+        meta: {
+          title: '提交记录',
+        },
+      },
+      {
+        path: 'article',
+        name: 'admin-article',
+        component: () => import('../views/admin/AdminArticleListView.vue'),
+        meta: {
+          title: '文章列表',
         },
       },
     ],

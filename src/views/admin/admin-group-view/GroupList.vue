@@ -49,22 +49,18 @@ const columns: DataTableColumns<Models.Group> = [
   {
     title: 'ID',
     key: 'groupId',
-    minWidth: 50,
   },
   {
     title: '名称',
     key: 'name',
-    minWidth: 150,
   },
   {
     title: '显示名称',
     key: 'displayName',
-    minWidth: 100,
   },
   {
     title: '首页显示',
     key: 'showInHomepage',
-    minWidth: 100,
     render(row) {
       return row.showInHomepage === true ? '是' : '否'
     },
@@ -72,12 +68,10 @@ const columns: DataTableColumns<Models.Group> = [
   {
     title: '首页顺序',
     key: 'homepageOrder',
-    minWidth: 100,
   },
   {
     title: '创建时间',
     key: 'registerTime',
-    minWidth: 200,
     render(row) {
       return timestampToDateString(row.createdAt ?? 0)
     },
@@ -85,7 +79,6 @@ const columns: DataTableColumns<Models.Group> = [
   {
     title: '操作',
     key: 'actions',
-    minWidth: 200,
     render(row) {
       return (
         <NSpace>

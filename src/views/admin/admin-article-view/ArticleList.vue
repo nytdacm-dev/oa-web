@@ -72,12 +72,10 @@ const columns: DataTableColumns<Models.Article> = [
   {
     title: 'ID',
     key: 'articleId',
-    minWidth: 50,
   },
   {
     title: '文章标题',
     key: 'title',
-    minWidth: 200,
     render(row) {
       return (
         <Link href={`/article/${row.articleId}`}>{row.title}</Link>
@@ -87,7 +85,6 @@ const columns: DataTableColumns<Models.Article> = [
   {
     title: '作者',
     key: 'author',
-    minWidth: 80,
     render(row) {
       return (
         <Link href={`/user/${row.author.username}`}>{row.author.name}</Link>
@@ -97,7 +94,6 @@ const columns: DataTableColumns<Models.Article> = [
   {
     title: '已发布',
     key: 'published',
-    minWidth: 100,
     render(row) {
       return (
         <span>{row.published ? '是' : '否'}</span>
@@ -107,7 +103,6 @@ const columns: DataTableColumns<Models.Article> = [
   {
     title: '操作',
     key: 'actions',
-    minWidth: 150,
     render(row) {
       return (
         <NSpace>
